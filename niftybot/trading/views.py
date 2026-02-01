@@ -395,26 +395,44 @@ def start_bot(request):
         return redirect('broker')
 
     # Launch the long-running Celery task
-    result = run_user_bot.delay(request.user.id)
+    try:
+        result = run_user_bot.delay(request.user.id)
 
-    bot_status.is_running = True
-    bot_status.celery_task_id = result.id
-    bot_status.last_started = timezone.now()
-    bot_status.last_error = None
-    bot_status.save(update_fields=['is_running', 'celery_task_id', 'last_started', 'last_error'])
+        bot_status.is_running = True
+        bot_status.celery_task_id = result.id
+        bot_status.last_started = timezone.now()
+        bot_status.last_error = None
+        bot_status.save(update_fields=['is_running', 'celery_task_id', 'last_started', 'last_error'])
 
-    LogEntry.objects.create(
-        user=request.user,
-        level='INFO',
-        message='Bot started manually – Celery task launched',
-        details={
-            'action': 'start_bot',
-            'task_id': result.id,
-            'time': str(timezone.now())
-        }
-    )
+        LogEntry.objects.create(
+            user=request.user,
+            level='INFO',
+            message='Bot started manually – Celery task launched',
+            details={
+                'action': 'start_bot',
+                'task_id': result.id,
+                'time': str(timezone.now())
+            }
+        )
 
-    messages.success(request, 'Bot task launched! Monitoring Zerodha connection... (refresh in 10–20 sec)')
+        messages.success(
+            request,
+            'Bot task launched! Monitoring Zerodha connection... '
+            '(refresh page in 10–20 sec to see status change)'
+        )
+
+    except Exception as e:
+        error_msg = f'Failed to launch bot task: {str(e)}'
+        bot_status.last_error = error_msg
+        bot_status.save(update_fields=['last_error'])
+        LogEntry.objects.create(
+            user=request.user,
+            level='ERROR',
+            message=error_msg,
+            details={'action': 'start_bot_failed', 'time': str(timezone.now())}
+        )
+        messages.error(request, error_msg)
+
     return redirect('algorithms')
 
 

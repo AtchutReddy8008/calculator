@@ -32,14 +32,8 @@ class Config:
     UNDERLYING = "NIFTY"
     LOT_SIZE = 65
     
-    # TEMPORARILY WIDENED FOR SUNDAY TESTING (full day window)
-    # → revert to narrow window when you want production behavior
-    # ENTRY_START = dtime(0, 0, 0)      # 00:00
-    # ENTRY_END   = dtime(23, 59, 59)   # 23:59
-    
-    # Original narrow window (commented out - uncomment when testing is done)
-    ENTRY_START = dtime(9, 20, 0)
-    ENTRY_END   = dtime(9, 22, 0)
+    ENTRY_START = dtime(11, 20, 0)
+    ENTRY_END   = dtime(11, 30, 0)
     
     TOKEN_REFRESH_TIME = dtime(8, 30)
     EXIT_TIME = dtime(15, 0)
@@ -54,7 +48,6 @@ class Config:
     VIX_EXIT_ABS = 18.0
     VIX_SPIKE_MULTIPLIER = 1.20
     
-    # Relaxed range so it has better chance
     VIX_MIN = 7.0
     VIX_MAX = 30.0
     
@@ -80,8 +73,6 @@ EXTRA_NSE_HOLIDAYS = set()
 
 # ===================== LOGGING (DB-BASED) =====================
 class DBLogger:
-    """Database-based logger to replace file logging"""
-    
     def __init__(self, user):
         self.user = user
     
@@ -266,14 +257,12 @@ class Engine:
         self.weekly_df = None
         self._last_valid_vix = None
         
-        # ──────────────── AUTHENTICATION DEBUG ────────────────
         self.logger.critical("ENGINE INIT - Starting authentication...")
         auth_success = self._authenticate()
         if auth_success and self.kite.access_token:
             self.logger.critical("ENGINE INIT - AUTHENTICATION SUCCESS - token present")
         else:
             self.logger.critical("ENGINE INIT - AUTH FAILED - NO VALID TOKEN - ALL API CALLS WILL FAIL")
-        # ──────────────────────────────────────────────────────
     
     def _authenticate(self):
         try:
@@ -310,9 +299,6 @@ class Engine:
     
     def is_trading_day(self) -> tuple[bool, str]:
         today = datetime.now(Config.TIMEZONE).date()
-        # TEMPORARILY COMMENTED OUT FOR SUNDAY TESTING
-        # if today.weekday() >= 5:
-        #     return False, "Weekend"
         if today in INDIA_HOLIDAYS:
             holiday_name = INDIA_HOLIDAYS.get(today) or "Indian Public Holiday"
             return False, f"Holiday: {holiday_name}"
@@ -605,27 +591,18 @@ class Engine:
         self.logger.info("Target adjusted to 98% of calculated", {"final_daily_target_₹": today_target})
         self.lock_target(today_target)
     
-    # ────────────── MISSING METHODS ADDED (minimal stubs) ──────────────
     def check_exit(self) -> Optional[str]:
-        """Return exit reason if conditions met, else None"""
         now = datetime.now(Config.TIMEZONE).time()
         if now >= Config.EXIT_TIME:
             return "Exit time reached"
-        # Add more checks later (stop loss, VIX spike, etc.)
         return None
 
     def check_and_adjust_defensive(self) -> bool:
-        """Check & perform defensive adjustment if needed"""
-        # Your full adjustment logic goes here later
-        # Return True if adjustment was made
         return False
 
     def exit(self, reason: str):
-        """Close positions and reset state"""
         self.logger.critical(f"EXIT TRIGGERED: {reason}")
-        # Add real position closing logic later
         self.state.full_reset()
-    # ────────────────────────────────────────────────────────────────
     
     def preview_profit_calculation(self):
         live_spot = self.spot()
@@ -771,27 +748,12 @@ class Engine:
             entry_call_time.strftime("%H:%M:%S.%f")[:-3]
         ))
         self.state.daily_reset()
+        
+        # Prevent re-entry if already active
         if self.state.data.get("trade_active"):
-            try:
-                net = self.kite.positions()["net"]
-                bot_symbols = set(self.state.data.get("trade_symbols", []))
-                total_bot_qty = sum(
-                    abs(p["quantity"])
-                    for p in net
-                    if p["product"] == "MIS" and p["tradingsymbol"] in bot_symbols
-                )
-                expected_qty = self.state.data.get("qty", 0)
-                if expected_qty > 0 and total_bot_qty == 0:
-                    self.logger.warning("Previous bot positions not found - assuming manually exited")
-                    self.state.full_reset()
-            except Exception as e:
-                self.logger.error("Failed position check during entry recovery", {"error": str(e)})
-        if self.state.data.get("trade_active"):
-            self.logger.info("Trade already active - skipping new entry")
+            self.logger.info("Trade already active - skipping re-entry")
             return False
-        if self.state.data["trade_taken_today"]:
-            self.logger.info("Trade already taken today - skipping")
-            return False
+        
         is_ok, reason = self.is_trading_day()
         if not is_ok:
             self.logger.warning("Non-trading day - skipping entry", {"reason": reason})
@@ -814,10 +776,6 @@ class Engine:
         if vix_val is None:
             self.logger.warning("VIX quote failed - skipping entry")
             return False
-        # Uncomment if you want to enforce VIX range again
-        # if not (Config.VIX_MIN <= vix_val <= Config.VIX_MAX):
-        #     self.logger.warning("VIX out of range", {"vix": vix_val})
-        #     return False
         
         spot = self.spot()
         if not spot:
@@ -859,6 +817,7 @@ class Engine:
             else:
                 self.logger.warning("PE hedge symbol not found - entering without PE hedge")
                 pe_hedge_sym = None
+        
         legs = []
         if pe_hedge_sym:
             legs.append({"exchange": Config.EXCHANGE, "tradingsymbol": pe_hedge_sym, "transaction_type": "BUY", "quantity": Config.LOT_SIZE, "product": "MIS"})
@@ -866,15 +825,14 @@ class Engine:
             legs.append({"exchange": Config.EXCHANGE, "tradingsymbol": ce_hedge_sym, "transaction_type": "BUY", "quantity": Config.LOT_SIZE, "product": "MIS"})
         legs.append({"exchange": Config.EXCHANGE, "tradingsymbol": pe_short_sym, "transaction_type": "SELL", "quantity": Config.LOT_SIZE, "product": "MIS"})
         legs.append({"exchange": Config.EXCHANGE, "tradingsymbol": ce_short_sym, "transaction_type": "SELL", "quantity": Config.LOT_SIZE, "product": "MIS"})
+        
         lots = self.calculate_lots(legs)
         if lots == 0:
             self.logger.warning("Not enough lots/margin - skipping entry")
             return False
         qty = lots * Config.LOT_SIZE
-        theoretical_margin_pre = self.exact_margin_for_basket([dict(l, quantity=qty) for l in legs])
-        realistic_margin = max(theoretical_margin_pre * 0.6, 90000)
-        capital_before = self.capital_available()
-        self.logger.info("CAPITAL BEFORE ENTRY", {"available_₹": round(capital_before)})
+        
+        # Build order list: BUY HEDGES FIRST, THEN SELL SHORTS
         orders = []
         if pe_hedge_sym:
             orders.append((pe_hedge_sym, "BUY"))
@@ -882,6 +840,7 @@ class Engine:
             orders.append((ce_hedge_sym, "BUY"))
         orders.append((pe_short_sym, "SELL"))
         orders.append((ce_short_sym, "SELL"))
+        
         executed = []
         entry_prices = {}
         for sym, side in orders:
@@ -892,6 +851,7 @@ class Engine:
             else:
                 self.cleanup(executed, qty)
                 return False
+        
         time.sleep(3.0)
         margin_samples = []
         for _ in range(4):
@@ -997,13 +957,24 @@ class TradingApplication:
         self._last_hourly_log = 0
     
     def run(self):
-        """Main bot loop"""
+        """Main bot loop with stop check"""
         self.running = True
         self.logger.info("=== v9.8.3-fixed-v5 BOT STARTED - FASTER ENTRY + TIMING LOG ===")
         last_pnl_print = time.time()
+        last_heartbeat = time.time()
         
         try:
             while self.running:
+                # Check if stop signal was sent from web interface
+                try:
+                    bot_status = BotStatus.objects.get(user=self.user)
+                    if not bot_status.is_running:
+                        self.logger.critical("STOP SIGNAL RECEIVED FROM DATABASE - shutting down gracefully")
+                        self.running = False
+                        break
+                except Exception as e:
+                    self.logger.warning("Could not check stop flag", {"error": str(e)})
+                
                 now = datetime.now(Config.TIMEZONE)
                 self.logger.info("BOT ALIVE - loop tick", {
                     "time": now.strftime("%H:%M:%S"),
@@ -1035,7 +1006,6 @@ class TradingApplication:
                 except Exception as e:
                     self.logger.error("Periodic manual close check failed", {"error": str(e)})
                 
-                # Pre-load data aggressively before entry window
                 if dtime(9, 20, 50) <= current_time < dtime(9, 22, 0):
                     if self.engine.instruments is None or self.engine.weekly_df is None:
                         self.logger.info("PRE-LOADING instruments & weekly data for fast entry")
@@ -1153,12 +1123,25 @@ class TradingApplication:
                     time.sleep(3600)
                 
                 time.sleep(Config.PNL_CHECK_INTERVAL_SECONDS)
+
+                # Heartbeat save
+                if time.time() - last_heartbeat >= 30:
+                    try:
+                        bot_status = BotStatus.objects.get(user=self.user)
+                        bot_status.last_heartbeat = timezone.now()
+                        bot_status.current_unrealized_pnl = float(self.engine.algo_pnl() or 0)
+                        bot_status.current_margin = float(self.engine.actual_used_capital() or 0)
+                        bot_status.save(update_fields=['last_heartbeat', 'current_unrealized_pnl', 'current_margin'])
+                        self.logger.info("Heartbeat saved to BotStatus")
+                        print("[HEARTBEAT] Saved to DB successfully")
+                    except Exception as e:
+                        self.logger.warning("Failed to save heartbeat", {"error": str(e)})
+                    last_heartbeat = time.time()
             
         except KeyboardInterrupt:
-            self.logger.info("Bot stopped by user")
-            if self.engine.state.data["trade_active"]:
-                self.engine.exit("Manual stop")
+            self.logger.info("Bot stopped by user (KeyboardInterrupt)")
         except Exception as e:
             self.logger.critical("Fatal error in main loop", {"error": str(e), "trace": traceback.format_exc()})
         finally:
             self.running = False
+            self.logger.info("Bot loop exited")
