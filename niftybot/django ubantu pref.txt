@@ -1,0 +1,135 @@
+sudo systemctl stop redis-server valkey-server 2>/dev/null || true
+sudo systemctl disable redis-server valkey-server 2>/dev/null || true
+sudo apt remove --purge valkey valkey-redis-compat redis-server -y 2>/dev/null
+sudo apt autoremove -y
+sudo apt update
+sudo apt install redis-server -y && sudo systemctl enable --now redis-server
+redis-cli ping   # should say PONG
+
+
+
+-------------------------------------------------------
+
+
+sudo nano /etc/systemd/system/niftybot-django.service
+
+[Unit]
+Description=NIFTY Django Server
+After=network.target redis-server.service
+
+[Service]
+User=root
+WorkingDirectory=/root/web/niftybot
+ExecStart=/root/web/venv/bin/python manage.py runserver 0.0.0.0:8000 --noreload
+Restart=always
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+sudo systemctl stop niftybot-django
+sudo systemctl reset-failed niftybot-django
+
+sudo systemctl daemon-reexec
+sudo systemctl daemon-reload
+
+sudo systemctl daemon-reload
+sudo systemctl restart niftybot-django
+
+
+sudo systemctl start niftybot-django
+
+sudo systemctl status niftybot-django
+
+sudo journalctl -u niftybot-django -f
+
+-------------------------------------------------------
+
+sudo nano /etc/systemd/system/niftybot-celery.service
+
+
+[Unit]
+Description=NIFTY Celery Worker
+After=network.target redis-server.service
+
+[Service]
+User=root
+WorkingDirectory=/root/web
+ExecStart=/root/web/venv/bin/celery -A niftybot worker -l info --pool=gevent --concurrency=100
+Restart=always
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
+
+------------------------------------------------------------
+sudo systemctl daemon-reload
+sudo systemctl start niftybot-django
+sudo systemctl start niftybot-celery
+sudo systemctl enable niftybot-django
+sudo systemctl enable niftybot-celery
+
+
+sudo ufw allow 8000
+sudo ufw status
+
+mkdir -p /root/web/niftybot/static
+
+cd /root/web/niftybot
+source /root/web/venv/bin/activate
+python manage.py collectstatic
+
+-----------------------------------------------
+
+sudo apt install screen -y
+
+cd /root/web/niftybot
+source /root/web/venv/bin/activate
+
+screen -S django
+python manage.py runserver 0.0.0.0:8000 --noreload
+
+CTRL+A + D
+-----------------------------
+cd /root/web/niftybot
+source /root/web/venv/bin/activate
+
+screen -S celery
+pip install gevent
+
+celery -A niftybot worker -l info --pool=gevent --concurrency=100
+
+CTRL+A + D
+
+screen -r django
+screen -r celery
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+screen -ls
+
+screen -r django
+CTRL + C
+exit
+
+screen -r celery
+CTRL + C
+exit
+
+
