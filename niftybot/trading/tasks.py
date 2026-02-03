@@ -17,34 +17,38 @@ from .core.auth import generate_and_set_access_token_db
 
 logger = logging.getLogger(__name__)
 
-# ------------------------------------------------------------------------------
-# Signal handling (registered ONCE per worker, safe with --noreload / Celery)
-# ------------------------------------------------------------------------------
+# ==============================================================================
+# SIGNAL HANDLING (REGISTERED ONCE PER WORKER)
+# ==============================================================================
 
 _signals_registered = False
 
 
 def register_shutdown_signals():
-    """Register global shutdown handlers only once per worker"""
+    """
+    Register shutdown handlers once per Celery worker process.
+    Safe with gevent + --noreload.
+    """
     global _signals_registered
     if _signals_registered:
         return
 
     def graceful_shutdown(sig, frame):
-        logger.warning(f"[SIGNAL] Received shutdown signal ({sig}) — exiting worker")
+        logger.warning(f"[SIGNAL] Received signal {sig} — exiting worker")
         sys.exit(0)
 
     signal.signal(signal.SIGTERM, graceful_shutdown)
     signal.signal(signal.SIGINT, graceful_shutdown)
+
     _signals_registered = True
 
 
-# Register signals at import time (Celery worker main thread)
+# Register signals immediately when worker imports this module
 register_shutdown_signals()
 
-# ------------------------------------------------------------------------------
-# Helper control object
-# ------------------------------------------------------------------------------
+# ==============================================================================
+# HELPER CONTROL CLASS
+# ==============================================================================
 
 
 class BotRunner:
@@ -56,9 +60,9 @@ class BotRunner:
         self.running = False
 
 
-# ------------------------------------------------------------------------------
-# MAIN LONG-RUNNING TASK
-# ------------------------------------------------------------------------------
+# ==============================================================================
+# MAIN LONG-RUNNING BOT TASK
+# ==============================================================================
 
 @shared_task(bind=True, acks_late=True, time_limit=None, soft_time_limit=None)
 def run_user_bot(self, user_id):
@@ -66,8 +70,8 @@ def run_user_bot(self, user_id):
     Long-running Celery task that runs a trading bot for one user.
 
     Features:
-    - Safe Celery 5+ revocation handling
-    - Heartbeats
+    - Celery 5.3.4 safe revoke handling
+    - Heartbeat monitoring
     - Graceful shutdown
     - DB-controlled stop
     - Crash-safe cleanup
@@ -88,7 +92,7 @@ def run_user_bot(self, user_id):
         logger.info(f"[{task_id}] User loaded: {user.username} ({user.id})")
 
         # ------------------------------------------------------------------
-        # BotStatus init
+        # Initialize / update BotStatus
         # ------------------------------------------------------------------
         bot_status, created = BotStatus.objects.get_or_create(user=user)
         bot_status.celery_task_id = task_id
@@ -96,10 +100,10 @@ def run_user_bot(self, user_id):
         bot_status.last_started = timezone.now()
         bot_status.last_error = None
         bot_status.save(update_fields=[
-            'celery_task_id',
-            'is_running',
-            'last_started',
-            'last_error'
+            "celery_task_id",
+            "is_running",
+            "last_started",
+            "last_error"
         ])
         logger.info(f"[{task_id}] BotStatus {'created' if created else 'updated'}")
 
@@ -108,7 +112,7 @@ def run_user_bot(self, user_id):
         # ------------------------------------------------------------------
         broker = Broker.objects.filter(
             user=user,
-            broker_name='ZERODHA',
+            broker_name="ZERODHA",
             is_active=True
         ).first()
 
@@ -121,19 +125,21 @@ def run_user_bot(self, user_id):
         logger.info(f"[{task_id}] Broker loaded successfully")
 
         # ------------------------------------------------------------------
-        # Init trading application
+        # Initialize trading engine
         # ------------------------------------------------------------------
         app = TradingApplication(user=user, broker=broker)
         logger.info(f"[{task_id}] TradingApplication initialized")
 
+        # ------------------------------------------------------------------
         # Initial heartbeat
+        # ------------------------------------------------------------------
         bot_status.last_heartbeat = timezone.now()
         bot_status.current_unrealized_pnl = 0
         bot_status.current_margin = 0
         bot_status.save(update_fields=[
-            'last_heartbeat',
-            'current_unrealized_pnl',
-            'current_margin'
+            "last_heartbeat",
+            "current_unrealized_pnl",
+            "current_margin"
         ])
         logger.info(f"[{task_id}] Initial heartbeat saved")
 
@@ -145,15 +151,15 @@ def run_user_bot(self, user_id):
 
         while runner.running:
             # --------------------------------------------------------------
-            # Celery-safe revocation check (CORRECT)
+            # CORRECT Celery 5.3.x revoke check (THIS IS THE FIX)
             # --------------------------------------------------------------
-            if self.request.is_revoked:
+            if getattr(self.request, "revoked", False):
                 logger.warning(f"[{task_id}] Task revoked externally — shutting down")
                 runner.stop()
                 raise Ignore()
 
             # --------------------------------------------------------------
-            # DB stop flag
+            # DB-controlled stop flag
             # --------------------------------------------------------------
             bot_status.refresh_from_db()
             if not bot_status.is_running:
@@ -162,10 +168,14 @@ def run_user_bot(self, user_id):
                 break
 
             try:
-                # Run one full trading cycle
+                # ----------------------------------------------------------
+                # Run trading cycle (engine loop lives inside this)
+                # ----------------------------------------------------------
                 app.run()
 
+                # ----------------------------------------------------------
                 # Heartbeat update
+                # ----------------------------------------------------------
                 if time.time() - last_heartbeat >= HEARTBEAT_INTERVAL:
                     try:
                         bot_status.last_heartbeat = timezone.now()
@@ -176,9 +186,9 @@ def run_user_bot(self, user_id):
                             app.engine.actual_used_capital() or 0
                         )
                         bot_status.save(update_fields=[
-                            'last_heartbeat',
-                            'current_unrealized_pnl',
-                            'current_margin'
+                            "last_heartbeat",
+                            "current_unrealized_pnl",
+                            "current_margin"
                         ])
                         last_heartbeat = time.time()
                         logger.debug(f"[{task_id}] Heartbeat updated")
@@ -198,7 +208,7 @@ def run_user_bot(self, user_id):
                 logger.error(f"[{task_id}] Loop error: {error_msg}")
                 if bot_status:
                     bot_status.last_error = str(loop_err)[:500]
-                    bot_status.save(update_fields=['last_error'])
+                    bot_status.save(update_fields=["last_error"])
                 time.sleep(10)
 
         logger.info(f"[{task_id}] Main loop exited cleanly")
@@ -216,24 +226,24 @@ def run_user_bot(self, user_id):
 
     finally:
         # ------------------------------------------------------------------
-        # Final cleanup (ALWAYS runs)
+        # FINAL CLEANUP (ALWAYS EXECUTES)
         # ------------------------------------------------------------------
         if bot_status:
             bot_status.is_running = False
             bot_status.last_stopped = timezone.now()
-            bot_status.save(update_fields=['is_running', 'last_stopped'])
+            bot_status.save(update_fields=["is_running", "last_stopped"])
 
         logger.info(f"[{task_id}] Task cleanup complete — bot marked stopped")
 
 
-# ------------------------------------------------------------------------------
-# PERIODIC HEALTH CHECK TASK
-# ------------------------------------------------------------------------------
+# ==============================================================================
+# PERIODIC HEALTH CHECK TASK (CELERY BEAT)
+# ==============================================================================
 
 @shared_task
 def check_bot_health():
     """
-    Periodic Celery Beat task to clean up stale bots.
+    Periodic task to detect and clean up stale bots.
     """
     now = timezone.now()
     logger.info("[HEALTH CHECK] Starting")
@@ -259,9 +269,10 @@ def check_bot_health():
             logger.warning(f"[HEALTH CHECK] Stale bot {status.user.username}: {msg}")
             status.is_running = False
             status.last_error = f"Stale bot — {msg}"
-            status.save(update_fields=['is_running', 'last_error'])
+            status.save(update_fields=["is_running", "last_error"])
 
     logger.info("[HEALTH CHECK] Completed")
+
 
 # # trading/tasks.py
 
