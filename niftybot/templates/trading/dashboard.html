@@ -442,13 +442,7 @@
                         </div>
                         <div class="col-md-6">
                             <h6 class="mb-3">Quick Actions</h6>
-                            {% if not has_broker %}
-                                <div class="alert alert-warning">
-                                    <i class="fas fa-exclamation-triangle me-2"></i> 
-                                    Please connect Zerodha account to enable trading.
-                                    <a href="{% url 'broker' %}" class="alert-link">Connect Now</a>
-                                </div>
-                            {% else %}
+                            {% if user.is_staff %}
                                 <div class="d-grid gap-3">
                                     {% if bot_status.is_running %}
                                         <form action="{% url 'stop_bot' %}" method="post">
@@ -469,6 +463,18 @@
                                         <i class="fas fa-cogs me-2"></i> Algorithm Settings
                                     </a>
                                 </div>
+                            {% else %}
+                                <!-- Non-staff users see this instead -->
+                                <div class="alert alert-info">
+                                    <i class="fas fa-lock me-2"></i>
+                                    <strong>Trading control is restricted.</strong><br>
+                                    Contact admin to start/stop the bot or run algorithms.
+                                    <p>📞 Admin Contact: +91 8008603917</p>
+
+                                </div>
+                                <button class="btn btn-secondary btn-lg w-100 disabled mt-3">
+                                    <i class="fas fa-lock me-2"></i> Bot Control (Staff Only)
+                                </button>
                             {% endif %}
                         </div>
                     </div>

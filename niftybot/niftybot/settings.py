@@ -131,7 +131,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-CHANGE-THIS-TO-A-VERY-LONG-RANDOM-STRING-IN-PRODUCTION-2026'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # ← set to False in production!
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1','*']  # ← add your real domain in production, e.g. ['yourdomain.com']
 
@@ -152,6 +152,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

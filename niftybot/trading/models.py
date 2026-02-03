@@ -7,35 +7,35 @@ import json
 
 
 class Broker(models.Model):
-    """Store Zerodha credentials for each user (plain text as per requirements)"""
+    """
+    Store Zerodha credentials for each user.
+    WARNING: api_key, secret_key, password, totp are stored in PLAIN TEXT.
+    This is INSECURE for production. Consider encryption or vault in real deployment.
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='brokers')
     broker_name = models.CharField(max_length=50, default='ZERODHA')
+    
     api_key = models.CharField(max_length=255)
     secret_key = models.CharField(max_length=255)
-    totp = models.CharField(max_length=100, null=True, blank=True)
+    totp = models.CharField(max_length=100, null=True, blank=True, help_text="TOTP secret for 2FA")
     zerodha_user_id = models.CharField(max_length=100, null=True, blank=True, verbose_name='Zerodha User ID')
-    password = models.CharField(max_length=100, null=True, blank=True)
+    password = models.CharField(max_length=100, null=True, blank=True, help_text="Only needed for initial login flow")
+    
     is_active = models.BooleanField(default=True)
-
-    # ────────────── NEW FIELDS ADDED FOR AUTHENTICATION FLOW ──────────────
+    
+    # Authentication flow fields
     request_token = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True,
+        max_length=255, blank=True, null=True,
         help_text="Paste the request_token from manual Zerodha login redirect URL"
     )
     access_token = models.CharField(
-        max_length=100,
-        blank=True,
-        null=True,
+        max_length=100, blank=True, null=True,
         help_text="Auto-generated access token (saved after successful login)"
     )
     token_generated_at = models.DateTimeField(
-        null=True,
-        blank=True,
-        help_text="Timestamp when access_token was last generated"
+        null=True, blank=True,
+        help_text="Timestamp when access_token was last generated/renewed"
     )
-    # ──────────────────────────────────────────────────────────────────────
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -44,9 +44,10 @@ class Broker(models.Model):
         unique_together = ('user', 'broker_name')
         verbose_name = 'Broker Connection'
         verbose_name_plural = 'Broker Connections'
+        ordering = ['-updated_at']
 
     def __str__(self):
-        return f"{self.user.username} - {self.broker_name}"
+        return f"{self.user.username} - {self.broker_name} ({'Active' if self.is_active else 'Inactive'})"
 
 
 class Trade(models.Model):
@@ -57,32 +58,33 @@ class Trade(models.Model):
         ('CANCELLED', 'Cancelled'),
         ('FAILED', 'Failed'),
     ]
-    
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='trades')
     algorithm_name = models.CharField(max_length=100, default='Hedged Short Strangle')
     trade_id = models.CharField(max_length=100, unique=True)
     symbol = models.CharField(max_length=50)
     quantity = models.IntegerField()
-    entry_price = models.DecimalField(max_digits=15, decimal_places=6)
-    exit_price = models.DecimalField(max_digits=15, decimal_places=6, null=True, blank=True)
+    entry_price = models.DecimalField(max_digits=12, decimal_places=2)
+    exit_price = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
     entry_time = models.DateTimeField()
     exit_time = models.DateTimeField(null=True, blank=True)
-    pnl = models.DecimalField(max_digits=15, decimal_places=6, default=0)
+    pnl = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PENDING')
-    broker = models.CharField(max_length=50)
+    broker = models.CharField(max_length=50, default='ZERODHA')
     metadata = models.JSONField(default=dict, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    
+
     class Meta:
         ordering = ['-entry_time']
         indexes = [
             models.Index(fields=['user', 'entry_time']),
             models.Index(fields=['trade_id']),
+            models.Index(fields=['status']),
         ]
-    
+
     def __str__(self):
-        return f"{self.trade_id} - {self.symbol}"
-    
+        return f"{self.trade_id} - {self.symbol} ({self.status})"
+
     def close_trade(self, exit_price, exit_time=None):
         """Auto-calculate PnL when closing trade"""
         if self.status != 'EXECUTED' or self.exit_price is not None:
@@ -102,68 +104,67 @@ class DailyPnL(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='daily_pnl')
     algorithm_name = models.CharField(max_length=100, default='Hedged Short Strangle')
     date = models.DateField()
-    pnl = models.DecimalField(max_digits=15, decimal_places=6)
-    total_trades = models.IntegerField(default=0)
-    win_trades = models.IntegerField(default=0)
-    loss_trades = models.IntegerField(default=0)
+    pnl = models.DecimalField(max_digits=12, decimal_places=2)
+    total_trades = models.PositiveIntegerField(default=0)
+    win_trades = models.PositiveIntegerField(default=0)
+    loss_trades = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
-    
+
     class Meta:
-        unique_together = ('user', 'date')  # removed algorithm_name from unique if single-algo
+        unique_together = ('user', 'date')
         ordering = ['-date']
         verbose_name = 'Daily P&L'
         verbose_name_plural = 'Daily P&L Records'
-    
+
     def __str__(self):
-        return f"{self.user.username} - {self.date} - ₹{self.pnl}"
+        return f"{self.user.username} - {self.date} - ₹{self.pnl:,.2f}"
 
 
 class BotStatus(models.Model):
-    """Track bot status for each user"""
+    """Track bot status and configuration for each user"""
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='bot_status')
+    
     is_running = models.BooleanField(default=False)
-    pid = models.PositiveIntegerField(null=True, blank=True)                  # Added for process control
+    celery_task_id = models.CharField(max_length=255, blank=True, null=True)
     last_started = models.DateTimeField(null=True, blank=True)
     last_stopped = models.DateTimeField(null=True, blank=True)
-    last_heartbeat = models.DateTimeField(null=True, blank=True)             # Added for alive detection
+    last_heartbeat = models.DateTimeField(null=True, blank=True)
     last_error = models.TextField(blank=True, null=True)
-    current_unrealized_pnl = models.DecimalField(max_digits=15, decimal_places=6, default=0)
-    current_margin = models.DecimalField(max_digits=15, decimal_places=6, default=0)
-    state_json = models.JSONField(default=dict, blank=True)                  # Renamed from current_state_json
-    celery_task_id = models.CharField(max_length=255, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     
-    # These two fields are now correctly included
+    current_unrealized_pnl = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    current_margin = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    
     daily_profit_target = models.DecimalField(
-        max_digits=15, 
-        decimal_places=2, 
-        default=0, 
-        null=True, 
-        blank=True,
+        max_digits=12, decimal_places=2, default=0,
         verbose_name="Today's Profit Target (₹)"
     )
-    
     daily_stop_loss = models.DecimalField(
-        max_digits=15, 
-        decimal_places=2, 
-        default=0, 
-        null=True, 
-        blank=True,
+        max_digits=12, decimal_places=2, default=0,
         verbose_name="Today's Stop Loss (₹)"
     )
     
+    # NEW: User-configurable max lots cap (used in bot logic)
+    max_lots_hard_cap = models.PositiveIntegerField(
+        default=1,
+        validators=[MinValueValidator(1), MaxValueValidator(10)],
+        help_text="Maximum lots the bot is allowed to trade (1 = safest)"
+    )
+    
+    state_json = models.JSONField(default=dict, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     class Meta:
         verbose_name = 'Bot Status'
         verbose_name_plural = 'Bot Statuses'
-    
+
     def __str__(self):
         return f"{self.user.username} - {'Running' if self.is_running else 'Stopped'}"
-    
+
     def save_state(self, state_data):
         self.state_json = state_data
         self.save(update_fields=['state_json'])
-    
+
     def load_state(self):
         return self.state_json or {}
 
@@ -176,27 +177,32 @@ class LogEntry(models.Model):
         ('ERROR', 'Error'),
         ('CRITICAL', 'Critical'),
     ]
-    
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='logs')
     level = models.CharField(max_length=10, choices=LEVEL_CHOICES)
     message = models.TextField()
     details = models.JSONField(default=dict, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
-    
+
     class Meta:
         ordering = ['-timestamp']
         indexes = [
             models.Index(fields=['user', 'timestamp']),
+            models.Index(fields=['level']),
         ]
         verbose_name = 'Log Entry'
         verbose_name_plural = 'Log Entries'
-    
+
     def __str__(self):
         return f"[{self.level}] {self.user.username} - {self.timestamp.strftime('%Y-%m-%d %H:%M:%S')}"
 
 
+# ───────────────────────────────────────────────
+# Signals
+# ───────────────────────────────────────────────
+
 @receiver(post_save, sender=User)
 def create_user_bot_status(sender, instance, created, **kwargs):
-    """Create BotStatus when a new user is created"""
+    """Automatically create BotStatus when a new user is created"""
     if created:
         BotStatus.objects.create(user=instance)
