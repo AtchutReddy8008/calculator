@@ -189,9 +189,6 @@ def pnl_calendar(request):
 
 @login_required
 def algorithms_page(request):
-    # Allow everyone to view the page (no redirect for non-staff)
-    # But control actions are protected in the POST views below
-
     bot_status, _ = BotStatus.objects.get_or_create(user=request.user)
 
     algorithm_details = {
@@ -251,12 +248,13 @@ def algorithms_page(request):
         'max_lots_hard_cap': bot_status.max_lots_hard_cap,
         'broker_ready': broker_ready,
         'broker': broker,
-        'is_staff': request.user.is_staff,  # NEW: pass this to template so we can hide buttons
+        'can_control_bot': request.user.is_staff,
     }
+
     return render(request, 'trading/algorithms.html', context)
 
 
-# Helper functions remain unchanged
+# Helper functions
 def calculate_win_rate(user):
     qs = Trade.objects.filter(user=user, status='EXECUTED')
     total = qs.count()
@@ -405,9 +403,6 @@ def stop_bot(request):
 
 @login_required
 def bot_status(request):
-    # Allow non-staff to see basic status (safe read-only)
-    # If you want to block completely, add: if not request.user.is_staff: return JsonResponse({'error': '...'}, status=403)
-
     bot_status = get_object_or_404(BotStatus, user=request.user)
     now = timezone.now()
 
@@ -499,6 +494,7 @@ def connect_zerodha(request):
     messages.info(request, "Please fill in your Zerodha credentials on the Broker page.")
     return redirect('broker')
 
+
 # from django.shortcuts import render, redirect, get_object_or_404
 # from django.contrib.auth.decorators import login_required
 # from django.contrib.auth import login, logout
@@ -512,7 +508,6 @@ def connect_zerodha(request):
 # import json
 # import traceback
 
-# # NEW LINE — ADD THIS
 # from django.contrib.auth.models import User
 
 # # Celery
@@ -612,7 +607,6 @@ def connect_zerodha(request):
 #             broker_obj.broker_name = 'ZERODHA'
 #             broker_obj.save()
 
-#             # Try auto-generating token
 #             success = generate_and_set_access_token_db(
 #                 kite=KiteConnect(api_key=broker_obj.api_key),
 #                 broker=broker_obj
@@ -692,9 +686,8 @@ def connect_zerodha(request):
 
 # @login_required
 # def algorithms_page(request):
-#     if not request.user.is_staff:
-#         messages.error(request, "Only staff users are allowed to access and run algorithms.")
-#         return redirect('dashboard')
+#     # Allow everyone to view the page (no redirect for non-staff)
+#     # But control actions are protected in the POST views below
 
 #     bot_status, _ = BotStatus.objects.get_or_create(user=request.user)
 
@@ -706,7 +699,7 @@ def connect_zerodha(request):
 #         'lot_size': 65,
 #         'entry_window': '09:20:00 - 09:23:30 IST',
 #         'exit_time': '15:00:00 IST',
-#         'max_lots': 5,
+#         'max_lots': 50,
 #         'strategy_type': 'Options Selling with Hedges',
 #         'risk_level': 'Medium',
 #         'expected_returns': '1-2% per week',
@@ -718,7 +711,7 @@ def connect_zerodha(request):
 #         'No trading on expiry day',
 #         'Entry only in widened window 9:20–9:23:30',
 #         'VIX must be between 9-22 for entry',
-#         'Daily target: 2% of margin (high VIX) or net credit ÷ days',
+#         'Daily target: 2% of margin',
 #         'Stop loss: Equal to daily target',
 #         'Defensive adjustments at 50 points from short strike',
 #         'Max 1 adjustment per side per day',
@@ -755,11 +748,12 @@ def connect_zerodha(request):
 #         'max_lots_hard_cap': bot_status.max_lots_hard_cap,
 #         'broker_ready': broker_ready,
 #         'broker': broker,
+#         'is_staff': request.user.is_staff,  # NEW: pass this to template so we can hide buttons
 #     }
 #     return render(request, 'trading/algorithms.html', context)
 
 
-# # Helper functions for performance stats
+# # Helper functions remain unchanged
 # def calculate_win_rate(user):
 #     qs = Trade.objects.filter(user=user, status='EXECUTED')
 #     total = qs.count()
@@ -820,7 +814,6 @@ def connect_zerodha(request):
 #         return redirect('broker')
 
 #     try:
-#         # Launch Celery task for this user
 #         result = run_user_bot.delay(user.id)
 
 #         bot_status, _ = BotStatus.objects.get_or_create(user=user)
@@ -909,8 +902,8 @@ def connect_zerodha(request):
 
 # @login_required
 # def bot_status(request):
-#     if not request.user.is_staff:
-#         return JsonResponse({'error': 'Only staff users can view bot status.'}, status=403)
+#     # Allow non-staff to see basic status (safe read-only)
+#     # If you want to block completely, add: if not request.user.is_staff: return JsonResponse({'error': '...'}, status=403)
 
 #     bot_status = get_object_or_404(BotStatus, user=request.user)
 #     now = timezone.now()
@@ -994,10 +987,6 @@ def connect_zerodha(request):
 
 # @login_required
 # def connect_zerodha(request):
-#     """
-#     Simple view to initiate or show Zerodha connection status.
-#     Redirects to broker page or shows instructions.
-#     """
 #     broker = Broker.objects.filter(user=request.user, broker_name='ZERODHA').first()
 
 #     if broker and broker.access_token:

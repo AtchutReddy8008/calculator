@@ -433,7 +433,7 @@
                                 </div>
                             </div>
 
-                            <!-- Today's Target & Stop-Loss Display -->
+                            <!-- Today's Target & Stop-Loss (Read-only – set by bot) -->
                             <div class="mb-4">
                                 <h6 class="text-muted mb-3">Today's Target & Stop-Loss</h6>
                                 <div class="row g-3">
@@ -463,7 +463,8 @@
                                     </div>
                                 </div>
                                 <small class="text-muted mt-2 d-block">
-                                    Values locked after successful entry today
+                                    Automatically calculated when the bot enters a trade.<br>
+                                    Based on premiums / margin. Reset daily. Visible after successful entry.
                                 </small>
                             </div>
 
@@ -894,7 +895,7 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
             <div class="toast-body">
-                Max lots hard cap updated successfully!
+                Settings updated successfully!
             </div>
         </div>
     </div>
@@ -1055,7 +1056,7 @@
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">
-            Max lots hard cap updated successfully!
+            Settings updated successfully!
         </div>
     </div>
 </div>
@@ -1092,41 +1093,26 @@ updateMarketStatus();
 setInterval(updateMarketStatus, 1000);
 
 {% if user.is_staff %}
-    // Refresh bot status - only for staff
+    // Refresh bot status
     function refreshBotStatus() {
         fetch('{% url "bot_status" %}')
             .then(response => response.json())
             .then(data => {
                 const statusEl = document.querySelector('.status-indicator');
                 if (statusEl) {
-                    if (data.is_running) {
-                        statusEl.className = 'status-indicator status-running';
-                        statusEl.innerHTML = '<i class="fas fa-circle fa-xs"></i> RUNNING';
-                    } else {
-                        statusEl.className = 'status-indicator status-stopped';
-                        statusEl.innerHTML = '<i class="fas fa-circle fa-xs"></i> STOPPED';
-                    }
-                }
-
-                // Update target & stop loss if available
-                const targetEl = document.querySelector('.text-success.value');
-                const stopEl = document.querySelector('.text-danger.value');
-                if (targetEl && data.daily_target) {
-                    targetEl.textContent = '₹' + data.daily_target.toLocaleString('en-IN', {minimumFractionDigits: 0});
-                }
-                if (stopEl && data.daily_stop_loss) {
-                    stopEl.textContent = '₹' + data.daily_stop_loss.toLocaleString('en-IN', {minimumFractionDigits: 0});
+                    statusEl.className = `status-indicator status-${data.is_running ? 'running' : 'stopped'}`;
+                    statusEl.innerHTML = `<i class="fas fa-circle fa-xs"></i> ${data.is_running ? 'RUNNING' : 'STOPPED'}`;
                 }
             })
             .catch(() => {});
     }
+    setInterval(refreshBotStatus, 15000);
+    refreshBotStatus();
 
-    setInterval(refreshBotStatus, 12000);
-
-    // Save Max Lots Hard Cap - only for staff
+    // Save Max Lots Hard Cap
     document.getElementById('save-max-lots')?.addEventListener('click', function() {
-        const value = document.getElementById('max-lots-input').value;
-        if (!value || value < 1 || value > 10) {
+        const value = parseInt(document.getElementById('max-lots-input').value);
+        if (isNaN(value) || value < 1 || value > 10) {
             alert('Please enter a number between 1 and 10');
             return;
         }
@@ -1137,7 +1123,7 @@ setInterval(updateMarketStatus, 1000);
                 'Content-Type': 'application/json',
                 'X-CSRFToken': '{{ csrf_token }}'
             },
-            body: JSON.stringify({ max_lots_hard_cap: parseInt(value) })
+            body: JSON.stringify({ max_lots_hard_cap: value })
         })
         .then(response => response.json())
         .then(data => {
@@ -1145,47 +1131,36 @@ setInterval(updateMarketStatus, 1000);
                 const toast = new bootstrap.Toast(document.getElementById('save-toast'));
                 toast.show();
             } else {
-                alert('Failed to update: ' + (data.error || 'Unknown error'));
+                alert('Failed: ' + (data.error || 'Unknown error'));
             }
         })
         .catch(err => alert('Error: ' + err));
     });
 
-    // Fake/demo strangle animation - only for staff
+    // Fake/demo strangle animation
     function animateStrangle() {
         const marker = document.getElementById('price-marker');
         if (!marker) return;
 
-        const containerWidth = marker.parentElement.offsetWidth;
-        const randomPos = Math.random() * 0.8 + 0.1;
-        const leftPx = containerWidth * randomPos;
-
-        marker.style.left = leftPx + 'px';
+        const width = marker.parentElement.offsetWidth;
+        const pos = Math.random() * 0.8 + 0.1;
+        marker.style.left = (width * pos) + 'px';
 
         const base = 24800;
-        const fakePrice = Math.round(base + (randomPos - 0.5) * 800);
-        document.getElementById('live-nifty').textContent = fakePrice.toLocaleString('en-IN');
+        const price = Math.round(base + (pos - 0.5) * 800);
+        document.getElementById('live-nifty').textContent = price.toLocaleString('en-IN');
 
-        document.getElementById('call-strike').textContent = (Math.round(fakePrice / 100) * 100 + 200).toLocaleString('en-IN');
-        document.getElementById('put-strike').textContent  = (Math.round(fakePrice / 100) * 100 - 200).toLocaleString('en-IN');
+        document.getElementById('call-strike').textContent = (Math.round(price / 100) * 100 + 200).toLocaleString('en-IN');
+        document.getElementById('put-strike').textContent = (Math.round(price / 100) * 100 - 200).toLocaleString('en-IN');
 
-        const statuses = [
-            "Active – collecting theta",
-            "Delta neutral",
-            "Slight positive delta",
-            "Approaching upper breakeven",
-            "Approaching lower breakeven",
-            "No active position"
-        ];
-        document.getElementById('strangle-status').textContent = 
-            statuses[Math.floor(Math.random() * statuses.length)];
+        const statuses = ["Active", "Delta neutral", "Approaching breakeven", "No position"];
+        document.getElementById('strangle-status').textContent = statuses[Math.floor(Math.random() * statuses.length)];
     }
-
-    setInterval(animateStrangle, 4800);
-    animateStrangle(); // initial call
+    setInterval(animateStrangle, 5000);
+    animateStrangle();
 {% endif %}
 </script>
 
-<!-- Bootstrap Toast JS -->
+<!-- Bootstrap JS (already in base, but safe) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 {% endblock %}

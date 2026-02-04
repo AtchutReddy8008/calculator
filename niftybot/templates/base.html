@@ -36,7 +36,7 @@
           pointer-events: none;
         }
 
-        /* ================= NAVBAR (merged from first version + modern styling) ================= */
+        /* ================= NAVBAR ================= */
         .navbar {
             background: rgba(0, 0, 0, 0.75);
             backdrop-filter: blur(10px);
@@ -206,41 +206,58 @@
         .footer {
             background: linear-gradient(135deg, #0a1a12 0%, #0f2b1f 50%, #1a4d38 100%);
             color: #b0e6cf;
-            padding: 3.5rem 0 2.5rem;
-            margin-top: 5rem;
-            position: relative;
-            z-index: 5;
-            border-top: 1px solid rgba(0,255,157,0.15);
+            padding: 3rem 0 2.5rem;
+            margin-top: 6rem;
+            border-top: 1px solid rgba(0,255,157,0.12);
         }
 
         .footer h5 {
             color: var(--green);
             font-weight: 700;
-            margin-bottom: 1.4rem;
+            margin-bottom: 0.9rem;
         }
 
-        .footer a.text-light {
-            color: #b0e6cf !important;
-            transition: all 0.3s;
-        }
-
-        .footer a.text-light:hover {
-            color: var(--green) !important;
-            text-shadow: 0 0 10px rgba(0,255,157,0.5);
+        .footer .text-muted {
+            color: #88d4b0 !important;
+            opacity: 0.85;
         }
 
         .designed-by {
-            margin-top: 3rem;
-            text-align: center;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: #88d4b0;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(0,255,157,0.12);
+            margin-bottom: 0.5rem;
         }
 
-        .designed-by .heart {
+        .creator-name {
+            color: var(--green);
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .creator-name:hover {
+            color: #40c0ff;
+            text-shadow: 0 0 10px rgba(64, 192, 255, 0.4);
+        }
+
+        .linkedin-link {
+            color: #00a0f0;
+            font-size: 1.45rem;
+            margin-left: 0.6rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .linkedin-link:hover {
+            color: #0077b5;
+            transform: translateY(-3px) scale(1.18);
+            text-shadow: 0 0 14px rgba(0, 119, 181, 0.7);
+        }
+
+        .heart {
             color: #ff6b6b;
-            font-size: 1.3rem;
+            font-size: 1.35rem;
             animation: heartbeat 2.2s infinite;
         }
 
@@ -251,7 +268,7 @@
 
         /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
-          .ticker-wrapper, .navbar-brand { animation: none !important; }
+          .ticker-wrapper, .navbar-brand, .heart { animation: none !important; }
         }
 
         {% block extra_css %}{% endblock %}
@@ -364,33 +381,38 @@
 
     <footer class="footer">
         <div class="container">
-            <div class="row">
+            <div class="row align-items-center text-center text-md-start">
                 <div class="col-md-4">
-                    <h5><i class="fas fa-chart-line"></i> NIFTY Trading Bot</h5>
-                    <p>Automated algorithmic trading platform for NIFTY options — powered by discipline, not emotion.</p>
+                    <h5><i class="fas fa-chart-line me-2"></i> NIFTY Trading Bot</h5>
+                    <p class="mb-1">Automated algorithmic trading for NIFTY options.</p>
+                    <p class="small text-muted">Discipline over emotion.</p>
                 </div>
-                <div class="col-md-4">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        {% if user.is_authenticated %}
-                            <li><a href="{% url 'dashboard' %}" class="text-light">Dashboard</a></li>
-                            <li><a href="{% url 'broker' %}" class="text-light">Broker Setup</a></li>
-                            <li><a href="{% url 'pnl_calendar' %}" class="text-light">PnL Calendar</a></li>
-                            <li><a href="{% url 'algorithms' %}" class="text-light">Strategies</a></li>
-                        {% else %}
-                            <li><a href="{% url 'home' %}" class="text-light">Home</a></li>
-                            <li><a href="{% url 'login' %}" class="text-light">Login</a></li>
-                            <li><a href="{% url 'signup' %}" class="text-light">Sign Up</a></li>
-                        {% endif %}
-                    </ul>
+
+                <div class="col-md-4 mt-4 mt-md-0">
+                    <p class="small mb-0">
+                        Trading involves substantial risk of loss.<br>
+                        Past performance is not indicative of future results.<br>
+                        Use at your own risk.
+                    </p>
                 </div>
-                <div class="col-md-4">
-                    <h5>Important Notice</h5>
-                    <p class="small">Trading involves substantial risk of loss. Past performance is not indicative of future results. Use at your own risk.</p>
+
+                <div class="col-md-4 mt-4 mt-md-0 text-md-end">
+                    <div class="designed-by">
+                        Designed with <span class="heart">❤️</span> by 
+                        <strong class="creator-name">Atchut Reddy</strong>
+                        <a 
+                            href="https://www.linkedin.com/in/atchut-reddy-8008ar/" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            class="linkedin-link"
+                            title="Connect with Atchut Reddy on LinkedIn"
+                            aria-label="Atchut Reddy's LinkedIn profile"
+                        >
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                    <p class="small mb-0">© 2026 NIFTY Trading Bot</p>
                 </div>
-            </div>
-            <div class="designed-by">
-                Designed with <span class="heart">❤️</span> by <strong>Atchut Reddy</strong> • © 2026 NIFTY Trading Bot
             </div>
         </div>
     </footer>

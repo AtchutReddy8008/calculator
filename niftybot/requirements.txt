@@ -48,4 +48,6 @@ psycopg2-binary==2.9.9
 #python -m pip install django-celery-results
 #pip install django django-celery-beat redis pandas numpy requests pyotp holidays
 #pip install psutil
+#pip install celery
+
 
