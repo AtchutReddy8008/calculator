@@ -2,143 +2,175 @@
 
 {% block title %}Login - NIFTY Trading Bot{% endblock %}
 
-{% block extra_head %}
-    <!-- Optional: if you want to keep the same canvas chart script from home page -->
-    <!-- <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script> -->
-{% endblock %}
-
 {% block content %}
 
 <style>
     :root {
-        --primary: #00ff9d;
+        --primary: #00ff9d;          /* bright neon green */
         --primary-dark: #00c978;
-        --primary-light: #40ffb5;
-        --light-green-bg: #e8fff4;      /* light fresh green */
-        --light-green-bg-2: #d9ffe9;    /* slightly darker variant for gradient */
-        --card-bg: rgba(255, 255, 255, 0.92);
-        --text: #1a3c34;
-        --text-muted: #4a6b61;
-        --border: #b3e0cc;
+        --primary-glow: rgba(0, 255, 157, 0.45);
+        --bg-dark: #0a1f1a;
+        --bg-gradient: linear-gradient(135deg, #051412 0%, #0a2a22 100%);
+        --card-bg: rgba(20, 40, 35, 0.68);
+        --text: #e0fff5;
+        --text-muted: #a3d9c9;
+        --border-glow: rgba(0, 255, 157, 0.25);
     }
 
     body {
-        background: linear-gradient(135deg, var(--light-green-bg) 0%, var(--light-green-bg-2) 100%);
+        background: var(--bg-gradient);
         color: var(--text);
         min-height: 100vh;
         margin: 0;
-        padding: 0;
         font-family: 'Segoe UI', system-ui, sans-serif;
+        position: relative;
+        overflow: hidden;
     }
 
-    .card {
+    body::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&q=80') center/cover no-repeat;
+        opacity: 0.07;
+        z-index: -2;
+        pointer-events: none;
+    }
+
+    .login-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .card-glass {
         background: var(--card-bg);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0, 255, 157, 0.12);
-        backdrop-filter: blur(8px);
-        transition: all 0.3s ease;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--border-glow);
+        border-radius: 24px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 40px var(--primary-glow);
+        overflow: hidden;
+        width: 100%;
+        max-width: 420px;
+        transition: all 0.4s ease;
     }
 
-    .card:hover {
-        box-shadow: 0 15px 40px rgba(0, 255, 157, 0.18);
-        transform: translateY(-4px);
+    .card-glass:hover {
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), 0 0 60px var(--primary-glow);
+        transform: translateY(-8px);
     }
 
     .card-header {
-        background: linear-gradient(90deg, var(--primary-light), var(--primary));
+        background: linear-gradient(90deg, var(--primary-dark), var(--primary));
         color: #000;
+        text-align: center;
+        padding: 2rem 1.5rem;
         border-bottom: none;
-        border-radius: 16px 16px 0 0;
-        padding: 1.25rem 1.5rem;
     }
 
     .card-header h4 {
         margin: 0;
-        font-weight: 600;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
 
     .form-label {
-        font-weight: 500;
+        font-weight: 600;
         color: var(--text);
+        margin-bottom: 0.5rem;
+        display: block;
     }
 
     .form-control {
-        border: 1px solid #b3e0cc;
-        border-radius: 8px;
-        padding: 0.65rem 1rem;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(0,255,157,0.3);
+        color: white;
+        border-radius: 10px;
+        padding: 0.75rem 1.1rem;
         transition: all 0.25s;
     }
 
     .form-control:focus {
+        background: rgba(255,255,255,0.12);
         border-color: var(--primary);
-        box-shadow: 0 0 0 0.25rem rgba(0, 255, 157, 0.18);
+        box-shadow: 0 0 0 4px var(--primary-glow);
+        color: white;
+        outline: none;
     }
 
-    .btn-primary {
+    .form-control::placeholder {
+        color: rgba(255,255,255,0.45);
+    }
+
+    .btn-login {
         background: linear-gradient(45deg, var(--primary), var(--primary-dark));
         border: none;
-        font-weight: 600;
-        padding: 0.75rem;
-        border-radius: 10px;
-        transition: all 0.3s;
+        font-weight: 700;
+        padding: 0.9rem;
+        border-radius: 12px;
+        color: #000;
+        transition: all 0.35s ease;
+        box-shadow: 0 8px 25px rgba(0, 255, 157, 0.35);
     }
 
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0, 255, 157, 0.35);
+    .btn-login:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(0, 255, 157, 0.55);
+        background: linear-gradient(45deg, var(--primary-dark), var(--primary));
     }
 
-    a {
+    .link {
         color: var(--primary);
+        font-weight: 600;
         text-decoration: none;
-        font-weight: 500;
     }
 
-    a:hover {
+    .link:hover {
+        color: #ffffff;
         text-decoration: underline;
-        color: var(--primary-dark);
     }
 
-    .text-center p {
-        color: var(--text-muted);
+    .text-muted {
+        color: var(--text-muted) !important;
     }
 </style>
 
-<div class="container">
-    <div class="row justify-content-center" style="min-height: 90vh; align-items: center;">
-        <div class="col-md-5 col-lg-4">
-            <div class="card">
-                <div class="card-header text-center">
-                    <h4><i class="fas fa-sign-in-alt me-2"></i> Login</h4>
+<div class="login-container">
+    <div class="card-glass">
+        <div class="card-header">
+            <h4><i class="fas fa-rocket me-2"></i> Welcome Back</h4>
+        </div>
+
+        <div class="card-body p-5 p-md-5">
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="mb-4">
+                    <label for="id_username" class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control" id="id_username" required autofocus placeholder="Enter your username">
                 </div>
-                <div class="card-body p-4 p-md-5">
-                    <form method="post">
-                        {% csrf_token %}
-                        
-                        <div class="mb-4">
-                            <label for="id_username" class="form-label">Username</label>
-                            <input type="text" name="username" class="form-control" id="id_username" required autofocus>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label for="id_password" class="form-label">Password</label>
-                            <input type="password" name="password" class="form-control" id="id_password" required>
-                        </div>
-                        
-                        <div class="d-grid mt-4">
-                            <button type="submit" class="btn btn-primary btn-lg">
-                                <i class="fas fa-sign-in-alt me-2"></i> Login
-                            </button>
-                        </div>
-                    </form>
-                    
-                    <div class="mt-4 text-center">
-                        <p>Don't have an account? 
-                            <a href="{% url 'signup' %}">Sign up here</a>
-                        </p>
-                    </div>
+
+                <div class="mb-4">
+                    <label for="id_password" class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" id="id_password" required placeholder="••••••••">
                 </div>
+
+                <div class="d-grid mt-5">
+                    <button type="submit" class="btn btn-login btn-lg">
+                        <i class="fas fa-sign-in-alt me-2"></i> Login to Dashboard
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-4 text-center">
+                <p class="text-muted mb-2">New to NIFTY Trading Bot?</p>
+                <a href="{% url 'signup' %}" class="link">Create your account →</a>
             </div>
         </div>
     </div>

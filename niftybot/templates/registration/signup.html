@@ -3,76 +3,129 @@
 {% block title %}Sign Up - NIFTY Trading Bot{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center" style="background: linear-gradient(135deg, #e8f5e9 0%, #d0f0d0 100%); min-height: 100vh; padding: 3rem 1rem;">
-    <div class="col-md-8 col-lg-7">
-        <div class="card shadow-lg border-0" style="border-radius: 16px; overflow: hidden; background: white;">
-            <div class="card-header text-white" style="background: linear-gradient(to right, #4caf50, #66bb6a); border-radius: 16px 16px 0 0; padding: 1.5rem 2rem;">
-                <h4 class="mb-0"><i class="fas fa-user-plus me-2"></i> Create Account</h4>
+<style>
+    :root {
+        --primary: #10b981;      /* emerald-500 */
+        --primary-dark: #059669;
+        --accent: #fbbf24;        /* amber-400 for money/growth feel */
+        --text-dark: #111827;
+        --bg-gradient: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+    }
+    
+    .signup-bg {
+        background: var(--bg-gradient);
+        position: relative;
+        overflow: hidden;
+        min-height: 100vh;
+        padding: 4rem 1rem;
+    }
+    
+    .signup-bg::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&q=80&w=2000') center/cover no-repeat;
+        opacity: 0.12;
+        z-index: 0;
+    }
+    
+    .card-glass {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 24px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .card-header {
+        background: linear-gradient(to right, var(--primary), var(--primary-dark));
+        border-radius: 24px 24px 0 0;
+    }
+    
+    .form-control:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.25);
+    }
+    
+    .btn-trade {
+        background: linear-gradient(to right, var(--primary), var(--accent));
+        border: none;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-trade:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4);
+    }
+</style>
+
+<div class="signup-bg row justify-content-center align-items-center">
+    <div class="col-md-8 col-lg-6 col-xl-5">
+        <div class="card-glass shadow-2xl">
+            <div class="card-header text-white p-5 text-center">
+                <h3 class="mb-1 fw-bold">Join NIFTY Trading Bot</h3>
+                <p class="mb-0 opacity-75">Start smart trading today – takes <strong>30 seconds</strong></p>
             </div>
             
-            <div class="card-body p-4 p-md-5">
+            <div class="card-body p-5 p-md-5">
                 <form method="post">
                     {% csrf_token %}
                     
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <label for="id_username" class="form-label fw-bold">Username <span class="text-danger">*</span></label>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Username <span class="text-danger">*</span></label>
                             {{ form.username }}
-                            {% if form.username.errors %}
-                                <div class="text-danger mt-1">{{ form.username.errors }}</div>
-                            {% endif %}
+                            {% if form.username.errors %}<div class="text-danger small mt-1">{{ form.username.errors }}</div>{% endif %}
                         </div>
                         
-                        <div class="col-md-6 mb-4">
-                            <label for="id_email" class="form-label fw-bold">Email <span class="text-danger">*</span></label>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Email <span class="text-danger">*</span></label>
                             {{ form.email }}
-                            {% if form.email.errors %}
-                                <div class="text-danger mt-1">{{ form.email.errors }}</div>
-                            {% endif %}
+                            {% if form.email.errors %}<div class="text-danger small mt-1">{{ form.email.errors }}</div>{% endif %}
                         </div>
                     </div>
-                    
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <label for="id_password1" class="form-label fw-bold">Password <span class="text-danger">*</span></label>
+
+                    <div class="row g-4 mt-1">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Password <span class="text-danger">*</span></label>
                             {{ form.password1 }}
-                            {% if form.password1.errors %}
-                                <div class="text-danger mt-1">{{ form.password1.errors }}</div>
-                            {% endif %}
+                            {% if form.password1.errors %}<div class="text-danger small mt-1">{{ form.password1.errors }}</div>{% endif %}
                         </div>
                         
-                        <div class="col-md-6 mb-4">
-                            <label for="id_password2" class="form-label fw-bold">Confirm Password <span class="text-danger">*</span></label>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Confirm Password <span class="text-danger">*</span></label>
                             {{ form.password2 }}
-                            {% if form.password2.errors %}
-                                <div class="text-danger mt-1">{{ form.password2.errors }}</div>
-                            {% endif %}
+                            {% if form.password2.errors %}<div class="text-danger small mt-1">{{ form.password2.errors }}</div>{% endif %}
                         </div>
                     </div>
-                    
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <label for="id_full_name" class="form-label fw-bold">Full Name</label>
+
+                    <div class="row g-4 mt-1">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Full Name</label>
                             {{ form.full_name }}
                         </div>
                         
-                        <div class="col-md-6 mb-4">
-                            <label for="id_mobile_number" class="form-label fw-bold">Mobile Number</label>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Mobile Number</label>
                             {{ form.mobile_number }}
                         </div>
                     </div>
-                    
-                    <div class="d-grid gap-2 mt-4">
-                        <button type="submit" class="btn btn-success btn-lg fw-bold">
-                            <i class="fas fa-user-plus me-2"></i> Create Account
+
+                    <div class="d-grid mt-5">
+                        <button type="submit" class="btn btn-lg fw-bold text-white btn-trade">
+                            <i class="fas fa-rocket me-2"></i> Start Trading Now
                         </button>
                     </div>
                 </form>
                 
-                <div class="mt-4 text-center">
-                    <p class="text-muted">
-                        Already have an account? 
-                        <a href="{% url 'login' %}" class="text-success fw-bold text-decoration-none">Login here</a>
+                <div class="text-center mt-4">
+                    <p class="text-muted small">
+                        Already trading smart? 
+                        <a href="{% url 'login' %}" class="text-warning fw-bold text-decoration-none">Login here</a>
                     </p>
                 </div>
             </div>
@@ -81,12 +134,8 @@
 </div>
 
 <script>
-    // Add Bootstrap classes to form fields
-    document.addEventListener('DOMContentLoaded', function() {
-        const inputs = document.querySelectorAll('input');
-        inputs.forEach(input => {
-            input.classList.add('form-control');
-        });
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('input').forEach(el => el.classList.add('form-control', 'bg-white', 'bg-opacity-75', 'border-0', 'shadow-sm'));
     });
 </script>
 {% endblock %}
