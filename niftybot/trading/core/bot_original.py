@@ -68,7 +68,7 @@ class Config:
     MAX_RETRIES = 3
     RETRY_DELAY = 2
     ORDER_TIMEOUT = 10
-    PNL_CHECK_INTERVAL_SECONDS = 3
+    PNL_CHECK_INTERVAL_SECONDS = 1
     MIN_HOLD_SECONDS_FOR_PROFIT = 1800
 
 INDIA_HOLIDAYS = holidays.India()
@@ -691,7 +691,7 @@ class Engine:
                 "final_margin": round(margin_for_target),
                 "daily_target_before_98%": round(today_target)
             })
-        today_target *= 0.98
+        today_target *= 0.97
         today_target = round(today_target)
         self.logger.info("Target adjusted to 98% of calculated", {"final_daily_target_₹": today_target})
         self.lock_target(today_target)
@@ -1390,7 +1390,7 @@ class TradingApplication:
                                     "actual_capital_blocked_₹": round(actual_used)
                                 })
                                 self._last_hourly_log = time.time()
-                            if time.time() - last_pnl_print >= 15:
+                            if time.time() - last_pnl_print >= 1.0:
                                 self.logger.info("Live unrealized P&L", {"pnl_₹": round(self.engine.algo_pnl(), 2)})
                                 last_pnl_print = time.time()
                     else:
