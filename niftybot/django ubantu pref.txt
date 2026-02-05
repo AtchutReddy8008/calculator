@@ -85,21 +85,24 @@ python manage.py collectstatic
 
 sudo apt install screen -y
 
+screen -S Django
+
 cd /root/web/niftybot
 source /root/web/venv/bin/activate
 
-screen -S django
 python manage.py runserver 0.0.0.0:8000 --noreload
 
 CTRL+A + D
------------------------------
+----------------
+screen -S celery
+
 cd /root/web/niftybot
 source /root/web/venv/bin/activate
 
-screen -S celery
 celery -A niftybot worker -l info --pool=gevent --concurrency=100
 
 CTRL+A + D
+--------------------------------------
 
 screen -r django
 screen -r celery

@@ -27,5 +27,10 @@ niftybot/
 │   │   └── signup.html
 │   ├── trading/
 │   │   ├── dashboard.html
+            algoritms.html
+            strategies_list.html
+            coming_soon.html
+            broker.html
+            pnl_calender.html
 │   │   └── connect_zerodha.html
 └── requirements.txt

@@ -1,904 +1,467 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
-{% block title %}Short Strangle - NIFTY Trading Bot{% endblock %}
+{% block title %}PnL Calendar - NIFTY Trading Bot{% endblock %}
 
 {% block extra_css %}
 <style>
     :root {
-        --bg: #0f121a;
-        --surface: rgba(20, 25, 35, 0.85);
-        --surface-hover: rgba(30, 40, 55, 0.9);
-        --border: rgba(100, 120, 180, 0.18);
-        --text: #f1f5f9;
-        --text-light: #e5efff;
-        --text-muted: #cbd5e1;
-        --primary: #5e8cff;
-        --success: #34d399;
-        --danger: #ff6b6b;
-        --warning: #ffca6b;
-        --glow: rgba(94, 140, 255, 0.15);
+        --calendar-bg: rgba(20, 20, 30, 0.65);
+        --calendar-border: rgba(255, 255, 255, 0.08);
+        --day-bg: rgba(30, 30, 45, 0.5);
+        --day-hover: rgba(40, 40, 60, 0.8);
+        --profit-glow: rgba(0, 255, 157, 0.3);
+        --loss-glow: rgba(255, 77, 77, 0.3);
+        --current-glow: rgba(64, 192, 255, 0.4);
+        --text-muted: #94a3b8;
+        --weekday-bg: rgba(15, 20, 35, 0.7);
     }
 
-    body {
-        background: var(--bg);
-        color: var(--text);
+    .pnl-calendar-section {
+        margin-top: 2rem;
     }
 
-    h1, h5, h6 {
-        color: var(--text-light);
-    }
-
-    .card {
-        background: var(--surface);
+    .calendar-wrapper {
+        background: var(--calendar-bg);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
-        border: 1px solid var(--border);
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.35);
-        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        border: 1px solid var(--calendar-border);
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
     }
 
-    .card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 20px 60px rgba(0,0,0,0.45);
-    }
-
-    .card-header {
-        background: linear-gradient(135deg, rgba(20,25,35,0.9), rgba(30,40,55,0.9));
-        border-bottom: none;
-        padding: 1.3rem 1.6rem;
-        font-weight: 600;
-        color: var(--text-light);
-    }
-
-    .card-body, .card-body * {
-        color: var(--text-light) !important;
-    }
-
-    .text-muted, small, .text-muted * {
-        color: var(--text-muted) !important;
-    }
-
-    .btn-lg {
-        padding: 0.75rem 1.6rem;
-        font-weight: 600;
-        border-radius: 12px;
-        transition: all 0.35s ease;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        color: white !important;
-    }
-
-    .status-indicator {
-        display: inline-flex;
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
         align-items: center;
-        gap: 0.6rem;
-        padding: 0.45rem 1rem;
-        border-radius: 50px;
-        font-weight: 600;
-        font-size: 0.95rem;
-        color: white;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--calendar-border);
     }
 
-    .status-running {
-        background: rgba(52, 211, 153, 0.25);
-        border: 1px solid rgba(52, 211, 153, 0.6);
-        color: white;
+    .calendar-title {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #fff;
+        letter-spacing: -0.5px;
     }
 
-    .status-stopped {
-        background: rgba(248, 113, 113, 0.25);
-        border: 1px solid rgba(248, 113, 113, 0.6);
-        color: white;
-    }
-
-    .stat-card-sm {
-        background: rgba(30, 40, 55, 0.7);
-        border-radius: 12px;
-        padding: 1rem 1.2rem;
-        text-align: center;
-        border: 1px solid rgba(94,140,255,0.15);
-        transition: all 0.3s ease;
-        color: white;
-    }
-
-    .stat-card-sm:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.25);
-    }
-
-    .stat-card-sm .value {
-        font-size: 1.45rem;
-        font-weight: 700;
-        color: white;
-    }
-
-    .stat-card-sm .label {
-        color: var(--text-muted);
-        font-size: 0.82rem;
-        margin-top: 0.35rem;
-        text-transform: uppercase;
-        letter-spacing: 0.6px;
-    }
-
-    .log-entry {
-        padding: 0.9rem 1.1rem;
+    .nav-btn {
+        background: var(--primary-dim);
+        color: var(--primary);
+        border: 1px solid var(--primary);
+        padding: 0.75rem 1.5rem;
         border-radius: 10px;
-        margin-bottom: 0.8rem;
-        background: rgba(30,40,55,0.5);
-        border-left: 4px solid;
-        transition: all 0.25s ease;
-        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 
-    .log-entry:hover {
-        background: rgba(40,50,70,0.7);
+    .nav-btn:hover {
+        background: var(--primary);
+        color: #000;
+        box-shadow: 0 0 20px var(--primary-glow);
+        transform: translateY(-2px);
     }
 
-    .log-info    { border-left-color: #5e8cff; }
-    .log-warning { border-left-color: var(--warning); }
-    .log-error,
-    .log-critical { border-left-color: var(--danger); }
-
-    .log-entry .badge {
-        color: white !important;
+    .calendar-weekdays {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        text-align: center;
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: #cbd5e1;
+        margin-bottom: 1rem;
+        padding: 1rem 0;
+        background: var(--weekday-bg);
+        border-radius: 12px;
     }
 
-    .market-status {
-        background: rgba(20,25,35,0.7);
+    .calendar-days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 1rem;
+    }
+
+    .calendar-day {
+        aspect-ratio: 1 / 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: var(--day-bg);
+        border-radius: 16px;
+        position: relative;
+        transition: all 0.4s ease;
+        border: 1px solid transparent;
+        overflow: hidden;
+    }
+
+    .calendar-day:hover {
+        transform: translateY(-10px) scale(1.08);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+        z-index: 10;
+        border-color: var(--primary);
+    }
+
+    .calendar-day.empty {
+        background: transparent;
+        pointer-events: none;
+    }
+
+    .calendar-day.current-day {
+        border: 3px solid var(--accent);
+        box-shadow: 0 0 25px var(--current-glow);
+        background: rgba(64, 192, 255, 0.15);
+    }
+
+    .calendar-day.profit {
+        background: linear-gradient(135deg, rgba(0, 255, 157, 0.25), rgba(0, 255, 157, 0.05));
+        border: 2px solid var(--primary);
+        box-shadow: 0 0 15px var(--profit-glow);
+    }
+
+    .calendar-day.loss {
+        background: linear-gradient(135deg, rgba(255, 77, 77, 0.25), rgba(255, 77, 77, 0.05));
+        border: 2px solid var(--danger);
+        box-shadow: 0 0 15px var(--loss-glow);
+    }
+
+    .calendar-day .date {
+        font-family: var(--font-num);
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    }
+
+    .calendar-day .pnl {
+        font-family: var(--font-num);
+        font-size: 1.3rem;
+        font-weight: 800;
+        padding: 0.4rem 1rem;
+        border-radius: 10px;
+        min-width: 85%;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(4px);
+    }
+
+    .calendar-day.profit .pnl {
+        color: var(--primary);
+        background: rgba(0, 255, 157, 0.3);
+        box-shadow: 0 0 15px var(--profit-glow);
+    }
+
+    .calendar-day.loss .pnl {
+        color: var(--danger);
+        background: rgba(255, 77, 77, 0.3);
+        box-shadow: 0 0 15px var(--loss-glow);
+    }
+
+    .day-details {
+        position: absolute;
+        top: 105%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(15, 15, 25, 0.95);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--calendar-border);
         border-radius: 12px;
         padding: 1rem;
-        border: 1px solid rgba(94,140,255,0.12);
-        color: white;
-    }
-
-    .market-status strong {
-        color: white;
-    }
-
-    .alert {
-        border-radius: 12px;
-        border-left-width: 5px;
-        border-left-style: solid;
-        color: white;
-    }
-
-    .alert-info {
-        background: rgba(94,140,255,0.12);
-        border-left-color: var(--primary);
-    }
-
-    .alert-warning {
-        background: rgba(255,202,107,0.12);
-        border-left-color: var(--warning);
-    }
-
-    .alert-danger {
-        background: rgba(255,107,107,0.12);
-        border-left-color: var(--danger);
-    }
-
-    .alert-secondary {
-        background: rgba(100,120,180,0.12);
-        border-left-color: #6b7280;
-    }
-
-    .table th, .table td {
-        color: white !important;
-    }
-
-    .table-sm th {
-        color: var(--text-muted) !important;
-    }
-
-    .list-group-item {
-        background: transparent;
-        border: none;
-        color: white;
-    }
-
-    .text-success, .text-danger {
-        color: inherit !important;
-    }
-
-    /* Short Strangle Animation Styles */
-    .strangle-leg {
-        transition: all 0.6s ease;
-    }
-
-    .strike-label {
-        text-shadow: 0 1px 4px rgba(0,0,0,0.6);
-    }
-
-    #price-marker {
-        animation: pulse 2s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50%      { transform: scale(1.18); }
-    }
-
-    /* Toast Notification */
-    .toast-container {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 1050;
-    }
-
-    .toast {
-        min-width: 300px;
-    }
-
-    /* Restricted Access Card for non-staff */
-    .restricted-access-card {
-        background: rgba(30, 40, 55, 0.9);
-        border: 2px solid rgba(94, 140, 255, 0.4);
-        border-radius: 16px;
-        padding: 2.5rem 1.8rem;
+        width: 220px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 100;
         text-align: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        margin: 2rem 0;
+        font-size: 0.95rem;
     }
 
-    .restricted-access-card i {
-        font-size: 3.5rem;
+    .calendar-day:hover .day-details {
+        opacity: 1;
+        visibility: visible;
+        top: 100%;
+    }
+
+    .day-details strong {
         color: var(--primary);
-        margin-bottom: 1.2rem;
-    }
-
-    .restricted-access-card h4 {
-        color: var(--text-light);
-        margin-bottom: 1rem;
-    }
-
-    .restricted-access-card p {
         font-size: 1.1rem;
-        color: var(--text-muted);
+    }
+
+    .legend {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 1rem;
+        color: #ccc;
+    }
+
+    .legend-swatch {
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+        border: 2px solid;
+    }
+
+    .sidebar-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(16px);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        overflow: hidden;
         margin-bottom: 1.5rem;
+        transition: transform 0.3s ease;
     }
 
-    .restricted-access-card .contact-number {
-        font-size: 1.4rem;
+    .sidebar-card:hover {
+        transform: translateY(-6px);
+    }
+
+    .card-title {
+        background: rgba(255, 255, 255, 0.04);
+        padding: 1.2rem 1.5rem;
         font-weight: 700;
-        color: var(--success);
-        background: rgba(52, 211, 153, 0.12);
-        padding: 0.6rem 1.4rem;
-        border-radius: 12px;
-        display: inline-block;
-        cursor: pointer;
-        user-select: all;
+        font-size: 1.2rem;
+        color: var(--primary);
+        border-bottom: 1px solid var(--glass-border);
     }
 
-    /* Mobile adjustments */
-    @media (max-width: 767px) {
-        .card-body {
-            padding: 1.5rem;
-        }
-        h1 {
-            font-size: 2rem;
-        }
-        .restricted-access-card {
-            padding: 2rem 1.5rem;
-        }
+    .stats-list {
+        padding: 1.5rem;
+    }
+
+    .stat-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.9rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        font-size: 1.05rem;
+    }
+
+    .stat-item:last-child {
+        border-bottom: none;
+    }
+
+    .daily-list {
+        max-height: 500px;
+        overflow-y: auto;
+        padding: 0 1rem;
+    }
+
+    .daily-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        margin: 0.5rem 0;
+        border-radius: 12px;
+        background: rgba(30, 30, 45, 0.4);
+        transition: all 0.3s ease;
+    }
+
+    .daily-item.profit {
+        border-left: 5px solid var(--primary);
+        background: rgba(0, 255, 157, 0.1);
+    }
+
+    .daily-item.loss {
+        border-left: 5px solid var(--danger);
+        background: rgba(255, 77, 77, 0.1);
+    }
+
+    .daily-item:hover {
+        transform: translateX(8px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    @media (max-width: 992px) {
+        .calendar-days { gap: 0.8rem; }
+        .calendar-day .date { font-size: 1.5rem; }
+        .calendar-day .pnl { font-size: 1.1rem; }
+    }
+
+    @media (max-width: 768px) {
+        .calendar-header { flex-direction: column; gap: 1rem; text-align: center; }
+        .calendar-title { font-size: 1.7rem; }
+        .calendar-days { gap: 0.6rem; }
+        .calendar-day .date { font-size: 1.3rem; }
+        .pnl-calendar-section .row > div:first-child { margin-bottom: 2rem; }
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid py-4">
+<div class="container pnl-calendar-section">
+    <h1 class="mb-5 text-center" style="font-weight: 800; font-size: 2.5rem; color: #fff;">
+        <i class="fas fa-calendar-alt me-3" style="color: var(--primary);"></i> Profit & Loss Calendar
+    </h1>
+
     <div class="row">
-        <div class="col-12">
-            <h1 class="mb-5"><i class="fas fa-robot me-3" style="color:var(--primary)"></i> Short Strangle Control</h1>
-        </div>
-    </div>
-
-    <div class="row g-4">
-        <!-- Main Control Panel -->
         <div class="col-lg-8">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0"><i class="fas fa-cogs me-2"></i> Algorithm Control Panel</h5>
-                    <div class="status-indicator status-{% if bot_status.is_running %}running{% else %}stopped{% endif %}">
-                        <i class="fas fa-circle fa-xs"></i>
-                        {{ bot_status.is_running|yesno:"RUNNING,STOPPED" }}
-                    </div>
+            <div class="calendar-wrapper">
+                <div class="calendar-header">
+                    <a href="?year={{ prev_year }}&month={{ prev_month }}" class="nav-btn">
+                        <i class="fas fa-chevron-left"></i> {{ prev_month|stringformat:"02d" }}/{{ prev_year }}
+                    </a>
+                    <div class="calendar-title">{{ month_name }} {{ year }}</div>
+                    <a href="?year={{ next_year }}&month={{ next_month }}" class="nav-btn">
+                        {{ next_month|stringformat:"02d" }}/{{ next_year }} <i class="fas fa-chevron-right"></i>
+                    </a>
                 </div>
-                <div class="card-body">
-                    <div class="row g-4">
-                        <!-- Left Column -->
-                        <div class="col-md-6">
-                            <div class="mb-4">
-                                <h6 class="text-muted mb-3">Current Status</h6>
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="status-indicator status-{% if bot_status.is_running %}running{% else %}stopped{% endif %} px-3 py-2">
-                                        <i class="fas fa-power-off me-2"></i>
-                                        {{ bot_status.is_running|yesno:"Active,Inactive" }}
-                                    </div>
-                                    <div class="ms-3">
-                                        {% if bot_status.is_running %}
-                                            <small>Started {{ bot_status.last_started|timesince }} ago</small>
-                                        {% else %}
-                                            <small>Stopped {{ bot_status.last_stopped|timesince }} ago</small>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
 
-                            <!-- Today's Target & Stop-Loss (Read-only – set by bot) -->
-                            <div class="mb-4">
-                                <h6 class="text-muted mb-3">Today's Target & Stop-Loss</h6>
-                                <div class="row g-3">
-                                    <div class="col-6">
-                                        <div class="stat-card-sm">
-                                            <div class="value text-success">
-                                                {% if daily_target and daily_target != 0 %}
-                                                    ₹{{ daily_target|floatformat:0 }}
-                                                {% else %}
-                                                    ---
-                                                {% endif %}
+                <div class="calendar-weekdays">
+                    <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div>
+                </div>
+
+                <div class="calendar-days">
+                    {% for week in calendar %}
+                        {% for day in week %}
+                            {% if day == 0 %}
+                                <div class="calendar-day empty"></div>
+                            {% else %}
+                                {% with month_padded=month|stringformat:"02d" %}
+                                {% with day_padded=day|stringformat:"02d" %}
+                                {% with day_date=year|add:"-"|add:month_padded|add:"-"|add:day_padded %}
+                                    {% with pnl_record=None %}
+                                        {% for record in daily_pnl_records %}
+                                            {% if record.date|date:"Y-m-d" == day_date %}
+                                                {% with pnl_record=record %}
+                                                    <div class="calendar-day {% if day_date == current_date %}current-day{% endif %} has-pnl {% if pnl_record.pnl >= 0 %}profit{% else %}loss{% endif %}">
+                                                        <div class="date">{{ day }}</div>
+                                                        <div class="pnl">₹{{ pnl_record.pnl|floatformat:0|intcomma }}</div>
+                                                        <div class="day-details">
+                                                            <strong>{{ day_date|date:"D, d M Y" }}</strong><br><br>
+                                                            P&L: <span class="{% if pnl_record.pnl >= 0 %}text-green{% else %}text-red{% endif %}">₹{{ pnl_record.pnl|floatformat:2|intcomma }}</span><br>
+                                                            Trades: {{ pnl_record.total_trades }}<br>
+                                                            Win: <span class="text-green">{{ pnl_record.win_trades }}</span> | 
+                                                            Loss: <span class="text-red">{{ pnl_record.loss_trades }}</span>
+                                                        </div>
+                                                    </div>
+                                                {% endwith %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if pnl_record is None %}
+                                            <div class="calendar-day {% if day_date == current_date %}current-day{% endif %}">
+                                                <div class="date">{{ day }}</div>
+                                                <div class="day-details">
+                                                    <strong>{{ day_date|date:"D, d M Y" }}</strong><br><br>
+                                                    No trading activity
+                                                </div>
                                             </div>
-                                            <div class="label">Profit Target</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="stat-card-sm">
-                                            <div class="value text-danger">
-                                                {% if daily_stop_loss and daily_stop_loss != 0 %}
-                                                    ₹{{ daily_stop_loss|floatformat:0 }}
-                                                {% else %}
-                                                    ---
-                                                {% endif %}
-                                            </div>
-                                            <div class="label">Stop Loss</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <small class="text-muted mt-2 d-block">
-                                    Automatically calculated when the bot enters a trade.<br>
-                                    Based on premiums / margin. Reset daily. Visible after successful entry.
-                                </small>
-                            </div>
-
-                            <!-- Max Lots Hard Cap Control -->
-                            <div class="mb-4">
-                                <h6 class="text-muted mb-3">Max Lots Hard Cap</h6>
-                                <div class="input-group">
-                                    <input type="number" 
-                                           class="form-control bg-dark text-white border-secondary" 
-                                           id="max-lots-input" 
-                                           value="{{ bot_status.max_lots_hard_cap|default:1 }}" 
-                                           min="1" max="10" step="1">
-                                    <button class="btn btn-outline-primary" type="button" id="save-max-lots">
-                                        <i class="fas fa-save me-1"></i> Save
-                                    </button>
-                                </div>
-                                <small class="text-muted d-block mt-2">
-                                    Limits maximum lots the bot can use (1 = safest). Applies only to your account.
-                                </small>
-                            </div>
-
-                            <div class="mb-4">
-                                <h6 class="text-muted mb-3">Performance Snapshot</h6>
-                                <div class="row g-3">
-                                    <div class="col-6">
-                                        <div class="stat-card-sm">
-                                            <div class="value">{{ performance.total_trades|default:"0" }}</div>
-                                            <div class="label">Total Trades</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="stat-card-sm">
-                                            <div class="value">{{ performance.win_rate|default:"0" }}%</div>
-                                            <div class="label">Win Rate</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="stat-card-sm">
-                                            <div class="value">₹{{ performance.avg_daily_pnl|default:"0.00" }}</div>
-                                            <div class="label">Avg Daily P&L</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="stat-card-sm">
-                                            <div class="value">{{ performance.current_streak|default:"0" }}</div>
-                                            <div class="label">Win Streak</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Right Column - Controls + Strangle Animation -->
-                        <div class="col-md-6">
-                            <div class="mb-4">
-                                <h6 class="text-muted mb-3">Controls</h6>
-
-                                {% if user.is_staff %}
-                                    <div class="d-grid gap-3">
-                                        {% if bot_status.is_running %}
-                                            <form action="{% url 'stop_bot' %}" method="post">
-                                                {% csrf_token %}
-                                                <button type="submit" class="btn btn-danger btn-lg w-100">
-                                                    <i class="fas fa-power-off me-2"></i> Stop Algorithm
-                                                </button>
-                                            </form>
-                                        {% else %}
-                                            <form action="{% url 'start_bot' %}" method="post">
-                                                {% csrf_token %}
-                                                <button type="submit" class="btn btn-success btn-lg w-100">
-                                                    <i class="fas fa-play me-2"></i> Start Algorithm
-                                                </button>
-                                            </form>
                                         {% endif %}
-                                    </div>
-                                    <div class="mt-3 text-center">
-                                        <small class="text-muted">
-                                            <i class="far fa-clock me-1"></i>
-                                            Auto-runs during market hours (Mon, Wed–Fri)
-                                        </small>
-                                    </div>
-                                {% else %}
-                                    <!-- Non-staff users see this restricted access card instead of buttons -->
-                                    <div class="restricted-access-card">
-                                        <i class="fas fa-lock fa-3x"></i>
-                                        <h4>Algorithm Control Restricted</h4>
-                                        <p>
-                                            Only staff users can start or stop the trading algorithm.<br>
-                                            To request access or start trading, please contact the admin:
-                                        </p>
-                                        <div class="contact-number">
-                                            8008603917
-                                        </div>
-                                    </div>
-                                {% endif %}
-                            </div>
-
-                            <!-- Short Strangle Live Visualization (visible to everyone) -->
-                            <div class="mt-4 pt-2">
-                                <h6 class="text-muted mb-3 text-center">Current Strangle Position (Live Sketch)</h6>
-                                
-                                <div class="position-relative" style="height: 140px; max-width: 340px; margin: 0 auto;">
-                                    <!-- Horizontal price line -->
-                                    <div style="position: absolute; top: 70px; left: 0; right: 0; height: 2px; background: rgba(255,255,255,0.18);"></div>
-                                    
-                                    <!-- Price label in center -->
-                                    <div id="current-price-label" 
-                                         style="position: absolute; top: 48px; left: 50%; transform: translateX(-50%);
-                                                background: rgba(30,40,55,0.9); color: #a5b4fc; padding: 0.35rem 0.9rem;
-                                                border-radius: 8px; font-size: 0.95rem; font-weight: 600; white-space: nowrap;
-                                                border: 1px solid rgba(165,180,252,0.3); box-shadow: 0 4px 12px rgba(0,0,0,0.4);">
-                                        NIFTY ≈ <span id="live-nifty">---</span>
-                                    </div>
-
-                                    <!-- Short Call leg -->
-                                    <div class="strangle-leg call-leg"
-                                         style="position: absolute; top: 10px; width: 120px; height: 50px; right: 20px; 
-                                                border: 2px dashed #ff6b6b; border-radius: 10px 10px 0 0; border-bottom: none;
-                                                background: linear-gradient(to bottom, rgba(255,107,107,0.08), transparent);
-                                                box-shadow: 0 4px 14px rgba(255,107,107,0.15);">
-                                        <div style="position: absolute; top: -22px; left: 50%; transform: translateX(-50%);
-                                                    color: #ff6b6b; font-size: 0.82rem; font-weight: 600; white-space: nowrap;">
-                                            Short Call • Sell
-                                        </div>
-                                        <div id="call-strike" class="strike-label" 
-                                             style="position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
-                                                    color: #fda4af; font-weight: 700; font-size: 1.1rem;">
-                                            ---
-                                        </div>
-                                    </div>
-
-                                    <!-- Short Put leg -->
-                                    <div class="strangle-leg put-leg"
-                                         style="position: absolute; bottom: 10px; width: 120px; height: 50px; left: 20px; 
-                                                border: 2px dashed #34d399; border-radius: 0 0 10px 10px; border-top: none;
-                                                background: linear-gradient(to top, rgba(52,211,153,0.08), transparent);
-                                                box-shadow: 0 4px 14px rgba(52,211,153,0.15);">
-                                        <div style="position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%);
-                                                    color: #34d399; font-size: 0.82rem; font-weight: 600; white-space: nowrap;">
-                                            Short Put • Sell
-                                        </div>
-                                        <div id="put-strike" class="strike-label"
-                                             style="position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
-                                                    color: #6ee7b7; font-weight: 700; font-size: 1.1rem;">
-                                            ---
-                                        </div>
-                                    </div>
-
-                                    <!-- Animated price marker -->
-                                    <div id="price-marker" 
-                                         style="position: absolute; top: 62px; width: 18px; height: 18px; margin-left: -9px;
-                                                background: #a5b4fc; border-radius: 50%; border: 3px solid #6366f1;
-                                                box-shadow: 0 0 16px rgba(99,102,241,0.7), 0 0 0 6px rgba(99,102,241,0.2);
-                                                transition: left 1.8s ease-out;">
-                                    </div>
-                                </div>
-
-                                <div class="text-center mt-3">
-                                    <small class="text-muted" style="font-size: 0.82rem;">
-                                        Current position: <strong id="strangle-status">No active position</strong>
-                                    </small>
-                                </div>
-                            </div>
-
-                            {% if bot_status.last_error %}
-                                <div class="alert alert-danger mt-4">
-                                    <h6 class="mb-2"><i class="fas fa-exclamation-triangle me-2"></i> Last Error</h6>
-                                    <pre class="mb-0 bg-transparent border-0 text-white font-monospace" style="font-size: 0.88rem; white-space: pre-wrap;">{{ bot_status.last_error|truncatechars:320 }}</pre>
-                                </div>
+                                    {% endwith %}
+                                {% endwith %}
+                                {% endwith %}
+                                {% endwith %}
                             {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Algorithm Details -->
-            <div class="card mt-4">
-                <div class="card-header">
-                    <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i> Algorithm Details</h5>
-                </div>
-                <div class="card-body">
-                    <div class="row g-4">
-                        <div class="col-md-6">
-                            <table class="table table-borderless table-sm mb-0">
-                                <tbody>
-                                    <tr>
-                                        <th class="text-muted">Name</th>
-                                        <td class="fw-medium">{{ algorithm.name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-muted">Version</th>
-                                        <td>{{ algorithm.version }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-muted">Underlying</th>
-                                        <td class="fw-medium">{{ algorithm.underlying }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-muted">Lot Size</th>
-                                        <td>{{ algorithm.lot_size }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-muted">Max Lots</th>
-                                        <td>{{ algorithm.max_lots }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-md-6">
-                            <table class="table table-borderless table-sm mb-0">
-                                <tbody>
-                                    <tr>
-                                        <th class="text-muted">Entry Window</th>
-                                        <td>{{ algorithm.entry_window }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-muted">Exit Time</th>
-                                        <td>{{ algorithm.exit_time }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-muted">Strategy Type</th>
-                                        <td>{{ algorithm.strategy_type }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-muted">Risk Level</th>
-                                        <td>{{ algorithm.risk_level }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-muted">Expected Returns</th>
-                                        <td>{{ algorithm.expected_returns }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <hr class="my-4 bg-secondary bg-opacity-25">
-
-                    <h6 class="mb-3">Strategy Rules</h6>
-                    <ul class="list-group list-group-flush">
-                        {% for rule in strategy_rules %}
-                            <li class="list-group-item bg-transparent border-0 px-0 py-2 text-white">
-                                <i class="fas fa-check-circle text-success me-3"></i>
-                                {{ rule }}
-                            </li>
-                        {% empty %}
-                            <li class="text-muted">No rules defined.</li>
                         {% endfor %}
-                    </ul>
+                    {% endfor %}
+                </div>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-swatch" style="background: linear-gradient(135deg, rgba(0,255,157,0.25), rgba(0,255,157,0.05)); border-color: var(--primary);"></div>
+                        <span>Profit Day</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-swatch" style="background: linear-gradient(135deg, rgba(255,77,77,0.25), rgba(255,77,77,0.05)); border-color: var(--danger);"></div>
+                        <span>Loss Day</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-swatch" style="background: var(--day-bg); border-color: transparent;"></div>
+                        <span>No Trade</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-swatch" style="border-color: var(--accent); background: rgba(64,192,255,0.15);"></div>
+                        <span>Today</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="sidebar-card">
+                <div class="card-title">
+                    <i class="fas fa-chart-bar me-2"></i> Monthly Statistics
+                </div>
+                <div class="stats-list">
+                    <div class="stat-item">
+                        <span>Total P&L</span>
+                        <span class="{% if stats.total_pnl >= 0 %}text-green{% else %}text-red{% endif %} fw-bold">
+                            ₹{{ stats.total_pnl|floatformat:2|intcomma }}
+                        </span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Avg Daily P&L</span>
+                        <span class="{% if stats.average_pnl >= 0 %}text-green{% else %}text-red{% endif %}">
+                            ₹{{ stats.average_pnl|floatformat:2|intcomma }}
+                        </span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Profitable Days</span>
+                        <span class="text-green">{{ stats.positive_days }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Loss Days</span>
+                        <span class="text-red">{{ stats.negative_days }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Trading Days</span>
+                        <span>{{ stats.positive_days|add:stats.negative_days }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Best Day</span>
+                        <span class="text-green">₹{{ stats.max_pnl|floatformat:2|intcomma }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Worst Day</span>
+                        <span class="text-red">₹{{ stats.min_pnl|floatformat:2|intcomma }}</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Recent Logs -->
-            <div class="card mt-4">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0"><i class="fas fa-terminal me-2"></i> Recent Logs</h5>
-                    <small class="text-muted">Last 50 entries</small>
+            <div class="sidebar-card">
+                <div class="card-title">
+                    <i class="fas fa-list-alt me-2"></i> Daily P&L Details
                 </div>
-                <div class="card-body p-0" style="max-height: 340px; overflow-y: auto;">
-                    {% if recent_logs %}
-                        {% for log in recent_logs %}
-                            <div class="log-entry log-{{ log.level|lower }}">
-                                <div class="d-flex justify-content-between align-items-start">
-                                    <div class="d-flex align-items-center">
-                                        <span class="badge me-3
-                                            {% if log.level == 'INFO' %}bg-info
-                                            {% elif log.level == 'WARNING' %}bg-warning text-dark
-                                            {% elif log.level == 'ERROR' %}bg-danger
-                                            {% elif log.level == 'CRITICAL' %}bg-dark{% endif %}">
-                                            {{ log.level }}
-                                        </span>
-                                        <div>{{ log.message }}</div>
+                <div class="daily-list">
+                    {% if daily_pnl_records %}
+                        {% for record in daily_pnl_records %}
+                            <div class="daily-item {% if record.pnl >= 0 %}profit{% else %}loss{% endif %}">
+                                <div>
+                                    <strong>{{ record.date|date:"D, d M" }}</strong><br>
+                                    <small class="text-muted">{{ record.total_trades }} trades</small>
+                                </div>
+                                <div class="text-end">
+                                    <div class="{% if record.pnl >= 0 %}text-green{% else %}text-red{% endif %} fw-bold">
+                                        ₹{{ record.pnl|floatformat:2|intcomma }}
                                     </div>
-                                    <small class="text-muted ms-3 flex-shrink-0">
-                                        {{ log.timestamp|date:"H:i:s" }}
+                                    <small class="text-muted">
+                                        {{ record.win_trades }}W / {{ record.loss_trades }}L
                                     </small>
                                 </div>
                             </div>
                         {% endfor %}
                     {% else %}
-                        <div class="text-center py-5 text-muted">
-                            <i class="fas fa-history fa-2x mb-3 opacity-50"></i>
-                            <p>No recent logs available</p>
-                        </div>
+                        <p class="text-center text-muted py-4">No trading activity this month.</p>
                     {% endif %}
-                </div>
-            </div>
-        </div>
-
-        <!-- Sidebar -->
-        <div class="col-lg-4">
-            <!-- Performance Statistics -->
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i> Performance Statistics</h5>
-                </div>
-                <div class="card-body">
-                    {% if performance.best_day %}
-                        <div class="mb-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <strong>Best Day</strong>
-                                <div class="text-end">
-                                    <div class="fw-bold text-success">₹{{ performance.best_day.pnl|floatformat:2 }}</div>
-                                    <small>{{ performance.best_day.date }}</small>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-
-                    {% if performance.worst_day %}
-                        <div class="mb-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <strong>Worst Day</strong>
-                                <div class="text-end">
-                                    <div class="fw-bold text-danger">₹{{ performance.worst_day.pnl|floatformat:2 }}</div>
-                                    <small>{{ performance.worst_day.date }}</small>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-
-                    <div class="alert alert-info border-0 bg-info bg-opacity-10">
-                        <h6 class="mb-2"><i class="fas fa-lightbulb me-2"></i> Trading Tips</h6>
-                        <ul class="mb-0 small">
-                            <li>Algorithm active Mon, Wed, Thu, Fri</li>
-                            <li>No trading on Tuesdays & expiry days</li>
-                            <li>Auto exit at 3:00 PM IST</li>
-                            <li>Stop loss = daily target amount</li>
-                        </ul>
-                    </div>
-
-                    <hr class="my-4 bg-secondary bg-opacity-25">
-
-                    <h6 class="mb-3">Market Status</h6>
-                    <div class="market-status">
-                        <div class="d-flex justify-content-between mb-3">
-                            <span>Current Time (IST):</span>
-                            <strong id="current-time">Loading...</strong>
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <span>Market Hours:</span>
-                            <strong>9:15 – 15:30</strong>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <span>Status:</span>
-                            <strong id="market-status">Loading...</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Schedule -->
-            <div class="card mt-4">
-                <div class="card-header">
-                    <h5 class="mb-0"><i class="fas fa-clock me-2"></i> Weekly Schedule</h5>
-                </div>
-                <div class="card-body">
-                    <table class="table table-borderless table-sm mb-0">
-                        <tbody>
-                            <tr>
-                                <td><i class="fas fa-check-circle text-success me-2"></i> Monday</td>
-                                <td class="text-end">9:15 – 15:30</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-times-circle text-danger me-2"></i> Tuesday</td>
-                                <td class="text-end text-muted">No Trading</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-check-circle text-success me-2"></i> Wednesday</td>
-                                <td class="text-end">9:15 – 15:30</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-check-circle text-success me-2"></i> Thursday</td>
-                                <td class="text-end">9:15 – 15:30</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-check-circle text-success me-2"></i> Friday</td>
-                                <td class="text-end">9:15 – 15:30</td>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-times-circle text-danger me-2"></i> Weekends</td>
-                                <td class="text-end text-muted">No Trading</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="mt-3">
-                        <small class="text-muted">
-                            <i class="far fa-clock me-1"></i>
-                            Entry window: 9:21:00 – 9:21:30 IST
-                        </small>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Important Notes -->
-            <div class="card mt-4">
-                <div class="card-header">
-                    <h5 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i> Important Notes</h5>
-                </div>
-                <div class="card-body">
-                    <div class="alert alert-warning border-0 bg-warning bg-opacity-10 mb-3">
-                        <small>
-                            <strong>Disclaimer:</strong><br>
-                            Trading carries significant risk of loss. Past performance is not indicative of future results. Use at your own risk.
-                        </small>
-                    </div>
-
-                    <div class="alert alert-secondary border-0 bg-secondary bg-opacity-10">
-                        <small>
-                            <strong>Requirements:</strong><br>
-                            • Active Zerodha account with API access<br>
-                            • Sufficient margin for NIFTY options<br>
-                            • Stable, low-latency internet connection<br>
-                            • Algorithm active only Mon, Wed–Fri
-                        </small>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Toast Container for save feedback (only for staff) -->
-{% if user.is_staff %}
-<div class="toast-container position-fixed bottom-0 end-0 p-3">
-    <div id="save-toast" class="toast bg-success text-white" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header bg-success text-white">
-            <strong class="me-auto">Success</strong>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            Settings updated successfully!
-        </div>
-    </div>
-</div>
-{% endif %}
-
-<script>
-// Live time & market status (visible to all)
-function updateMarketStatus() {
-    const now = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-    const timeParts = now.split(', ');
-    const time = timeParts[1].split(':').slice(0,2).join(':');
-
-    document.getElementById('current-time').textContent = time + ' IST';
-
-    const hour = parseInt(time.split(':')[0]);
-    const minute = parseInt(time.split(':')[1]);
-    const day = new Date().getDay();
-
-    const isWeekday = day >= 1 && day <= 5;
-    const isTuesday = day === 2;
-    const inMarketHours = (hour > 9 || (hour === 9 && minute >= 15)) &&
-                          (hour < 15 || (hour === 15 && minute <= 30));
-
-    const statusEl = document.getElementById('market-status');
-
-    if (!isWeekday || isTuesday || !inMarketHours) {
-        statusEl.innerHTML = '<span class="text-danger fw-bold">CLOSED</span>';
-    } else {
-        statusEl.innerHTML = '<span class="text-success fw-bold">OPEN</span>';
-    }
-}
-
-updateMarketStatus();
-setInterval(updateMarketStatus, 1000);
-
-{% if user.is_staff %}
-    // Refresh bot status
-    function refreshBotStatus() {
-        fetch('{% url "bot_status" %}')
-            .then(response => response.json())
-            .then(data => {
-                const statusEl = document.querySelector('.status-indicator');
-                if (statusEl) {
-                    statusEl.className = `status-indicator status-${data.is_running ? 'running' : 'stopped'}`;
-                    statusEl.innerHTML = `<i class="fas fa-circle fa-xs"></i> ${data.is_running ? 'RUNNING' : 'STOPPED'}`;
-                }
-            })
-            .catch(() => {});
-    }
-    setInterval(refreshBotStatus, 15000);
-    refreshBotStatus();
-
-    // Save Max Lots Hard Cap
-    document.getElementById('save-max-lots')?.addEventListener('click', function() {
-        const value = parseInt(document.getElementById('max-lots-input').value);
-        if (isNaN(value) || value < 1 || value > 10) {
-            alert('Please enter a number between 1 and 10');
-            return;
-        }
-
-        fetch('{% url "update_max_lots" %}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}'
-            },
-            body: JSON.stringify({ max_lots_hard_cap: value })
-        })
-        .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                const toast = new bootstrap.Toast(document.getElementById('save-toast'));
-                toast.show();
-                document.getElementById('max-lots-input').value = data.new_value || value;
-            } else {
-                alert('Failed: ' + (data.error || 'Unknown error'));
-            }
-        })
-        .catch(err => {
-            alert('Save failed: ' + err.message);
-        });
-    });
-
-    // Strangle animation
-    function animateStrangle() {
-        const marker = document.getElementById('price-marker');
-        if (!marker) return;
-
-        const width = marker.parentElement.offsetWidth;
-        const pos = Math.random() * 0.8 + 0.1;
-        marker.style.left = (width * pos) + 'px';
-
-        const base = 24800;
-        const price = Math.round(base + (pos - 0.5) * 800);
-        document.getElementById('live-nifty').textContent = price.toLocaleString('en-IN');
-
-        document.getElementById('call-strike').textContent = (Math.round(price / 100) * 100 + 200).toLocaleString('en-IN');
-        document.getElementById('put-strike').textContent = (Math.round(price / 100) * 100 - 200).toLocaleString('en-IN');
-
-        const statuses = ["Active", "Delta neutral", "Approaching breakeven", "No position"];
-        document.getElementById('strangle-status').textContent = statuses[Math.floor(Math.random() * statuses.length)];
-    }
-    setInterval(animateStrangle, 5000);
-    animateStrangle();
-{% endif %}
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 {% endblock %}
