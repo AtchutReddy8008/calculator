@@ -176,16 +176,47 @@
             left: 0;
             width: 100%;
             height: 40px;
-            background: rgba(0,0,0,0.9);
+            background: rgba(8, 8, 12, 0.92);
             backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(0, 255, 157, 0.14);
             z-index: 9999;
             display: flex;
             align-items: center;
             overflow: hidden;
         }
-        .ticker-wrapper { display: flex; animation: scroll 30s linear infinite; }
-        .ticker-item { padding: 0 30px; font-family: var(--font-num); font-size: 0.85rem; white-space: nowrap; }
+        .ticker-wrapper {
+            display: flex;
+            animation: scroll 30s linear infinite;
+        }
+        .ticker-item {
+            padding: 0 36px;
+            font-family: var(--font-num);
+            font-size: 0.92rem;
+            white-space: nowrap;
+            color: #f0f0f5;
+            font-weight: 500;
+            letter-spacing: 0.4px;
+            transition: text-shadow 0.3s ease;
+        }
+        .ticker-item:hover {
+            text-shadow: 0 0 8px rgba(0, 255, 157, 0.4);
+        }
+        .ticker-symbol {
+            color: #ffffff;
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        .ticker-price {
+            color: #e0ffe8;
+            font-weight: 600;
+            min-width: 90px;
+            display: inline-block;
+            text-align: right;
+        }
+        .ticker-item .text-green,
+        .ticker-item .text-red {
+            font-weight: 700;
+        }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
         {% block extra_css %}{% endblock %}
     </style>
@@ -257,6 +288,7 @@
                             <div class="linkedin-icon">
                                 <i class="fab fa-linkedin-in"></i>
                             </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -265,8 +297,16 @@
     <div class="ticker-container">
         <div class="ticker-wrapper">
             {% for _ in "12345"|make_list %}
-            <div class="ticker-item"><span class="ticker-symbol">NIFTY</span> <span class="ticker-price">25,175.40</span> <span class="text-green ms-1">▲ 0.51%</span></div>
-            <div class="ticker-item"><span class="ticker-symbol">BANKNIFTY</span> <span class="ticker-price">59,452.30</span> <span class="text-green ms-1">▲ 0.34%</span></div>
+            <div class="ticker-item">
+                <span class="ticker-symbol">NIFTY</span>
+                <span class="ticker-price">25,175.40</span>
+                <span class="text-green ms-1">▲ 0.51%</span>
+            </div>
+            <div class="ticker-item">
+                <span class="ticker-symbol">BANKNIFTY</span>
+                <span class="ticker-price">59,452.30</span>
+                <span class="text-green ms-1">▲ 0.34%</span>
+            </div>
             {% endfor %}
         </div>
     </div>
