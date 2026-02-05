@@ -1,45 +1,45 @@
-# from django.contrib import admin
-# from django.urls import path, include
-# from django.contrib.auth import views as auth_views
-# from trading import views
-
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-#     path('', views.home, name='home'),
-#     path('dashboard/', views.dashboard, name='dashboard'),
-#     path('broker/', views.broker_page, name='broker'),
-#     path('pnl-calendar/', views.pnl_calendar, name='pnl_calendar'),
-#     path('algorithms/', views.algorithms_page, name='algorithms'),
-#     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
-#     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-#     path('signup/', views.signup, name='signup'),
-#     path('connect-zerodha/', views.connect_zerodha, name='connect_zerodha'),
-#     path('start-bot/', views.start_bot, name='start_bot'),
-#     path('stop-bot/', views.stop_bot, name='stop_bot'),
-#     path('bot-status/', views.bot_status, name='bot_status'),
-# ]
-# niftybot/urls.py
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from trading import views
 
 urlpatterns = [
+    # ───────────────────────────────────────────────
+    # Admin & Auth
+    # ───────────────────────────────────────────────
     path('admin/', admin.site.urls),
 
-    # Public pages (no login required)
+    # Public / Auth pages (no login required for some)
     path('', views.home, name='home'),
     path('signup/', views.signup, name='signup'),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    # Protected pages (login required)
+
+    # ───────────────────────────────────────────────
+    # Main App Pages (login required)
+    # ───────────────────────────────────────────────
     path('dashboard/', views.dashboard, name='dashboard'),
     path('broker/', views.broker_page, name='broker'),
     path('pnl-calendar/', views.pnl_calendar, name='pnl_calendar'),
-    path('algorithms/', views.algorithms_page, name='algorithms'),
     path('connect-zerodha/', views.connect_zerodha, name='connect_zerodha'),
+
+    # Bot control endpoints
     path('start-bot/', views.start_bot, name='start_bot'),
     path('stop-bot/', views.stop_bot, name='stop_bot'),
     path('bot-status/', views.bot_status, name='bot_status'),
     path('update-max-lots/', views.update_max_lots, name='update_max_lots'),
+
+    # ───────────────────────────────────────────────
+    # Strategies Section – New structure as per client request
+    # ───────────────────────────────────────────────
+    # Main Strategies overview page (shows 4 cards)
+    path('strategies/', views.strategies_list, name='strategies_list'),
+
+    # Short Strangle – full detailed control page (your existing algorithms_page)
+    path('strategies/short-strangle/', views.algorithms_page, name='short_strangle_detail'),
+
+    # Future strategies – placeholder pages (you can reuse or create new views later)
+    path('strategies/delta-btcusd/', views.coming_soon_placeholder, name='delta_btcusd_detail'),
+    path('strategies/nifty-buy/', views.coming_soon_placeholder, name='nifty_buy_detail'),
+    path('strategies/nifty-sell/', views.coming_soon_placeholder, name='nifty_sell_detail'),
 ]

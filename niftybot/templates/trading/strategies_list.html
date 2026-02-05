@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+
+{% block title %}Strategies - Trade with Naman{% endblock %}
+
+{% block extra_css %}
+<style>
+    :root {
+        --bg: #0f121a;
+        --surface: rgba(20, 25, 35, 0.88);
+        --surface-hover: rgba(30, 40, 55, 0.95);
+        --border: rgba(94, 140, 255, 0.18);
+        --text: #f1f5f9;
+        --text-light: #e5efff;
+        --text-muted: #cbd5e1;
+        --primary: #5e8cff;
+        --success: #34d399;
+        --danger: #ff6b6b;
+        --warning: #ffca6b;
+        --glow: rgba(94, 140, 255, 0.15);
+        --coming-soon: #a78bfa;
+        --coming-soon-dark: #7c3aed;
+    }
+
+    body {
+        background: var(--bg);
+        color: var(--text);
+    }
+
+    h1 {
+        color: var(--text-light);
+        text-shadow: 0 2px 12px rgba(94,140,255,0.25);
+    }
+
+    .strategy-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1.8rem;
+        margin-top: 2.5rem;
+    }
+
+    .strategy-card {
+        background: var(--surface);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        position: relative;
+        height: 100%;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+    }
+
+    .strategy-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 70px rgba(0,0,0,0.5);
+        border-color: var(--primary);
+    }
+
+    .strategy-card .card-body {
+        padding: 2.2rem 1.8rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .strategy-icon {
+        font-size: 3.2rem;
+        margin-bottom: 1.4rem;
+        transition: transform 0.4s ease;
+    }
+
+    .strategy-card:hover .strategy-icon {
+        transform: scale(1.15);
+    }
+
+    .strategy-card h4 {
+        font-size: 1.65rem;
+        margin-bottom: 1rem;
+        color: var(--text-light);
+    }
+
+    .strategy-card p {
+        color: var(--text-muted);
+        margin-bottom: 1.8rem;
+        flex-grow: 1;
+        font-size: 0.98rem;
+        line-height: 1.6;
+    }
+
+    .btn-open {
+        margin-top: auto;
+        padding: 0.85rem 2.2rem;
+        font-size: 1.1rem;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.35s ease;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    .btn-open:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    }
+
+    .coming-soon-badge {
+        position: absolute;
+        top: 1.2rem;
+        right: 1.2rem;
+        background: linear-gradient(135deg, var(--coming-soon-dark), var(--coming-soon));
+        color: white;
+        padding: 0.45rem 1.3rem;
+        border-radius: 50px;
+        font-size: 0.88rem;
+        font-weight: 700;
+        box-shadow: 0 4px 14px rgba(167,139,250,0.35);
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 0.45rem 1.1rem;
+        border-radius: 50px;
+        font-size: 0.92rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .status-active {
+        background: rgba(52, 211, 153, 0.22);
+        color: #34d399;
+        border: 1px solid rgba(52, 211, 153, 0.5);
+    }
+
+    .status-coming {
+        background: rgba(167, 139, 250, 0.18);
+        color: #a78bfa;
+        border: 1px solid rgba(167, 139, 250, 0.4);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1>
+            <i class="fas fa-brain me-3" style="color:var(--primary);"></i>
+            Trading Strategies
+        </h1>
+        <p class="lead text-muted mt-3" style="max-width: 720px; margin: 0 auto;">
+            Choose from our growing suite of institutional-grade algorithms — 
+            designed for different market conditions, risk profiles, and reward targets.
+        </p>
+    </div>
+
+    <div class="strategy-grid">
+        {% for strategy in strategies %}
+        <div class="strategy-card">
+            {% if strategy.status == 'coming_soon' %}
+                <span class="coming-soon-badge">COMING SOON</span>
+            {% endif %}
+
+            <div class="card-body">
+                <i class="{{ strategy.icon }} strategy-icon" 
+                   style="color: {% if strategy.status == 'active' %}var(--success){% else %}var(--coming-soon){% endif %}"></i>
+                
+                <h4>{{ strategy.name }}</h4>
+                
+                <span class="status-badge status-{% if strategy.status == 'active' %}active{% else %}coming{% endif %}">
+                    {% if strategy.status == 'active' %}LIVE{% else %}In Development{% endif %}
+                </span>
+
+                <p>{{ strategy.description }}</p>
+
+                {% if strategy.status == 'active' %}
+                    <a href="{% url strategy.url_name %}" class="btn btn-success btn-open">
+                        <i class="fas fa-play me-2"></i> Open Strategy
+                    </a>
+                {% else %}
+                    <button class="btn btn-secondary btn-open disabled">
+                        <i class="fas fa-clock me-2"></i> Not Available Yet
+                    </button>
+                    <small class="text-muted d-block mt-3">
+                        Expected release: 2026
+                    </small>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="text-center mt-5 pt-4">
+        <small class="text-muted" style="font-size: 1rem;">
+            Short Strangle is currently live and fully controllable.<br>
+            Delta BTCUSD, Nifty Buy, and Nifty Sell are under active development — launching throughout 2026.
+        </small>
+    </div>
+</div>
+{% endblock %}

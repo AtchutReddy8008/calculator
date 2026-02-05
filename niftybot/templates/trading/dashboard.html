@@ -315,7 +315,7 @@
     /* Dashboard-specific small footer */
     .dashboard-footer {
         margin-top: 8rem;
-        margin-bottom :1rem
+        margin-bottom: 1rem;
         padding: 2rem 0;
         text-align: center;
         color: var(--text-muted);
@@ -338,6 +338,21 @@
     .dashboard-footer a:hover {
         color: #79c0ff;
         text-decoration: underline;
+    }
+
+    /* Mobile optimizations */
+    @media (max-width: 767px) {
+        .stat-card .value {
+            font-size: 1.8rem;
+        }
+        .quick-nav .btn {
+            height: auto;
+            padding: 1rem 0.8rem;
+            font-size: 0.95rem;
+        }
+        h1 {
+            font-size: 2rem;
+        }
     }
 </style>
 {% endblock %}
@@ -388,7 +403,7 @@
 
         <!-- Quick Stats -->
         <div class="row g-4">
-            <div class="col-md-3">
+            <div class="col-md-3 col-6">
                 <div class="stat-card">
                     <div class="value">
                         {% if bot_status.is_running %}
@@ -402,7 +417,7 @@
                     <div class="label">Bot Status</div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-6">
                 <div class="stat-card">
                     <div class="value {% if daily_pnl.pnl >= 0 %}profit{% else %}loss{% endif %}" data-countup="{{ daily_pnl.pnl|default:0 }}">
                         ₹{{ daily_pnl.pnl|default:0|floatformat:2 }}
@@ -410,7 +425,7 @@
                     <div class="label">Today's P&L</div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-6">
                 <div class="stat-card">
                     <div class="value {% if weekly_pnl >= 0 %}profit{% else %}loss{% endif %}" data-countup="{{ weekly_pnl|default:0 }}">
                         ₹{{ weekly_pnl|floatformat:2 }}
@@ -418,7 +433,7 @@
                     <div class="label">Weekly P&L</div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 col-6">
                 <div class="stat-card">
                     <div class="value {% if monthly_pnl >= 0 %}profit{% else %}loss{% endif %}" data-countup="{{ monthly_pnl|default:0 }}">
                         ₹{{ monthly_pnl|floatformat:2 }}
@@ -485,8 +500,8 @@
                                                 </button>
                                             </form>
                                         {% endif %}
-                                        <a href="{% url 'algorithms' %}" class="btn btn-outline-primary btn-lg">
-                                            <i class="fas fa-cogs me-2"></i> Algorithm Settings
+                                        <a href="{% url 'strategies_list' %}" class="btn btn-outline-primary btn-lg">
+                                            <i class="fas fa-brain me-2"></i> Strategies
                                         </a>
                                     </div>
                                 {% else %}
@@ -647,8 +662,8 @@
                                 </a>
                             </div>
                             <div class="col-md-3 col-6">
-                                <a href="{% url 'algorithms' %}" class="btn btn-outline-info w-100 py-3">
-                                    <i class="fas fa-robot me-2"></i> Algorithms
+                                <a href="{% url 'strategies_list' %}" class="btn btn-outline-info w-100 py-3">
+                                    <i class="fas fa-brain me-2"></i> Strategies
                                 </a>
                             </div>
                             <div class="col-md-3 col-6">
@@ -666,7 +681,7 @@
         <div class="dashboard-footer mt-5">
             <p>
                 <strong>Dashboard</strong> • 
-                <a href="{% url 'algorithms' %}">Algorithm Control</a> • 
+                <a href="{% url 'strategies_list' %}">Strategies</a> • 
                 <a href="{% url 'broker' %}">Broker Settings</a>
             </p>
             <p class="text-muted small">
@@ -678,7 +693,7 @@
 </main>
 
 <script>
-// Original scripts unchanged
+// Bot status refresh (runs every 30 seconds + initial load)
 function refreshBotStatus() {
     $.ajax({
         url: '{% url "bot_status" %}',
@@ -690,12 +705,17 @@ function refreshBotStatus() {
             } else {
                 statusEl.html('<i class="fas fa-stop-circle text-danger me-2"></i> Stopped');
             }
+        },
+        error: function() {
+            console.warn('Bot status refresh failed');
         }
     });
 }
 
 setInterval(refreshBotStatus, 30000);
+refreshBotStatus(); // Run once on page load
 
+// Count-up animation for P&L values
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[data-countup]').forEach(el => {
         const target = parseFloat(el.getAttribute('data-countup'));
