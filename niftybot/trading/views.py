@@ -300,14 +300,14 @@ def get_current_streak(user):
 def start_bot(request):
     if not request.user.is_staff:
         messages.error(request, "Only staff users are allowed to run algorithms.")
-        return redirect('algorithms')
+        return redirect('dashboard')
 
     user = request.user
     bot_status = BotStatus.objects.filter(user=user).first()
 
     if bot_status and bot_status.is_running:
         messages.warning(request, 'Bot is already running. No new task launched.')
-        return redirect('algorithms')
+        return redirect('dashboard')
 
     broker = Broker.objects.filter(user=user, broker_name='ZERODHA', is_active=True).first()
     if not broker or not broker.access_token:
@@ -349,7 +349,7 @@ def start_bot(request):
         )
         messages.error(request, error_msg)
 
-    return redirect('algorithms')
+    return redirect('dashboard')
 
 
 @login_required
@@ -358,14 +358,14 @@ def start_bot(request):
 def stop_bot(request):
     if not request.user.is_staff:
         messages.error(request, "Only staff users are allowed to control the bot.")
-        return redirect('algorithms')
+        return redirect('dashboard')
 
     user = request.user
     bot_status = get_object_or_404(BotStatus, user=user)
 
     if not bot_status.is_running:
         messages.warning(request, 'Bot is not running.')
-        return redirect('algorithms')
+        return redirect('dashboard')
 
     revoked = False
     if bot_status.celery_task_id:
@@ -398,7 +398,7 @@ def stop_bot(request):
     )
 
     messages.success(request, 'Bot stop requested. Refresh page to confirm.')
-    return redirect('algorithms')
+    return redirect('dashboard')
 
 
 @login_required
