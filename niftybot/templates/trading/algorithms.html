@@ -300,7 +300,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0"><i class="fas fa-cogs me-2"></i> Algorithm Control Panel</h5>
-                    <div class="status-indicator status-{% if bot_status.is_running %}running{% else %}stopped{% endif %}">
+                    <div class="status-indicator status-{% if bot_status.is_running %}running{% else %}stopped{% endif %}" id="status-indicator">
                         <i class="fas fa-circle fa-xs"></i>
                         {{ bot_status.is_running|yesno:"RUNNING,STOPPED" }}
                     </div>
@@ -312,27 +312,27 @@
                             <div class="mb-4">
                                 <h6 class="text-muted mb-3">Current Status</h6>
                                 <div class="d-flex align-items-center mb-3">
-                                    <div class="status-indicator status-{% if bot_status.is_running %}running{% else %}stopped{% endif %} px-3 py-2">
+                                    <div class="status-indicator status-{% if bot_status.is_running %}running{% else %}stopped{% endif %} px-3 py-2" id="status-active">
                                         <i class="fas fa-power-off me-2"></i>
                                         {{ bot_status.is_running|yesno:"Active,Inactive" }}
                                     </div>
                                     <div class="ms-3">
                                         {% if bot_status.is_running %}
-                                            <small>Started {{ bot_status.last_started|timesince }} ago</small>
+                                            <small id="status-time">Started {{ bot_status.last_started|timesince }} ago</small>
                                         {% else %}
-                                            <small>Stopped {{ bot_status.last_stopped|timesince }} ago</small>
+                                            <small id="status-time">Stopped {{ bot_status.last_stopped|timesince }} ago</small>
                                         {% endif %}
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Today's Target & Stop-Loss (Read-only – set by bot) -->
+                            <!-- Today's Target & Stop-Loss -->
                             <div class="mb-4">
                                 <h6 class="text-muted mb-3">Today's Target & Stop-Loss</h6>
                                 <div class="row g-3">
                                     <div class="col-6">
                                         <div class="stat-card-sm">
-                                            <div class="value text-success">
+                                            <div class="value text-success" id="daily-target">
                                                 {% if daily_target and daily_target != 0 %}
                                                     ₹{{ daily_target|floatformat:0 }}
                                                 {% else %}
@@ -344,7 +344,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="stat-card-sm">
-                                            <div class="value text-danger">
+                                            <div class="value text-danger" id="daily-stop">
                                                 {% if daily_stop_loss and daily_stop_loss != 0 %}
                                                     ₹{{ daily_stop_loss|floatformat:0 }}
                                                 {% else %}
@@ -440,7 +440,6 @@
                                         </small>
                                     </div>
                                 {% else %}
-                                    <!-- Non-staff users see this restricted access card instead of buttons -->
                                     <div class="restricted-access-card">
                                         <i class="fas fa-lock fa-3x"></i>
                                         <h4>Algorithm Control Restricted</h4>
@@ -455,15 +454,13 @@
                                 {% endif %}
                             </div>
 
-                            <!-- Short Strangle Live Visualization (visible to everyone) -->
+                            <!-- Short Strangle Live Visualization -->
                             <div class="mt-4 pt-2">
                                 <h6 class="text-muted mb-3 text-center">Current Strangle Position (Live Sketch)</h6>
                                 
                                 <div class="position-relative" style="height: 140px; max-width: 340px; margin: 0 auto;">
-                                    <!-- Horizontal price line -->
                                     <div style="position: absolute; top: 70px; left: 0; right: 0; height: 2px; background: rgba(255,255,255,0.18);"></div>
                                     
-                                    <!-- Price label in center -->
                                     <div id="current-price-label" 
                                          style="position: absolute; top: 48px; left: 50%; transform: translateX(-50%);
                                                 background: rgba(30,40,55,0.9); color: #a5b4fc; padding: 0.35rem 0.9rem;
@@ -472,7 +469,6 @@
                                         NIFTY ≈ <span id="live-nifty">---</span>
                                     </div>
 
-                                    <!-- Short Call leg -->
                                     <div class="strangle-leg call-leg"
                                          style="position: absolute; top: 10px; width: 120px; height: 50px; right: 20px; 
                                                 border: 2px dashed #ff6b6b; border-radius: 10px 10px 0 0; border-bottom: none;
@@ -489,7 +485,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- Short Put leg -->
                                     <div class="strangle-leg put-leg"
                                          style="position: absolute; bottom: 10px; width: 120px; height: 50px; left: 20px; 
                                                 border: 2px dashed #34d399; border-radius: 0 0 10px 10px; border-top: none;
@@ -506,7 +501,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- Animated price marker -->
                                     <div id="price-marker" 
                                          style="position: absolute; top: 62px; width: 18px; height: 18px; margin-left: -9px;
                                                 background: #a5b4fc; border-radius: 50%; border: 3px solid #6366f1;
@@ -525,7 +519,7 @@
                             {% if bot_status.last_error %}
                                 <div class="alert alert-danger mt-4">
                                     <h6 class="mb-2"><i class="fas fa-exclamation-triangle me-2"></i> Last Error</h6>
-                                    <pre class="mb-0 bg-transparent border-0 text-white font-monospace" style="font-size: 0.88rem; white-space: pre-wrap;">{{ bot_status.last_error|truncatechars:320 }}</pre>
+                                    <pre class="mb-0 bg-transparent border-0 text-white font-monospace" style="font-size: 0.88rem; white-space: pre-wrap;" id="last-error">{{ bot_status.last_error|truncatechars:320 }}</pre>
                                 </div>
                             {% endif %}
                         </div>
@@ -616,7 +610,7 @@
                     <h5 class="mb-0"><i class="fas fa-terminal me-2"></i> Recent Logs</h5>
                     <small class="text-muted">Last 50 entries</small>
                 </div>
-                <div class="card-body p-0" style="max-height: 340px; overflow-y: auto;">
+                <div class="card-body p-0" style="max-height: 340px; overflow-y: auto;" id="logs-container">
                     {% if recent_logs %}
                         {% for log in recent_logs %}
                             <div class="log-entry log-{{ log.level|lower }}">
@@ -826,21 +820,50 @@ updateMarketStatus();
 setInterval(updateMarketStatus, 1000);
 
 {% if user.is_staff %}
-    // Refresh bot status
-    function refreshBotStatus() {
+    // ────────────────────────────────────────────────
+    // LIVE REFRESH FOR P&L, STATUS, TARGET, etc.
+    // ────────────────────────────────────────────────
+    function refreshBotData() {
         fetch('{% url "bot_status" %}')
             .then(response => response.json())
             .then(data => {
-                const statusEl = document.querySelector('.status-indicator');
-                if (statusEl) {
-                    statusEl.className = `status-indicator status-${data.is_running ? 'running' : 'stopped'}`;
-                    statusEl.innerHTML = `<i class="fas fa-circle fa-xs"></i> ${data.is_running ? 'RUNNING' : 'STOPPED'}`;
+                // Status indicator
+                const statusEl = document.getElementById('status-indicator');
+                const activeEl = document.getElementById('status-active');
+                const timeEl = document.getElementById('status-time');
+
+                if (data.is_running) {
+                    statusEl.className = 'status-indicator status-running';
+                    statusEl.innerHTML = '<i class="fas fa-circle fa-xs"></i> RUNNING';
+                    activeEl.className = 'status-indicator status-running px-3 py-2';
+                    activeEl.innerHTML = '<i class="fas fa-power-off me-2"></i> Active';
+                    timeEl.textContent = 'Started ' + (data.last_started ? new Date(data.last_started).toLocaleString() : 'recently');
+                } else {
+                    statusEl.className = 'status-indicator status-stopped';
+                    statusEl.innerHTML = '<i class="fas fa-circle fa-xs"></i> STOPPED';
+                    activeEl.className = 'status-indicator status-stopped px-3 py-2';
+                    activeEl.innerHTML = '<i class="fas fa-power-off me-2"></i> Inactive';
+                    timeEl.textContent = 'Stopped ' + (data.last_stopped ? new Date(data.last_stopped).toLocaleString() : 'recently');
                 }
+
+                // P&L & Target/Stop
+                document.getElementById('daily-target').textContent = data.daily_target ? '₹' + data.daily_target.toLocaleString() : '---';
+                document.getElementById('daily-stop').textContent = data.daily_stop_loss ? '₹' + data.daily_stop_loss.toLocaleString() : '---';
+
+                // Last error (if exists)
+                const errorEl = document.getElementById('last-error');
+                if (errorEl && data.last_error && data.last_error !== 'None') {
+                    errorEl.textContent = data.last_error;
+                }
+
+                console.log('Bot data refreshed:', data);
             })
-            .catch(() => {});
+            .catch(err => console.error('Failed to refresh bot data:', err));
     }
-    setInterval(refreshBotStatus, 15000);
-    refreshBotStatus();
+
+    // Run immediately + every 12 seconds
+    refreshBotData();
+    setInterval(refreshBotData, 12000);
 
     // Save Max Lots Hard Cap
     document.getElementById('save-max-lots')?.addEventListener('click', function() {
@@ -876,7 +899,7 @@ setInterval(updateMarketStatus, 1000);
         });
     });
 
-    // Strangle animation
+    // Strangle animation (fake/demo)
     function animateStrangle() {
         const marker = document.getElementById('price-marker');
         if (!marker) return;

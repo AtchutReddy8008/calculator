@@ -143,11 +143,24 @@ class BotStatus(models.Model):
         verbose_name="Today's Stop Loss (₹)"
     )
     
-    # NEW: User-configurable max lots cap (used in bot logic)
+    # User-configurable max lots cap (used in bot logic)
     max_lots_hard_cap = models.PositiveIntegerField(
         default=1,
         validators=[MinValueValidator(1), MaxValueValidator(10)],
         help_text="Maximum lots the bot is allowed to trade (1 = safest)"
+    )
+    
+    # ─── NEW FIELDS TO PREVENT MULTIPLE ENTRIES ───
+    entry_attempted_date = models.DateField(
+        null=True,
+        blank=True,
+        help_text="Date on which an entry was last attempted (prevents duplicate entries same day)"
+    )
+    
+    last_successful_entry = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="Timestamp of the last successful trade entry"
     )
     
     state_json = models.JSONField(default=dict, blank=True)
