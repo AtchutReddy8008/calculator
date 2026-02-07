@@ -87,16 +87,6 @@ DATABASES = {
     }
 }
 
-<<<<<<< HEAD
-# Uncomment and configure PostgreSQL for production (highly recommended)
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'niftybot_db',
-#         'USER': 'your_db_user',
-#         'PASSWORD': 'your_db_password',
-#         'HOST': 'localhost',
-=======
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
@@ -104,7 +94,6 @@ DATABASES = {
 #         'USER': 'postgres',
 #         'PASSWORD': 'Atchut1234',
 #         'HOST': 'mydb.cfao4qgschot.ap-south-1.rds.amazonaws.com',
->>>>>>> 4f1266f2 (Initial commit)
 #         'PORT': '5432',
 #     }
 # }
