@@ -267,19 +267,15 @@
         transition: all 0.35s ease;
     }
 
-    .btn-success {
-        background: var(--success);
-        border: none;
+    .btn-primary-outline {
+        border: 2px solid var(--primary);
+        color: var(--primary);
+        background: transparent;
     }
 
-    .btn-danger {
-        background: var(--danger);
-        border: none;
-    }
-
-    .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    .btn-primary-outline:hover {
+        background: var(--primary);
+        color: white;
     }
 
     .table-hover tbody tr:hover {
@@ -405,7 +401,7 @@
         <div class="row g-4">
             <div class="col-md-3 col-6">
                 <div class="stat-card">
-                    <div class="value">
+                    <div class="value" id="bot-status-value">
                         {% if bot_status.is_running %}
                             <i class="fas fa-play-circle text-success status-running me-2"></i>
                             Running
@@ -414,12 +410,12 @@
                             Stopped
                         {% endif %}
                     </div>
-                    <div class="label">Bot Status</div>
+                    <div class="label">Aglo Status</div>
                 </div>
             </div>
             <div class="col-md-3 col-6">
                 <div class="stat-card">
-                    <div class="value {% if daily_pnl.pnl >= 0 %}profit{% else %}loss{% endif %}" data-countup="{{ daily_pnl.pnl|default:0 }}">
+                    <div class="value {% if daily_pnl.pnl >= 0 %}profit{% else %}loss{% endif %}" id="today-pnl">
                         ₹{{ daily_pnl.pnl|default:0|floatformat:2 }}
                     </div>
                     <div class="label">Today's P&L</div>
@@ -427,7 +423,7 @@
             </div>
             <div class="col-md-3 col-6">
                 <div class="stat-card">
-                    <div class="value {% if weekly_pnl >= 0 %}profit{% else %}loss{% endif %}" data-countup="{{ weekly_pnl|default:0 }}">
+                    <div class="value {% if weekly_pnl >= 0 %}profit{% else %}loss{% endif %}" id="weekly-pnl">
                         ₹{{ weekly_pnl|floatformat:2 }}
                     </div>
                     <div class="label">Weekly P&L</div>
@@ -435,7 +431,7 @@
             </div>
             <div class="col-md-3 col-6">
                 <div class="stat-card">
-                    <div class="value {% if monthly_pnl >= 0 %}profit{% else %}loss{% endif %}" data-countup="{{ monthly_pnl|default:0 }}">
+                    <div class="value {% if monthly_pnl >= 0 %}profit{% else %}loss{% endif %}" id="monthly-pnl">
                         ₹{{ monthly_pnl|floatformat:2 }}
                     </div>
                     <div class="label">Monthly P&L</div>
@@ -448,18 +444,20 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="mb-0"><i class="fas fa-robot me-2"></i> Bot Control Panel</h5>
+                        <h5 class="mb-0"><i class="fas fa-robot me-2"></i> Algo Control Panel</h5>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <h6 class="mb-3">Current Status</h6>
                                 <p><strong>Status:</strong> 
-                                    {% if bot_status.is_running %}
-                                        <span class="status-running"><i class="fas fa-play-circle me-1"></i> RUNNING</span>
-                                    {% else %}
-                                        <span class="text-danger"><i class="fas fa-stop-circle me-1"></i> STOPPED</span>
-                                    {% endif %}
+                                    <span id="bot-status-detail">
+                                        {% if bot_status.is_running %}
+                                            <span class="status-running"><i class="fas fa-play-circle me-1"></i> RUNNING</span>
+                                        {% else %}
+                                            <span class="text-danger"><i class="fas fa-stop-circle me-1"></i> STOPPED</span>
+                                        {% endif %}
+                                    </span>
                                 </p>
                                 <p><strong>Last Started:</strong> 
                                     {% if bot_status.last_started %}
@@ -476,50 +474,26 @@
                                     {% endif %}
                                 </p>
                                 <p><strong>Current P&L:</strong> 
-                                    <span class="{% if bot_status.current_unrealized_pnl >= 0 %}profit{% else %}loss{% endif %} fw-bold">
+                                    <span id="current-pnl" class="{% if bot_status.current_unrealized_pnl >= 0 %}profit{% else %}loss{% endif %} fw-bold">
                                         ₹{{ bot_status.current_unrealized_pnl|floatformat:2 }}
                                     </span>
                                 </p>
                             </div>
                             <div class="col-md-6">
                                 <h6 class="mb-3">Quick Actions</h6>
-                                {% if user.is_staff %}
-                                    <div class="d-grid gap-3">
-                                        {% if bot_status.is_running %}
-                                            <form action="{% url 'stop_bot' %}" method="post">
-                                                {% csrf_token %}
-                                                <button type="submit" class="btn btn-danger btn-lg">
-                                                    <i class="fas fa-stop me-2"></i> Stop Bot
-                                                </button>
-                                            </form>
-                                        {% else %}
-                                            <form action="{% url 'start_bot' %}" method="post">
-                                                {% csrf_token %}
-                                                <button type="submit" class="btn btn-success btn-lg">
-                                                    <i class="fas fa-play me-2"></i> Start Bot
-                                                </button>
-                                            </form>
-                                        {% endif %}
-                                        <a href="{% url 'strategies_list' %}" class="btn btn-outline-primary btn-lg">
-                                            <i class="fas fa-brain me-2"></i> Strategies
-                                        </a>
-                                    </div>
-                                {% else %}
-                                    <div class="alert alert-info">
-                                        <i class="fas fa-lock me-2"></i>
-                                        <strong>Trading control is restricted.</strong><br>
-                                        Contact admin to start/stop the bot or run algorithms.
-                                        <p>📞 Admin Contact: +91 8008603917</p>
-                                    </div>
-                                    <button class="btn btn-secondary btn-lg w-100 disabled mt-3">
-                                        <i class="fas fa-lock me-2"></i> Bot Control (Staff Only)
-                                    </button>
-                                {% endif %}
+                                <div class="d-grid gap-3">
+                                    <a href="{% url 'strategies_list' %}" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-brain me-2"></i> View Strategies & Run Algo
+                                    </a>
+                                    <a href="{% url 'strategies_list' %}" class="btn btn-outline-primary btn-lg">
+                                        <i class="fas fa-cogs me-2"></i> Manage Algos
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
                         {% if bot_status.last_error %}
-                            <div class="mt-4 alert alert-danger">
+                            <div class="mt-4 alert alert-danger" id="last-error-alert">
                                 <strong><i class="fas fa-exclamation-circle me-2"></i> Last Error:</strong>
                                 <pre class="mb-0 mt-2 bg-transparent border-0 text-danger" style="font-size: 0.92rem;">{{ bot_status.last_error|truncatechars:400 }}</pre>
                             </div>
@@ -693,49 +667,72 @@
 </main>
 
 <script>
-// Bot status refresh (runs every 30 seconds + initial load)
-function refreshBotStatus() {
-    $.ajax({
-        url: '{% url "bot_status" %}',
-        type: 'GET',
-        success: function(data) {
-            const statusEl = $('.stat-card .value').eq(0);
-            if (data.is_running) {
-                statusEl.html('<i class="fas fa-play-circle text-success status-running me-2"></i> Running');
+// Full dashboard refresh every 45 seconds
+function refreshDashboard() {
+    fetch('{% url "dashboard_stats" %}')
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(data => {
+            // Bot Status (Quick Stats card)
+            const statusValueEl = document.getElementById('bot-status-value');
+            const statusDetailEl = document.getElementById('bot-status-detail');
+            if (data.bot_running) {
+                statusValueEl.innerHTML = '<i class="fas fa-play-circle text-success status-running me-2"></i> Running';
+                statusDetailEl.innerHTML = '<span class="status-running"><i class="fas fa-play-circle me-1"></i> RUNNING</span>';
             } else {
-                statusEl.html('<i class="fas fa-stop-circle text-danger me-2"></i> Stopped');
+                statusValueEl.innerHTML = '<i class="fas fa-stop-circle text-danger me-2"></i> Stopped';
+                statusDetailEl.innerHTML = '<span class="text-danger"><i class="fas fa-stop-circle me-1"></i> STOPPED</span>';
             }
-        },
-        error: function() {
-            console.warn('Bot status refresh failed');
-        }
-    });
+
+            // Today's P&L
+            const todayEl = document.getElementById('today-pnl');
+            const todayValue = data.daily_pnl.toFixed(2);
+            todayEl.textContent = `₹${todayValue}`;
+            todayEl.className = `value ${data.daily_pnl >= 0 ? 'profit' : 'loss'}`;
+
+            // Weekly P&L
+            const weeklyEl = document.getElementById('weekly-pnl');
+            const weeklyValue = data.weekly_pnl.toFixed(2);
+            weeklyEl.textContent = `₹${weeklyValue}`;
+            weeklyEl.className = `value ${data.weekly_pnl >= 0 ? 'profit' : 'loss'}`;
+
+            // Monthly P&L
+            const monthlyEl = document.getElementById('monthly-pnl');
+            const monthlyValue = data.monthly_pnl.toFixed(2);
+            monthlyEl.textContent = `₹${monthlyValue}`;
+            monthlyEl.className = `value ${data.monthly_pnl >= 0 ? 'profit' : 'loss'}`;
+
+            // Current Unrealized P&L (in Bot Control card)
+            const currentPnlEl = document.getElementById('current-pnl');
+            if (currentPnlEl) {
+                const currentValue = data.current_unrealized_pnl.toFixed(2);
+                currentPnlEl.textContent = `₹${currentValue}`;
+                currentPnlEl.className = data.current_unrealized_pnl >= 0 ? 'profit fw-bold' : 'loss fw-bold';
+            }
+
+            // Last Error alert
+            const errorAlert = document.getElementById('last-error-alert');
+            if (data.last_error) {
+                if (errorAlert) {
+                    errorAlert.innerHTML = `
+                        <strong><i class="fas fa-exclamation-circle me-2"></i> Last Error:</strong>
+                        <pre class="mb-0 mt-2 bg-transparent border-0 text-danger" style="font-size: 0.92rem;">${data.last_error}</pre>
+                    `;
+                    errorAlert.style.display = 'block';
+                }
+            } else if (errorAlert) {
+                errorAlert.style.display = 'none';
+            }
+        })
+        .catch(err => {
+            console.warn('Dashboard stats refresh failed:', err);
+        });
 }
 
-setInterval(refreshBotStatus, 30000);
-refreshBotStatus(); // Run once on page load
-
-// Count-up animation for P&L values
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('[data-countup]').forEach(el => {
-        const target = parseFloat(el.getAttribute('data-countup'));
-        if (isNaN(target)) return;
-
-        let start = 0;
-        const duration = 1800;
-        const stepTime = 30;
-        const steps = duration / stepTime;
-        const increment = target / steps;
-
-        const timer = setInterval(() => {
-            start += increment;
-            if (start >= target) {
-                start = target;
-                clearInterval(timer);
-            }
-            el.textContent = '₹' + start.toFixed(2);
-        }, stepTime);
-    });
-});
+// Run immediately and then every 45 seconds
+setInterval(refreshDashboard, 45000);
+refreshDashboard();  // Initial load on page open
 </script>
 {% endblock %}

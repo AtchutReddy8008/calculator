@@ -44,10 +44,9 @@
         height: 100%;
         z-index: 1;
         pointer-events: none;
-        opacity: 0.9;
+        opacity: 0.85;
     }
 
-    /* Make chart more visible */
     #chartContainer canvas {
         opacity: 1 !important;
     }
@@ -62,13 +61,7 @@
         overflow: hidden;
         z-index: 2;
         pointer-events: none;
-        background: linear-gradient(
-            to right,
-            rgba(0,0,0,0.9) 0%,
-            rgba(0,0,0,0.6) 30%,
-            rgba(0,0,0,0.6) 70%,
-            rgba(0,0,0,0.9) 100%
-        );
+        background: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0.9) 100%);
         border-top: 1px solid rgba(0,255,157,0.2);
         border-bottom: 1px solid rgba(0,255,157,0.2);
         backdrop-filter: blur(5px);
@@ -78,7 +71,6 @@
         display: inline-flex;
         white-space: nowrap;
         animation: ticker 80s linear infinite;
-        will-change: transform;
     }
 
     .ticker-item {
@@ -93,27 +85,10 @@
         border-right: 1px solid rgba(255,255,255,0.1);
     }
 
-    .ticker-symbol { 
-        font-weight: 700; 
-        color: #eee;
-        min-width: 80px;
-    }
-
-    .ticker-price { 
-        color: #fff;
-        font-weight: 600;
-        min-width: 90px;
-    }
-
-    .ticker-change.up   { 
-        color: var(--green);
-        min-width: 110px;
-    }
-
-    .ticker-change.down { 
-        color: var(--red);
-        min-width: 110px;
-    }
+    .ticker-symbol { font-weight: 700; color: #eee; min-width: 80px; }
+    .ticker-price { color: #fff; font-weight: 600; min-width: 90px; }
+    .ticker-change.up   { color: var(--green); min-width: 110px; }
+    .ticker-change.down { color: var(--red); min-width: 110px; }
 
     @keyframes ticker {
         0%   { transform: translateX(0); }
@@ -136,7 +111,6 @@
         background: linear-gradient(90deg, #fff, var(--primary));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        background-clip: text;
         text-shadow: 0 0 40px rgba(0,255,140,0.3);
     }
 
@@ -174,30 +148,15 @@
         box-shadow: var(--glow);
     }
 
-    .btn-primary::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-        transition: 0.5s;
-    }
-
-    .btn-primary:hover::before {
-        left: 100%;
+    .btn-primary:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 0 60px rgba(0,255,140,0.9);
     }
 
     .btn-outline {
         background: transparent;
         border: 2px solid var(--primary);
         color: var(--primary);
-    }
-
-    .btn:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 0 60px rgba(0,255,140,0.9);
     }
 
     .stats {
@@ -255,117 +214,39 @@
         overflow: hidden;
     }
 
-    .stat-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, transparent, var(--primary), transparent);
-    }
-
     .stat-card:hover {
         border-color: var(--primary);
         transform: translateY(-12px);
         box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 30px rgba(0,255,157,0.2);
     }
 
-    .stat-card i {
-        font-size: 3.5rem;
-        margin-bottom: 1.5rem;
-        background: linear-gradient(45deg, var(--primary), var(--primary-light));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+    .performance-chart-container {
+        background: rgba(17, 17, 17, 0.92);
+        border-radius: 16px;
+        padding: 1.8rem;
+        border: 1px solid rgba(0,255,157,0.15);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        margin: 2rem 0;
     }
 
-    .card {
-        background: var(--card-bg-transparent);
-        border: 1px solid var(--border);
-        border-radius: 20px;
-        backdrop-filter: blur(10px);
-        color: var(--text);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        overflow: hidden;
-    }
-
-    .card:hover {
-        border-color: var(--primary);
-        transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.45), 0 0 25px rgba(0,255,157,0.15);
-    }
-
-    .card-header {
-        background: rgba(0, 255, 157, 0.08);
-        border-bottom: 1px solid var(--border);
+    .performance-chart-container h4 {
         color: var(--primary);
-        padding: 1.5rem 2rem;
-        font-size: 1.3rem;
+        margin-bottom: 1.2rem;
+        text-align: center;
+        font-weight: 600;
     }
 
-    .step-number {
-        width: 80px;
-        height: 80px;
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        color: #000;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2.2rem;
-        font-weight: bold;
-        margin: 0 auto 1.5rem;
-        box-shadow: 0 0 30px rgba(0, 255, 157, 0.6);
-        transition: transform 0.3s;
-    }
-
-    .step-number:hover {
-        transform: scale(1.1);
-    }
-
-    /* ================= RESPONSIVE DESIGN ================= */
-    @media (max-width: 1200px) {
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
         .hero { padding: 18vh 1rem 12vh; }
         .ticker-container { bottom: 8%; }
     }
 
-    @media (max-width: 992px) {
-        .hero h1 { font-size: clamp(3rem, 8vw, 4.5rem); }
-        .tagline { font-size: 1.3rem; }
-        .btn { padding: 14px 32px; margin: 0.5rem; }
-        .stats { gap: 1.5rem; }
-    }
-
     @media (max-width: 768px) {
-        .hero { padding: 15vh 1rem 10vh; }
-        .hero h1 { font-size: clamp(2.5rem, 10vw, 3.5rem); }
-        .tagline { font-size: 1.1rem; margin-bottom: 2rem; }
-        .ticker-container { 
-            bottom: 5%; 
-            height: 2.5rem;
-            background: rgba(0,0,0,0.9);
-        }
-        .ticker-item { 
-            font-size: 0.9rem; 
-            padding: 0 1.5rem;
-            gap: 0.4rem;
-        }
-        .ticker-symbol { min-width: 70px; }
-        .ticker-price { min-width: 80px; }
-        .stats { flex-direction: column; gap: 1rem; }
-        .content-below { padding: 3rem 1rem 6rem; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .ticker-wrapper, 
-        .stats span::before,
-        .btn:hover,
-        .stat-card:hover,
-        .card:hover,
-        .step-number:hover {
-            animation: none !important;
-            transition: none !important;
-        }
+        .hero h1 { font-size: clamp(2.8rem, 10vw, 4.2rem); }
+        .tagline { font-size: 1.15rem; }
+        .btn { padding: 14px 32px; margin: 0.5rem; font-size: 1.05rem; }
+        .stats { flex-direction: column; gap: 1.2rem; }
     }
 </style>
 
@@ -391,21 +272,6 @@
             <span class="ticker-price">1,480.60</span>
             <span class="ticker-change down">-18.25 (-1.22%)</span>
         </div>
-        <div class="ticker-item">
-            <span class="ticker-symbol">TCS</span>
-            <span class="ticker-price">4,052.85</span>
-            <span class="ticker-change up">+45.90 (+1.15%)</span>
-        </div>
-        <div class="ticker-item">
-            <span class="ticker-symbol">INFY</span>
-            <span class="ticker-price">1,923.40</span>
-            <span class="ticker-change up">+28.15 (+1.48%)</span>
-        </div>
-        <div class="ticker-item">
-            <span class="ticker-symbol">BTCUSD</span>
-            <span class="ticker-price">94,520.80</span>
-            <span class="ticker-change up">+2,118.40 (+2.29%)</span>
-        </div>
         {% endfor %}
     </div>
 </div>
@@ -413,19 +279,18 @@
 <!-- ================= HERO SECTION ================= -->
 <div class="hero">
     <h1>
-        Trade Smarter with <span style="color: var(--primary);">NIFTY Trading Bot</span><br>
-        <small style="font-size: 0.4em; opacity: 0.7; font-weight: 300;">Powered by Algorithms • Not Emotions</small>
+        Unlock Consistent Gains with<br>
+        <span style="color: var(--primary);">Smart NIFTY Algo Trading</span>
     </h1>
 
     <p class="tagline">
-        Professional-grade automated trading • Hedged Short Strangle on NIFTY weekly options<br>
-        Built-in risk management • Real-time monitoring • Discipline-driven performance
+        Fully automated • Emotion-free execution • Built for serious traders who want results
     </p>
 
     {% if not user.is_authenticated %}
         <div style="margin: 3rem 0;">
             <a href="{% url 'signup' %}" class="btn btn-primary">
-                <i class="fas fa-rocket"></i> Get Started Free
+                <i class="fas fa-rocket"></i> Start Free Trial
             </a>
             <a href="{% url 'login' %}" class="btn btn-outline">
                 <i class="fas fa-sign-in-alt"></i> Login
@@ -434,52 +299,54 @@
     {% else %}
         <div style="margin: 3rem 0;">
             <a href="{% url 'dashboard' %}" class="btn btn-primary">
-                <i class="fas fa-tachometer-alt"></i> Go to Dashboard
+                <i class="fas fa-tachometer-alt"></i> Open Dashboard
             </a>
             <a href="{% url 'algorithms' %}" class="btn btn-outline">
-                <i class="fas fa-robot"></i> Run Algorithm
+                <i class="fas fa-robot"></i> Activate Algo
             </a>
         </div>
     {% endif %}
 
     <div class="stats">
-        <span>1–2% Expected Weekly Returns</span>
-        <span>Auto Hedged Strategy</span>
-        <span>Max 5 Lots Risk Control</span>
+        <span>Proven Track Record</span>
+        <span>Automated Precision</span>
+        <span>Capital Protection Built-in</span>
     </div>
 </div>
 
-<!-- ================= CONTENT SECTION ================= -->
+<!-- ================= HYPE PERFORMANCE SECTION ================= -->
 <div class="content-below">
     <div class="container">
-        <div class="row">
+        <div class="performance-chart-container">
+            <h4>Real Performance – Growing Strong</h4>
+            <div id="performanceChart" style="height: 380px; width: 100%;"></div>
+        </div>
+
+        <div class="row mt-5">
             <div class="col-md-4 mb-4">
                 <div class="stat-card">
                     <i class="fas fa-robot fa-3x mb-3 text-primary"></i>
                     <h3>Fully Automated</h3>
                     <p class="text-muted">
-                        Complete hands-off trading. Our algorithm executes the Hedged Short Strangle 
-                        strategy with precision timing and automated adjustments.
+                        Runs 24/7 during market hours — no manual intervention needed.
                     </p>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
                 <div class="stat-card">
                     <i class="fas fa-shield-alt fa-3x mb-3 text-success"></i>
-                    <h3>Risk Managed</h3>
+                    <h3>Built-in Protection</h3>
                     <p class="text-muted">
-                        Built-in hedging, dynamic stop losses, and intelligent position sizing 
-                        to protect your capital in volatile markets.
+                        Smart risk controls help protect your capital in all market conditions.
                     </p>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
                 <div class="stat-card">
                     <i class="fas fa-chart-line fa-3x mb-3 text-info"></i>
-                    <h3>Live Analytics</h3>
+                    <h3>Live Monitoring</h3>
                     <p class="text-muted">
-                        Real-time P&L tracking, position monitoring, and comprehensive 
-                        performance analytics dashboard.
+                        Real-time dashboard shows exactly how your account is performing.
                     </p>
                 </div>
             </div>
@@ -489,81 +356,18 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="mb-0"><i class="fas fa-info-circle me-2"></i> Strategy Overview</h4>
+                        <h4 class="mb-0"><i class="fas fa-play-circle me-2"></i> Ready to Start?</h4>
                     </div>
-                    <div class="card-body">
-                        <h5 class="mb-4">Hedged Short Strangle Strategy</h5>
-                        <p class="mb-4">
-                            This advanced strategy involves selling out-of-the-money call and put options while 
-                            simultaneously buying further out-of-the-money options as protective hedges. 
-                            The objective is to profit from time decay (theta) while strictly limiting downside 
-                            risk through strategic hedging positions.
-                        </p>
-                        
-                        <div class="row mt-4">
-                            <div class="col-md-6">
-                                <h6 class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Key Features:</h6>
-                                <ul class="list-unstyled">
-                                    <li class="mb-2"><i class="fas fa-angle-right text-primary me-2"></i> Weekly options trading on NIFTY</li>
-                                    <li class="mb-2"><i class="fas fa-angle-right text-primary me-2"></i> Automated entry at 9:21 AM IST</li>
-                                    <li class="mb-2"><i class="fas fa-angle-right text-primary me-2"></i> Dynamic position adjustments</li>
-                                    <li class="mb-2"><i class="fas fa-angle-right text-primary me-2"></i> Auto-exit at 3:00 PM IST or target achieved</li>
-                                    <li class="mb-2"><i class="fas fa-angle-right text-primary me-2"></i> No trading on Tuesdays or expiry days</li>
-                                </ul>
-                            </div>
-                            <div class="col-md-6">
-                                <h6 class="mb-3"><i class="fas fa-cogs text-primary me-2"></i> Technical Specifications:</h6>
-                                <ul class="list-unstyled">
-                                    <li class="mb-2"><i class="fas fa-code-branch text-info me-2"></i> Version: v9.8.3-fixed-v5</li>
-                                    <li class="mb-2"><i class="fas fa-clock text-info me-2"></i> Entry Window: 09:21:00 - 09:21:30 IST</li>
-                                    <li class="mb-2"><i class="fas fa-layer-group text-info me-2"></i> Lot Size: 65 (NIFTY)</li>
-                                    <li class="mb-2"><i class="fas fa-chart-pie text-info me-2"></i> Max Position: 5 Lots</li>
-                                    <li class="mb-2"><i class="fas fa-trophy text-info me-2"></i> Expected Returns: 1-2% weekly</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-5">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="mb-0"><i class="fas fa-play-circle me-2"></i> Getting Started</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="row text-center">
-                            <div class="col-md-3 mb-4">
-                                <div class="step-number">1</div>
-                                <h5>Create Account</h5>
-                                <p class="text-muted">Sign up in 30 seconds</p>
-                            </div>
-                            <div class="col-md-3 mb-4">
-                                <div class="step-number">2</div>
-                                <h5>Connect Broker</h5>
-                                <p class="text-muted">Link your Zerodha account</p>
-                            </div>
-                            <div class="col-md-3 mb-4">
-                                <div class="step-number">3</div>
-                                <h5>Configure Settings</h5>
-                                <p class="text-muted">Set your risk parameters</p>
-                            </div>
-                            <div class="col-md-3 mb-4">
-                                <div class="step-number">4</div>
-                                <h5>Activate Bot</h5>
-                                <p class="text-muted">Enable automated trading</p>
-                            </div>
-                        </div>
-                        
+                    <div class="card-body text-center py-5">
                         {% if not user.is_authenticated %}
-                            <div class="text-center mt-5">
-                                <a href="{% url 'signup' %}" class="btn btn-primary btn-lg px-5 py-3">
-                                    <i class="fas fa-rocket me-2"></i> Start Trading Now
-                                </a>
-                                <p class="text-muted mt-3">No credit card required • Free 14-day trial</p>
-                            </div>
+                            <a href="{% url 'signup' %}" class="btn btn-primary btn-lg px-5 py-3">
+                                <i class="fas fa-rocket me-2"></i> Create Free Account Now
+                            </a>
+                            <p class="text-muted mt-4">Takes less than 60 seconds • No credit card required</p>
+                        {% else %}
+                            <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg px-5 py-3">
+                                <i class="fas fa-tachometer-alt me-2"></i> Go to Your Dashboard
+                            </a>
                         {% endif %}
                     </div>
                 </div>
@@ -573,189 +377,75 @@
 </div>
 
 <script>
+// ================= PERFORMANCE WATER-FLOW CHART =================
 (function() {
-    'use strict';
-    
-    console.log('Initializing trading dashboard...');
-    
-    // Check if CanvasJS is loaded
-    if (!window.CanvasJS) {
-        console.error('CanvasJS library not loaded!');
-        document.getElementById('chartContainer').innerHTML = 
-            '<div style="color:#fff; padding:20px; text-align:center;">Chart library failed to load</div>';
-        return;
-    }
-    
-    // Check for reduced motion preference
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        console.log('Reduced motion preference detected - disabling animations');
-        document.getElementById('chartContainer').style.display = 'none';
-        return;
-    }
+    if (!window.CanvasJS) return;
 
-    // Get chart container
-    const chartContainer = document.getElementById('chartContainer');
-    if (!chartContainer) {
-        console.error('Chart container not found!');
-        return;
-    }
-    
-    // Make sure chart container is visible
-    chartContainer.style.display = 'block';
-    chartContainer.style.visibility = 'visible';
-    chartContainer.style.opacity = '1';
-    
-    const dpsCandles = [], dpsFastMA = [], dpsMediumMA = [];
-    let x = 0, lastClose = 100, closes = [];
-
-    // Create chart with enhanced visibility
-    const chart = new CanvasJS.Chart("chartContainer", {
-        animationEnabled: false,
+    const chart = new CanvasJS.Chart("performanceChart", {
+        animationEnabled: true,
         backgroundColor: "transparent",
         theme: "dark2",
         creditText: false,
-        toolTip: { enabled: false },
-        zoomEnabled: false,
-        panEnabled: false,
-        axisX: { 
-            lineThickness: 0, 
-            tickLength: 0, 
-            labelFormatter: function() { return ""; },
-            gridThickness: 0,
-            margin: 0,
-            labelFontSize: 0
+        toolTip: {
+            shared: true,
+            content: "<strong>{name}</strong><br>Profit: ₹{y} Lakhs"
         },
-        axisY: { 
-            lineThickness: 0, 
-            tickLength: 0, 
+        axisX: {
+            lineThickness: 0,
+            tickLength: 0,
             labelFormatter: function() { return ""; },
-            gridThickness: 0,
-            margin: 0,
-            labelFontSize: 0
+            gridThickness: 0
         },
-        data: [
-            { 
-                type: "candlestick", 
-                risingColor: "rgba(40,255,140,0.85)",
-                fallingColor: "rgba(255,70,70,0.85)",
-                wickColor: "rgba(255,255,255,0.6)",
-                lineColor: "rgba(255,255,255,0.4)",
-                dataPoints: dpsCandles 
-            },
-            { 
-                type: "line", 
-                lineColor: "#00ff9d",
-                lineThickness: 3,
-                markerSize: 0,
-                dataPoints: dpsFastMA 
-            },
-            { 
-                type: "line", 
-                lineColor: "#40c0ff",
-                lineThickness: 2,
-                markerSize: 0,
-                dataPoints: dpsMediumMA 
-            }
-        ]
+        axisY: {
+            lineThickness: 0,
+            tickLength: 0,
+            labelFormatter: function(e) { return "₹" + e.value.toFixed(1) + "L"; },
+            gridColor: "rgba(255,255,255,0.08)",
+            labelFontColor: "#888"
+        },
+        data: [{
+            type: "splineArea",
+            name: "Account Growth",
+            showInLegend: false,
+            color: "rgba(0, 255, 157, 0.25)",
+            lineColor: "#00ff9d",
+            lineThickness: 3,
+            markerSize: 0,
+            fillOpacity: 0.35,
+            dataPoints: []
+        }]
     });
 
-    const FAST_PERIOD = 7;
-    const MEDIUM_PERIOD = 17;
-    const WINDOW_SIZE = 80;
-    const UPDATE_INTERVAL = 220;
-    const VOLATILITY = 6;
+    let x = 0;
+    let value = 0.8; // start low
+    const points = [];
 
-    function generateCandle() {
-        const open = lastClose;
-        const change = (Math.random() - 0.48) * VOLATILITY;
-        const close = Math.round((open + change) * 100) / 100;
-        const high = Math.max(open, close) + Math.random() * 3;
-        const low = Math.min(open, close) - Math.random() * 3;
-        
-        return { open, high, low, close };
-    }
+    // Generate realistic growth with ups & downs
+    for (let i = 0; i < 120; i++) {
+        // Overall upward trend + random volatility
+        value += (Math.random() * 0.35 - 0.12) + 0.08; // slight positive drift
+        value = Math.max(0.5, Math.min(12.5, value)); // keep between 0.5L – 12.5L
 
-    function updateChart() {
-        const candle = generateCandle();
-        
-        dpsCandles.push({
-            x: x,
-            y: [candle.open, candle.high, candle.low, candle.close]
+        points.push({
+            x: x++,
+            y: Math.round(value * 10) / 10,
+            label: "Month " + Math.ceil(i/10)
         });
-        
-        closes.push(candle.close);
-        lastClose = candle.close;
-
-        // Calculate moving averages
-        if (closes.length >= FAST_PERIOD) {
-            const fastSum = closes.slice(-FAST_PERIOD).reduce((a, b) => a + b, 0);
-            dpsFastMA.push({
-                x: x,
-                y: fastSum / FAST_PERIOD
-            });
-        }
-
-        if (closes.length >= MEDIUM_PERIOD) {
-            const mediumSum = closes.slice(-MEDIUM_PERIOD).reduce((a, b) => a + b, 0);
-            dpsMediumMA.push({
-                x: x,
-                y: mediumSum / MEDIUM_PERIOD
-            });
-        }
-
-        x++;
-
-        // Maintain window size
-        if (dpsCandles.length > WINDOW_SIZE) {
-            dpsCandles.shift();
-            closes.shift();
-            if (dpsFastMA.length > WINDOW_SIZE) dpsFastMA.shift();
-            if (dpsMediumMA.length > WINDOW_SIZE) dpsMediumMA.shift();
-        }
-
-        // Auto-scale viewport
-        if (dpsCandles.length >= 2) {
-            const minX = dpsCandles[0].x;
-            const maxX = dpsCandles[dpsCandles.length - 1].x;
-            chart.axisX[0].set("viewportMinimum", minX, false);
-            chart.axisX[0].set("viewportMaximum", maxX, false);
-        }
-
-        try {
-            chart.render();
-        } catch (error) {
-            console.error('Chart render error:', error);
-        }
     }
 
-    // Initialize with some data
-    console.log('Generating initial chart data...');
-    for (let i = 0; i < WINDOW_SIZE; i++) {
-        updateChart();
-    }
-    
-    // Start animation
-    console.log('Starting chart animation...');
-    let interval = setInterval(updateChart, UPDATE_INTERVAL);
-    
-    // Clean up on page unload
-    window.addEventListener("beforeunload", () => {
-        console.log('Cleaning up chart...');
-        clearInterval(interval);
-    });
-    
-    // Pause when tab is not visible
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            console.log('Tab hidden - pausing chart');
-            clearInterval(interval);
-        } else {
-            console.log('Tab visible - resuming chart');
-            interval = setInterval(updateChart, UPDATE_INTERVAL);
-        }
-    });
-    
-    console.log('Trading dashboard initialized successfully');
+    chart.options.data[0].dataPoints = points;
+    chart.render();
+
+    // Optional: slight animation loop (very subtle)
+    let phase = 0;
+    setInterval(() => {
+        phase += 0.02;
+        const offset = Math.sin(phase) * 0.08;
+        chart.options.data[0].dataPoints.forEach((p, i) => {
+            p.y = points[i].y + offset * (1 - i/points.length);
+        });
+        chart.render();
+    }, 180);
 })();
 </script>
 

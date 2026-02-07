@@ -5,11 +5,12 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_protect
-from django.db.models import Sum
+from django.db.models import Sum, Avg, Count, Max, Min, Q
 from django.utils import timezone
 from datetime import date, timedelta
 import json
 import traceback
+from calendar import monthcalendar
 
 from django.contrib.auth.models import User
 
@@ -21,7 +22,7 @@ from .models import Broker, Trade, DailyPnL, BotStatus, LogEntry
 from .forms import SignUpForm, ZerodhaConnectionForm
 
 # Tasks
-from .tasks import run_user_bot
+from .tasks import run_user_bot, generate_zerodha_token_task
 
 # Auth helpers
 from .core.auth import generate_and_set_access_token_db
@@ -97,6 +98,37 @@ def dashboard(request):
 
 
 @login_required
+def dashboard_stats(request):
+    """JSON endpoint for live dashboard updates"""
+    user = request.user
+    bot_status = BotStatus.objects.filter(user=user).first()
+
+    today = date.today()
+    daily_pnl = DailyPnL.objects.filter(user=user, date=today).first()
+
+    week_ago = today - timedelta(days=7)
+    weekly_agg = DailyPnL.objects.filter(
+        user=user, date__gte=week_ago
+    ).aggregate(total_pnl=Sum('pnl') or 0)
+
+    month_start = date(today.year, today.month, 1)
+    monthly_agg = DailyPnL.objects.filter(
+        user=user, date__gte=month_start
+    ).aggregate(total_pnl=Sum('pnl') or 0)
+
+    data = {
+        'bot_running': bot_status.is_running if bot_status else False,
+        'current_unrealized_pnl': float(bot_status.current_unrealized_pnl or 0) if bot_status else 0.0,
+        'daily_pnl': float(daily_pnl.pnl if daily_pnl else 0),
+        'weekly_pnl': float(weekly_agg['total_pnl'] or 0),
+        'monthly_pnl': float(monthly_agg['total_pnl'] or 0),
+        'last_error': bot_status.last_error if bot_status and bot_status.last_error else None,
+        'timestamp': timezone.now().isoformat(),
+    }
+    return JsonResponse(data)
+
+
+@login_required
 def broker_page(request):
     broker = Broker.objects.filter(
         user=request.user, broker_name='ZERODHA'
@@ -110,20 +142,13 @@ def broker_page(request):
             broker_obj.broker_name = 'ZERODHA'
             broker_obj.save()
 
-            success = generate_and_set_access_token_db(
-                kite=KiteConnect(api_key=broker_obj.api_key),
-                broker=broker_obj
+            # Run token generation in background (async)
+            generate_zerodha_token_task.delay(broker_obj.id)
+
+            messages.success(
+                request,
+                'Zerodha credentials saved. Token generation started in background...'
             )
-
-            if success:
-                messages.success(request, 'Zerodha credentials saved and access token generated successfully!')
-            else:
-                messages.warning(
-                    request,
-                    'Credentials saved, but automatic token generation failed. '
-                    'Please check TOTP/clock sync or generate manually.'
-                )
-
             return redirect('broker')
         else:
             messages.error(request, 'Please correct the errors below.')
@@ -153,36 +178,47 @@ def pnl_calendar(request):
         year = date.today().year
         month = date.today().month
 
+    # Generate calendar grid: list of weeks, each week is list of 7 integers (0 = empty day)
+    calendar_grid = monthcalendar(year, month)
+
     month_start = date(year, month, 1)
     if month == 12:
         month_end = date(year + 1, 1, 1) - timedelta(days=1)
     else:
         month_end = date(year, month + 1, 1) - timedelta(days=1)
 
+    # Fetch all daily records for this month
     daily_records = DailyPnL.objects.filter(
         user=request.user,
         date__range=[month_start, month_end]
     ).order_by('date')
 
-    monthly_stats = {
-        'total_pnl': sum(r.pnl for r in daily_records) if daily_records else 0,
-        'average_pnl': sum(r.pnl for r in daily_records) / len(daily_records) if daily_records else 0,
-        'positive_days': sum(1 for r in daily_records if r.pnl > 0),
-        'negative_days': sum(1 for r in daily_records if r.pnl < 0),
-        'max_pnl': max((r.pnl for r in daily_records), default=0),
-        'min_pnl': min((r.pnl for r in daily_records), default=0),
-    }
+    # Aggregates using database
+    monthly_stats = daily_records.aggregate(
+        total_pnl=Sum('pnl'),
+        average_pnl=Avg('pnl'),
+        positive_days=Count('id', filter=Q(pnl__gt=0)),
+        negative_days=Count('id', filter=Q(pnl__lt=0)),
+        max_pnl=Max('pnl'),
+        min_pnl=Min('pnl'),
+    )
 
     context = {
         'year': year,
         'month': month,
         'month_name': date(year, month, 1).strftime('%B'),
+        'calendar': calendar_grid,
         'daily_records': daily_records,
-        'stats': monthly_stats,
+        'stats': monthly_stats or {
+            'total_pnl': 0, 'average_pnl': 0,
+            'positive_days': 0, 'negative_days': 0,
+            'max_pnl': 0, 'min_pnl': 0
+        },
         'prev_month': month - 1 if month > 1 else 12,
         'prev_year': year if month > 1 else year - 1,
         'next_month': month + 1 if month < 12 else 1,
         'next_year': year if month < 12 else year + 1,
+        'today_str': date.today().strftime('%Y-%m-%d'),
     }
     return render(request, 'trading/pnl_calendar.html', context)
 
@@ -197,7 +233,7 @@ def algorithms_page(request):
         'description': 'NIFTY Weekly Options Trading Strategy',
         'underlying': 'NIFTY 50',
         'lot_size': 65,
-        'entry_window': '09:20:00 - 09:23:30 IST',
+        'entry_window': '09:20:00 - 09:22:30 IST',
         'exit_time': '15:00:00 IST',
         'max_lots': 50,
         'strategy_type': 'Options Selling with Hedges',
@@ -298,14 +334,10 @@ def get_current_streak(user):
 @require_POST
 @csrf_protect
 def start_bot(request):
-    if not request.user.is_staff:
-        messages.error(request, "Only staff users are allowed to run algorithms.")
-        return redirect('dashboard')
-
     user = request.user
-    bot_status = BotStatus.objects.filter(user=user).first()
+    bot_status, _ = BotStatus.objects.get_or_create(user=user)
 
-    if bot_status and bot_status.is_running:
+    if bot_status.is_running:
         messages.warning(request, 'Bot is already running. No new task launched.')
         return redirect('dashboard')
 
@@ -317,7 +349,6 @@ def start_bot(request):
     try:
         result = run_user_bot.delay(user.id)
 
-        bot_status, _ = BotStatus.objects.get_or_create(user=user)
         bot_status.is_running = True
         bot_status.celery_task_id = result.id
         bot_status.last_started = timezone.now()
@@ -356,10 +387,6 @@ def start_bot(request):
 @require_POST
 @csrf_protect
 def stop_bot(request):
-    if not request.user.is_staff:
-        messages.error(request, "Only staff users are allowed to control the bot.")
-        return redirect('dashboard')
-
     user = request.user
     bot_status = get_object_or_404(BotStatus, user=user)
 
@@ -409,7 +436,7 @@ def bot_status(request):
     heartbeat_ago = "Never"
     is_actually_alive = bot_status.is_running
 
-    if hasattr(bot_status, 'last_heartbeat') and bot_status.last_heartbeat:
+    if bot_status.last_heartbeat:
         delta = now - bot_status.last_heartbeat
         heartbeat_ago = f"{delta.total_seconds() // 60:.0f} min ago"
         is_actually_alive = bot_status.is_running and delta < timedelta(minutes=5)
@@ -434,15 +461,12 @@ def bot_status(request):
 @require_POST
 @csrf_protect
 def update_max_lots(request):
-    if not request.user.is_staff:
-        return JsonResponse({'success': False, 'error': 'Only staff users can update max lots.'}, status=403)
-
     try:
         data = json.loads(request.body)
         new_cap = int(data.get('max_lots_hard_cap', 0))
 
         if not 1 <= new_cap <= 10:
-            return JsonResponse({'success': False, 'error': 'Value must be between 1 and 10'})
+            return JsonResponse({'success': False, 'error': 'Value must be between 1 and 10'}, status=400)
 
         bot_status = BotStatus.objects.get(user=request.user)
         old_cap = bot_status.max_lots_hard_cap
@@ -458,7 +482,7 @@ def update_max_lots(request):
 
         return JsonResponse({'success': True, 'new_value': new_cap})
     except Exception as e:
-        return JsonResponse({'success': False, 'error': str(e)})
+        return JsonResponse({'success': False, 'error': str(e)}, status=400)
 
 
 def signup(request):
@@ -496,15 +520,11 @@ def connect_zerodha(request):
 
 
 # ───────────────────────────────────────────────
-# NEW VIEWS FOR STRATEGIES SECTION (added for client request)
+# STRATEGIES SECTION VIEWS
 # ───────────────────────────────────────────────
 
 @login_required
 def strategies_list(request):
-    """
-    New page: Shows 4 strategy cards
-    Short Strangle is active, others are coming soon
-    """
     context = {
         'strategies': [
             {
@@ -546,16 +566,11 @@ def strategies_list(request):
 
 @login_required
 def coming_soon_placeholder(request):
-    """
-    Simple placeholder page for future strategies
-    Shows a nice "Coming Soon" message with back button
-    """
-    # Get the strategy name from URL name for dynamic title
     strategy_name = request.resolver_match.url_name.replace('_detail', '').replace('-', ' ').title()
     
     context = {
         'title': strategy_name,
         'description': "This powerful strategy is currently under active development. We're working hard to bring it to you soon!",
-        'expected': "Expected release: 2026"
+        'expected': "Expected release: Q3 2026"
     }
     return render(request, 'trading/coming_soon.html', context)

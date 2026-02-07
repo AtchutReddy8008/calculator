@@ -14,6 +14,7 @@ from datetime import timedelta
 from .models import Broker, BotStatus, LogEntry
 from .core.bot_original import TradingApplication
 from .core.auth import generate_and_set_access_token_db
+from kiteconnect import KiteConnect
 
 logger = logging.getLogger(__name__)
 
@@ -275,3 +276,42 @@ def check_bot_health():
             logger.debug(f"[HEALTH CHECK] Bot {status.user.username} looks healthy")
 
     logger.info("[HEALTH CHECK] Completed")
+
+
+# ==============================================================================
+# BACKGROUND ZERODHA TOKEN GENERATION TASK
+# ==============================================================================
+
+@shared_task
+def generate_zerodha_token_task(broker_id):
+    """
+    Background task to generate and save Zerodha access token
+    after user submits credentials.
+    """
+    try:
+        broker = Broker.objects.select_related('user').get(id=broker_id)
+        kite = KiteConnect(api_key=broker.api_key)
+
+        success = generate_and_set_access_token_db(kite=kite, broker=broker)
+
+        if success:
+            LogEntry.objects.create(
+                user=broker.user,
+                level='INFO',
+                message="Background Zerodha token generation succeeded",
+                details={'broker_id': broker_id, 'user_id': broker.user.id}
+            )
+            logger.info(f"Token generation task succeeded for broker {broker_id}")
+        else:
+            LogEntry.objects.create(
+                user=broker.user,
+                level='ERROR',
+                message="Background Zerodha token generation failed",
+                details={'broker_id': broker_id, 'user_id': broker.user.id}
+            )
+            logger.error(f"Token generation task failed for broker {broker_id}")
+
+    except Broker.DoesNotExist:
+        logger.error(f"Broker {broker_id} not found for token generation task")
+    except Exception as e:
+        logger.exception(f"Token generation task failed: {str(e)}")

@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load math_filters %}
+
 {% block title %}PnL Calendar - NIFTY Trading Bot{% endblock %}
 
 {% block extra_css %}
@@ -297,7 +299,6 @@
                 </div>
             </div>
             
-            <!-- Changed: Week starts from Monday -->
             <div class="calendar-weekdays">
                 <div>Mon</div>
                 <div>Tue</div>
@@ -314,35 +315,28 @@
                         {% if day == 0 %}
                             <div class="calendar-day empty"></div>
                         {% else %}
-                            {% with current_date=date|date:"Y-m-d" %}
                             {% with day_date=year|stringformat:"04d"|add:"-"|add:month|stringformat:"02d"|add:"-"|add:day|stringformat:"02d" %}
-                                {% with pnl_record=None %}
-                                    {% for record in daily_pnl_records %}
-                                        {% if record.date|date:"Y-m-d" == day_date %}
-                                            {% with pnl_record=record %}
-                                                <div class="calendar-day {% if day_date == current_date %}current-day{% endif %} has-pnl {% if pnl_record.pnl >= 0 %}profit{% else %}loss{% endif %}">
-                                                    <div class="date">{{ day }}</div>
-                                                    <div class="pnl {% if pnl_record.pnl >= 0 %}profit{% else %}loss{% endif %}">
-                                                        ₹{{ pnl_record.pnl|floatformat:0 }}
-                                                    </div>
-                                                    <div class="day-details">
-                                                        <strong>{{ day_date }}</strong><br>
-                                                        P&L: ₹{{ pnl_record.pnl|floatformat:2 }}<br>
-                                                        Trades: {{ pnl_record.total_trades }}<br>
-                                                        Win: {{ pnl_record.win_trades }}<br>
-                                                        Loss: {{ pnl_record.loss_trades }}
-                                                    </div>
+                                <div class="calendar-day {% if day_date == today_str %}current-day{% endif %}">
+                                    <div class="date">{{ day }}</div>
+                                    
+                                    {% with pnl_found=False %}
+                                        {% for record in daily_records %}
+                                            {% if record.date|date:"Y-m-d" == day_date and not pnl_found %}
+                                                <div class="pnl {% if record.pnl >= 0 %}profit{% else %}loss{% endif %}">
+                                                    ₹{{ record.pnl|floatformat:0 }}
                                                 </div>
-                                            {% endwith %}
-                                        {% endif %}
-                                    {% endfor %}
-                                    {% if not pnl_record %}
-                                        <div class="calendar-day {% if day_date == current_date %}current-day{% endif %}">
-                                            <div class="date">{{ day }}</div>
-                                        </div>
-                                    {% endif %}
-                                {% endwith %}
-                            {% endwith %}
+                                                <div class="day-details">
+                                                    <strong>{{ day_date }}</strong><br>
+                                                    P&L: ₹{{ record.pnl|floatformat:2 }}<br>
+                                                    Trades: {{ record.total_trades }}<br>
+                                                    Wins: {{ record.win_trades }}<br>
+                                                    Losses: {{ record.loss_trades }}
+                                                </div>
+                                                {% with pnl_found=True %}{% endwith %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endwith %}
+                                </div>
                             {% endwith %}
                         {% endif %}
                     {% endfor %}
@@ -375,39 +369,46 @@
                 <div class="mb-3 d-flex justify-content-between">
                     <strong>Total P&L:</strong>
                     <span class="{% if stats.total_pnl >= 0 %}profit{% else %}loss{% endif %}">
-                        ₹{{ stats.total_pnl|floatformat:2 }}
+                        ₹{{ stats.total_pnl|floatformat:2|default:"0.00" }}
                     </span>
                 </div>
                 <div class="mb-3 d-flex justify-content-between">
                     <strong>Average Daily P&L:</strong>
                     <span class="{% if stats.average_pnl >= 0 %}profit{% else %}loss{% endif %}">
-                        ₹{{ stats.average_pnl|floatformat:2 }}
+                        ₹{{ stats.average_pnl|floatformat:2|default:"0.00" }}
                     </span>
                 </div>
                 <div class="mb-3 d-flex justify-content-between">
                     <strong>Profitable Days:</strong>
-                    <span>{{ stats.positive_days }}</span>
+                    <span>{{ stats.positive_days|default:0 }}</span>
                 </div>
                 <div class="mb-3 d-flex justify-content-between">
                     <strong>Loss Days:</strong>
-                    <span>{{ stats.negative_days }}</span>
+                    <span>{{ stats.negative_days|default:0 }}</span>
                 </div>
                 <div class="mb-3 d-flex justify-content-between">
                     <strong>Best Day:</strong>
-                    <span class="profit">₹{{ stats.max_pnl|floatformat:2 }}</span>
+                    <span class="profit">₹{{ stats.max_pnl|floatformat:2|default:"0.00" }}</span>
                 </div>
                 <div class="mb-3 d-flex justify-content-between">
                     <strong>Worst Day:</strong>
-                    <span class="loss">₹{{ stats.min_pnl|floatformat:2 }}</span>
+                    <span class="loss">₹{{ stats.min_pnl|floatformat:2|default:"0.00" }}</span>
                 </div>
                 <div class="mb-3 d-flex justify-content-between">
                     <strong>Win Rate:</strong>
                     {% if stats.positive_days or stats.negative_days %}
                         {% with total=stats.positive_days|add:stats.negative_days %}
-                        <span class="float-end">{{ stats.positive_days|floatformat:0 }}/{{ total }} ({{ stats.positive_days|floatformat:0|divisibleby:total|yesno:"0,100"|floatformat:0 }}%)</span>
+                            <span>
+                                {{ stats.positive_days|default:0 }} / {{ total|default:0 }}
+                                {% if total > 0 %}
+                                    ({{ stats.positive_days|div:total|multiply:100|floatformat:0 }}%)
+                                {% else %}
+                                    (0%)
+                                {% endif %}
+                            </span>
                         {% endwith %}
                     {% else %}
-                        <span class="float-end">0%</span>
+                        <span>0%</span>
                     {% endif %}
                 </div>
             </div>
@@ -418,9 +419,10 @@
                 <h5 class="mb-0"><i class="fas fa-list-alt"></i> Daily P&L Details</h5>
             </div>
             <div class="card-body" style="max-height: 400px; overflow-y: auto;">
-                {% if daily_pnl_records %}
-                    {% for record in daily_pnl_records %}
-                        <div class="d-flex justify-content-between align-items-center mb-2 p-2 {% if record.pnl >= 0 %}profit-bg{% else %}loss-bg{% endif %}" style="{% if record.pnl >= 0 %}background-color: rgba(16,185,129,0.09);{% else %}background-color: rgba(239,68,68,0.09);{% endif %} border-radius: 5px;">
+                {% if daily_records %}
+                    {% for record in daily_records %}
+                        <div class="d-flex justify-content-between align-items-center mb-2 p-2 
+                            {% if record.pnl >= 0 %}profit-bg{% else %}loss-bg{% endif %}">
                             <div>
                                 <strong>{{ record.date|date:"D, M d" }}</strong><br>
                                 <small class="text-muted">{{ record.total_trades }} trades</small>
@@ -436,51 +438,12 @@
                         </div>
                     {% endfor %}
                 {% else %}
-                    <p class="text-muted">No P&L records for this month.</p>
+                    <p class="text-muted text-center py-4">
+                        No P&L records found for {{ month_name }} {{ year }}.
+                    </p>
                 {% endif %}
             </div>
         </div>
     </div>
 </div>
-
-<style>
-    .profit-bg {
-        border-left: 4px solid #10b981 !important;
-    }
-    .loss-bg {
-        border-left: 4px solid #ef4444 !important;
-    }
-</style>
-
-<script>
-    // Custom template filter for dictionary lookup
-    function get_item(dictionary, key) {
-        return dictionary[key];
-    }
-    
-    // Register the filter
-    window.get_item = get_item;
-    
-    // Use it in template context
-    document.addEventListener('DOMContentLoaded', function() {
-        // Convert Python dict to JS object
-        const pnlDict = JSON.parse('{{ pnl_dict|safe }}');
-        
-        // Update day details with actual data
-        document.querySelectorAll('.calendar-day').forEach(day => {
-            const dateText = day.querySelector('.date');
-            if (dateText) {
-                const dayNum = dateText.textContent.trim();
-                if (dayNum) {
-                    const dayStr = dayNum.padStart(2, '0');
-                    const dateStr = '{{ year }}-{{ month|stringformat:"02d" }}-' + dayStr;
-                    if (pnlDict[dateStr]) {
-                        const pnl = pnlDict[dateStr];
-                        // Update content if needed
-                    }
-                }
-            }
-        });
-    });
-</script>
 {% endblock %}

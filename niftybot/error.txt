@@ -1,0 +1,43 @@
+[2026-02-06 10:21:24,812: WARNING/MainProcess] [2026-02-06 10:21:24] [INFO] Heartbeat saved to BotStatus
+[2026-02-06 10:21:34,074: WARNING/MainProcess] [2026-02-06 10:21:34] [INFO] Live unrealized P&L | {"pnl_\u20b9": 1189.5}
+[2026-02-06 10:21:44,303: WARNING/MainProcess] [2026-02-06 10:21:44] [INFO] Live unrealized P&L | {"pnl_\u20b9": 1186.25}
+[2026-02-06 10:21:54,565: WARNING/MainProcess] [2026-02-06 10:21:54] [INFO] Live unrealized P&L | {"pnl_\u20b9": 1231.75}
+[2026-02-06 10:21:59,675: WARNING/MainProcess] [2026-02-06 10:21:59] [INFO] Heartbeat saved to BotStatus
+[2026-02-06 10:22:08,930: WARNING/MainProcess] [2026-02-06 10:22:08] [INFO] Live unrealized P&L | {"pnl_\u20b9": 1303.25}
+[2026-02-06 10:22:19,226: WARNING/MainProcess] [2026-02-06 10:22:19] [INFO] Live unrealized P&L | {"pnl_\u20b9": 1238.25}
+[2026-02-06 10:22:29,463: WARNING/MainProcess] [2026-02-06 10:22:29] [INFO] Live unrealized P&L | {"pnl_\u20b9": 1300.0}
+[2026-02-06 10:22:34,580: WARNING/MainProcess] [2026-02-06 10:22:34] [INFO] Heartbeat saved to BotStatus
+[2026-02-06 10:22:43,842: WARNING/MainProcess] [2026-02-06 10:22:43] [INFO] HOURLY STATUS | {"unrealized_pnl_\u20b9": 1277.25, "target_\u20b9": 2050, "actua
+l_capital_blocked_\u20b9": 113211}
+
+
+
+
+
+
+
+[2026-02-06 11:20:27,584: WARNING/MainProcess] [2026-02-06 11:20:27] [INFO] Heartbeat saved to BotStatus
+[2026-02-06 11:20:36,865: WARNING/MainProcess] [2026-02-06 11:20:36] [INFO] Live unrealized P&L | {"pnl_\u20b9": 1410.5}
+[2026-02-06 11:20:47,155: WARNING/MainProcess] [2026-02-06 11:20:47] [INFO] Live unrealized P&L | {"pnl_\u20b9": 1449.5}
+[2026-02-06 11:20:57,777: WARNING/MainProcess] [2026-02-06 11:20:57] [WARNING] LTP fetch failed for NIFTY2621025450PE | {"error": "Too many requests"}
+[2026-02-06 11:21:00,431: WARNING/MainProcess] [2026-02-06 11:21:00] [INFO] Live unrealized P&L | {"pnl_\u20b9": 5258.5}
+[2026-02-06 11:21:05,563: WARNING/MainProcess] [2026-02-06 11:21:05] [INFO] Heartbeat saved to BotStatus
+[2026-02-06 11:21:14,966: WARNING/MainProcess] [2026-02-06 11:21:14] [INFO] Live unrealized P&L | {"pnl_\u20b9": 1582.75}
+[2026-02-06 11:21:19,424: WARNING/MainProcess] [2026-02-06 11:21:19] [WARNING] LTP fetch failed for NIFTY2621025750CE | {"error": "Too many requests"}
+[2026-02-06 11:21:23,096: WARNING/MainProcess] [2026-02-06 11:21:23] [INFO] EXITING BOT TRADE ONLY: Profit target reached ₹4,966 | {"symbols": ["NIFTY2621025750CE", "NIFTY2621025450PE", "NIFTY2621026300CE", "NIFTY2621024700PE"]}
+[2026-02-06 11:21:24,815: WARNING/MainProcess] [2026-02-06 11:21:24] [INFO] Closing shorts first
+[2026-02-06 11:21:24,822: WARNING/MainProcess] [2026-02-06 11:21:24] [INFO] PLACING ORDER attempt 1/3 | {"symbol": "NIFTY2621025450PE", "side": "BUY", "qty": 65, "product": "MIS", "order_type": "MARKET"}
+[2026-02-06 11:21:24,857: WARNING/MainProcess] [2026-02-06 11:21:24] [INFO] Order placed successfully - ID: 260206190765707
+[2026-02-06 11:21:24,890: WARNING/MainProcess] [2026-02-06 11:21:24] [INFO] Order status: COMPLETE
+[2026-02-06 11:21:24,902: WARNING/MainProcess] [2026-02-06 11:21:24] [INFO] Trade logged: BUY_NIFTY2621025450PE NIFTY2621025450PE 65 @ 54.05 | {"action": "BUY_NIFTY2621025450PE", "symbol": "NIFTY2621025450PE", "quantity": 65, "price": 54.05, "comment": "order_id:260206190765707"}
+[2026-02-06 11:21:24,920: WARNING/MainProcess] [2026-02-06 11:21:24] [INFO] PLACING ORDER attempt 1/3 | {"symbol": "NIFTY2621025750CE", "side": "BUY", "qty": 65, "product": "MIS", "order_type": "MARKET"}
+[2026-02-06 11:21:24,985: WARNING/MainProcess] [2026-02-06 11:21:24] [INFO] Order placed successfully - ID: 260206190765718
+[2026-02-06 11:21:25,017: WARNING/MainProcess] [2026-02-06 11:21:25] [INFO] Order status: COMPLETE
+
+
+
+
+
+
+
+see actaually bot placing trade correctly and the target is 2050 but it will hit at 1582 because pnl glitch came so please me this how to correct this glitch
