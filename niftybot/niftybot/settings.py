@@ -87,16 +87,30 @@ DATABASES = {
     }
 }
 
+# Uncomment and configure PostgreSQL for production (highly recommended)
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'postgres',
-#         'USER': 'postgres',
-#         'PASSWORD': 'Atchut1234',
-#         'HOST': 'mydb.cfao4qgschot.ap-south-1.rds.amazonaws.com',
+#         'NAME': 'niftybot_db',
+#         'USER': 'your_db_user',
+#         'PASSWORD': 'your_db_password',
+#         'HOST': 'localhost',
 #         'PORT': '5432',
 #     }
 # }
+#pip install psycopg2-binary
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',  # default DB
+#         'USER': 'postgres',
+#         'PASSWORD': 'your_db_password',
+#         'HOST': 'mydb.xxxxxx.ap-south-1.rds.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
