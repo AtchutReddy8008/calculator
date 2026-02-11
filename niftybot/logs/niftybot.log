@@ -1734,3 +1734,5 @@ INFO 2026-02-10 14:24:50,181 tasks [a94b48a7-4fbe-4fda-8515-dc4898f85f40] Main l
 INFO 2026-02-10 14:24:50,201 tasks [a94b48a7-4fbe-4fda-8515-dc4898f85f40] Task cleanup complete — bot marked stopped
 WARNING 2026-02-11 06:58:15,593 tasks [SIGNAL] Received signal 2 — exiting worker gracefully
 WARNING 2026-02-11 07:04:54,545 tasks [SIGNAL] Received signal 2 — exiting worker gracefully
+WARNING 2026-02-11 07:45:40,899 tasks [SIGNAL] Received signal 2 — exiting worker gracefully
+WARNING 2026-02-11 07:54:15,463 tasks [SIGNAL] Received signal 2 — exiting worker gracefully
