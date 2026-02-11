@@ -172,30 +172,88 @@
         color: white;
     }
 
-    /* Table */
+    /* ============================================== */
+    /* FIXED & IMPROVED RECENT TRADES TABLE          */
+    /* ============================================== */
+
+    .table-responsive {
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid rgba(96, 165, 250, 0.25);
+    }
+
     .table {
-        --bs-table-bg: transparent;
-        --bs-table-color: var(--text);
-        --bs-table-hover-bg: rgba(96,165,250,0.09);
+        --bs-table-color: #ffffff !important;              /* All text in td is WHITE */
+        --bs-table-bg: rgba(25, 35, 55, 0.82) !important;  /* Visible dark background per row */
+        --bs-table-accent-bg: rgba(35, 48, 70, 0.90) !important; /* Zebra stripe - slightly darker */
+        --bs-table-hover-bg: rgba(59, 130, 246, 0.30) !important; /* Strong blue hover */
+        --bs-table-border-color: rgba(148, 163, 184, 0.50) !important;
+        margin-bottom: 0;
     }
 
     .table thead th {
-        background: rgba(30, 40, 60, 0.65);
-        color: white;
-        border-bottom: 1px solid rgba(100,180,255,0.20);
+        background: rgba(10, 15, 30, 0.98) !important;
+        color: #ffffff !important;
+        font-weight: 700;
         text-transform: uppercase;
-        font-size: 0.86rem;
-        letter-spacing: 0.7px;
+        letter-spacing: 0.6px;
+        border-bottom: 3px solid rgba(96, 165, 250, 0.6) !important;
+        padding: 1.1rem 0.8rem;
+    }
+
+    .table tbody td {
+        padding: 0.95rem 0.8rem;
+        vertical-align: middle;
+        border-top: 1px solid rgba(148, 163, 184, 0.30);
+        color: #ffffff !important; /* Force white text in every cell */
+    }
+
+    .table tbody tr {
+        transition: background 0.25s ease;
     }
 
     .table tbody tr:hover {
-        background: rgba(96,165,250,0.10);
+        background: rgba(59, 130, 246, 0.35) !important;
     }
 
-    .badge {
-        font-weight: 600;
-        padding: 0.55em 1.1em;
-        border-radius: 12px;
+    /* Profit/loss in P&L column - brighter & bolder */
+    .table .profit {
+        color: #4ade80 !important;
+        font-weight: 800;
+        text-shadow: 0 0 8px rgba(74, 222, 128, 0.6);
+    }
+
+    .table .loss {
+        color: #fb7185 !important;
+        font-weight: 800;
+        text-shadow: 0 0 8px rgba(251, 113, 133, 0.6);
+    }
+
+    /* Status badges more visible & modern */
+    .badge.bg-success {
+        background-color: #10b981 !important;
+        color: white !important;
+        font-weight: 700;
+        box-shadow: 0 2px 10px rgba(16, 185, 129, 0.5);
+    }
+
+    .badge.bg-danger {
+        background-color: #ef4444 !important;
+        color: white !important;
+        font-weight: 700;
+        box-shadow: 0 2px 10px rgba(239, 68, 68, 0.5);
+    }
+
+    .badge.bg-warning {
+        background-color: #f59e0b !important;
+        color: black !important;
+        font-weight: 700;
+    }
+
+    .badge.bg-secondary {
+        background-color: #64748b !important;
+        color: white !important;
+        font-weight: 700;
     }
 
     /* Animations */
@@ -220,6 +278,8 @@
         .stat-card .value { font-size: 2.1rem; }
         .stat-card { padding: 1.6rem 1.3rem; }
         .stat-card .icon { font-size: 1.8rem; }
+        .table thead th { font-size: 0.82rem; padding: 0.9rem 0.6rem; }
+        .table tbody td { font-size: 0.9rem; padding: 0.75rem 0.6rem; }
     }
 
     /* Number change animation */
