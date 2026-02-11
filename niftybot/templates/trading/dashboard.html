@@ -27,7 +27,6 @@
         font-family: 'Inter', system-ui, -apple-system, sans-serif;
     }
 
-    /* Background - elegant & subtle */
     .trading-bg {
         position: fixed;
         inset: 0;
@@ -44,7 +43,6 @@
         backdrop-filter: blur(3px);
     }
 
-    /* Subtle animated flow lines */
     .market-flow {
         position: absolute;
         inset: 0;
@@ -70,7 +68,6 @@
         100% { transform: translateX(45%); }
     }
 
-    /* Cards & Glassmorphism */
     .card, .stat-card {
         background: var(--card-bg);
         backdrop-filter: blur(18px);
@@ -126,7 +123,6 @@
     .profit { color: var(--success) !important; text-shadow: var(--glow-success); }
     .loss   { color: var(--danger)   !important; text-shadow: var(--glow-danger); }
 
-    /* Headings */
     h1, h5 {
         font-weight: 700;
         letter-spacing: -0.6px;
@@ -145,7 +141,6 @@
         to { background-position: 200% center; }
     }
 
-    /* Buttons */
     .btn-primary {
         background: var(--primary);
         border: none;
@@ -172,10 +167,6 @@
         color: white;
     }
 
-    /* ============================================== */
-    /* FIXED & IMPROVED RECENT TRADES TABLE          */
-    /* ============================================== */
-
     .table-responsive {
         border-radius: 12px;
         overflow: hidden;
@@ -183,10 +174,10 @@
     }
 
     .table {
-        --bs-table-color: #ffffff !important;              /* All text in td is WHITE */
-        --bs-table-bg: rgba(25, 35, 55, 0.82) !important;  /* Visible dark background per row */
-        --bs-table-accent-bg: rgba(35, 48, 70, 0.90) !important; /* Zebra stripe - slightly darker */
-        --bs-table-hover-bg: rgba(59, 130, 246, 0.30) !important; /* Strong blue hover */
+        --bs-table-color: #ffffff !important;
+        --bs-table-bg: rgba(25, 35, 55, 0.82) !important;
+        --bs-table-accent-bg: rgba(35, 48, 70, 0.90) !important;
+        --bs-table-hover-bg: rgba(59, 130, 246, 0.30) !important;
         --bs-table-border-color: rgba(148, 163, 184, 0.50) !important;
         margin-bottom: 0;
     }
@@ -205,18 +196,13 @@
         padding: 0.95rem 0.8rem;
         vertical-align: middle;
         border-top: 1px solid rgba(148, 163, 184, 0.30);
-        color: #ffffff !important; /* Force white text in every cell */
-    }
-
-    .table tbody tr {
-        transition: background 0.25s ease;
+        color: #ffffff !important;
     }
 
     .table tbody tr:hover {
         background: rgba(59, 130, 246, 0.35) !important;
     }
 
-    /* Profit/loss in P&L column - brighter & bolder */
     .table .profit {
         color: #4ade80 !important;
         font-weight: 800;
@@ -229,7 +215,6 @@
         text-shadow: 0 0 8px rgba(251, 113, 133, 0.6);
     }
 
-    /* Status badges more visible & modern */
     .badge.bg-success {
         background-color: #10b981 !important;
         color: white !important;
@@ -256,7 +241,6 @@
         font-weight: 700;
     }
 
-    /* Animations */
     .fade-in-up {
         opacity: 0;
         transform: translateY(25px);
@@ -272,7 +256,6 @@
     .stat-card:nth-child(3) { animation-delay: 0.45s; }
     .stat-card:nth-child(4) { animation-delay: 0.6s;  }
 
-    /* Mobile adjustments */
     @media (max-width: 767px) {
         h1 { font-size: 2.1rem; }
         .stat-card .value { font-size: 2.1rem; }
@@ -282,7 +265,6 @@
         .table tbody td { font-size: 0.9rem; padding: 0.75rem 0.6rem; }
     }
 
-    /* Number change animation */
     .number-change {
         animation: pulse 1.2s ease-out;
     }
@@ -318,9 +300,8 @@
             </div>
         </div>
 
-        <!-- === Quick Stats - Most important cards === -->
+        <!-- Quick Stats -->
         <div class="row g-4">
-            <!-- Algo Status - most prominent -->
             <div class="col-lg-3 col-md-6">
                 <div class="stat-card fade-in-up">
                     <i class="fas fa-power-off icon status-running"></i>
@@ -335,12 +316,15 @@
                 </div>
             </div>
 
-            <!-- Today's P&L - second most important -->
             <div class="col-lg-3 col-md-6">
                 <div class="stat-card fade-in-up">
                     <i class="fas fa-rupee-sign icon" style="color: var(--success);"></i>
-                    <div class="value {% if daily_pnl.pnl >= 0 %}profit{% else %}loss{% endif %}" id="today-pnl">
-                        ₹{{ daily_pnl.pnl|default:0|floatformat:2 }}
+                    <div class="value {% if daily_pnl and daily_pnl.pnl >= 0 %}profit{% elif daily_pnl %}loss{% else %}text-muted{% endif %}" id="today-pnl">
+                        {% if daily_pnl %}
+                            ₹{{ daily_pnl.pnl|floatformat:2 }}
+                        {% else %}
+                            ₹0.00
+                        {% endif %}
                     </div>
                     <div class="label">Today's P&L</div>
                 </div>
@@ -374,7 +358,7 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h5 class="mb-0"><i class="fas fa-robot me-2"></i> Algo Control</h5>
                         <span class="badge {% if bot_status.is_running %}bg-success{% else %}bg-danger{% endif %} px-4 py-2 fs-6">
-                            {{ bot_status.status|default:"live" }}
+                            {% if bot_status.is_running %}Live{% else %}Offline{% endif %}
                         </span>
                     </div>
                     <div class="card-body">
@@ -389,12 +373,24 @@
                                     </li>
                                     <li class="mb-4">
                                         <strong>Last Started:</strong> 
-                                        <span class="ms-2">{{ bot_status.last_started|default:"Never"|date:"d M Y H:i" }}</span>
+                                        <span class="ms-2">
+                                            {% if bot_status.last_started %}
+                                                {{ bot_status.last_started|date:"d M Y H:i" }}
+                                            {% else %}
+                                                Never
+                                            {% endif %}
+                                        </span>
                                     </li>
                                     <li class="mb-4">
                                         <strong>Current P&L:</strong> 
                                         <span id="current-pnl" class="{% if bot_status.current_unrealized_pnl >= 0 %}profit{% else %}loss{% endif %} fw-bold ms-2">
                                             ₹{{ bot_status.current_unrealized_pnl|floatformat:2|default:"0.00" }}
+                                        </span>
+                                    </li>
+                                    <li class="mb-4">
+                                        <strong>Current Margin:</strong> 
+                                        <span class="ms-2">
+                                            ₹{{ bot_status.current_margin|floatformat:2|default:"0.00" }}
                                         </span>
                                     </li>
                                 </ul>
@@ -438,11 +434,23 @@
                         </div>
                         <div class="d-flex justify-content-between mb-4">
                             <span>Best Day</span>
-                            <span class="profit fs-5">₹{{ performance.best_day.pnl|floatformat:2|default:"0.00" }}</span>
+                            <span class="profit fs-5">
+                                {% if performance.best_day %}
+                                    ₹{{ performance.best_day.pnl|floatformat:2 }}
+                                {% else %}
+                                    ₹0.00
+                                {% endif %}
+                            </span>
                         </div>
                         <div class="d-flex justify-content-between mb-4">
                             <span>Worst Day</span>
-                            <span class="loss fs-5">₹{{ performance.worst_day.pnl|floatformat:2|default:"0.00" }}</span>
+                            <span class="loss fs-5">
+                                {% if performance.worst_day %}
+                                    ₹{{ performance.worst_day.pnl|floatformat:2 }}
+                                {% else %}
+                                    ₹0.00
+                                {% endif %}
+                            </span>
                         </div>
 
                         <hr class="my-4">
@@ -567,85 +575,75 @@
 </main>
 
 <script>
-// Auto-refresh dashboard stats - improved version
+// Silent live refresh - no visible error messages
 function refreshDashboard() {
-    const pnlElement = document.getElementById('current-pnl');
-    const statusElement = document.getElementById('bot-status-value');
-    const detailElement = document.getElementById('bot-status-detail');
+    const elements = {
+        pnl: document.getElementById('current-pnl'),
+        statusValue: document.getElementById('bot-status-value'),
+        statusDetail: document.getElementById('bot-status-detail'),
+        today: document.getElementById('today-pnl'),
+        weekly: document.getElementById('weekly-pnl'),
+        monthly: document.getElementById('monthly-pnl')
+    };
 
-    // Optional: show updating state
-    if (pnlElement) pnlElement.style.opacity = '0.6';
+    fetch('{% url "dashboard_stats" %}', {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(response => {
+        if (!response.ok) return; // silent fail - no popup
+        return response.json();
+    })
+    .then(data => {
+        if (!data) return; // silent fail
 
-    fetch('{% url "dashboard_stats" %}')
-        .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.json();
-        })
-        .then(data => {
-            // Current unrealized P&L
-            if (pnlElement) {
-                const val = data.current_unrealized_pnl.toFixed(2);
-                const oldVal = pnlElement.textContent.replace('₹', '').trim();
-                pnlElement.textContent = `₹${val}`;
+        // Current unrealized P&L
+        if (elements.pnl) {
+            const val = data.current_unrealized_pnl.toFixed(2);
+            const oldVal = elements.pnl.textContent.replace('₹', '').trim();
+            elements.pnl.textContent = `₹${val}`;
 
-                // Animate only on change
-                if (oldVal !== val) {
-                    pnlElement.classList.add('number-change');
-                    setTimeout(() => pnlElement.classList.remove('number-change'), 1200);
+            if (oldVal !== val) {
+                elements.pnl.classList.add('number-change');
+                setTimeout(() => elements.pnl.classList.remove('number-change'), 1200);
+            }
+
+            elements.pnl.className = `fw-bold ms-2 ${data.current_unrealized_pnl >= 0 ? 'profit' : 'loss'}`;
+        }
+
+        // Bot status
+        if (elements.statusValue) {
+            elements.statusValue.textContent = data.bot_running ? 'Running' : 'Stopped';
+        }
+        if (elements.statusDetail) {
+            elements.statusDetail.innerHTML = data.bot_running 
+                ? '<span class="status-running">RUNNING</span>' 
+                : '<span class="text-danger">STOPPED</span>';
+        }
+
+        // Aggregates
+        ['today', 'weekly', 'monthly'].forEach(key => {
+            const el = elements[key];
+            if (el) {
+                const value = data[`${key}_pnl`].toFixed(2);
+                const oldVal = el.textContent.replace('₹', '').trim();
+                el.textContent = `₹${value}`;
+
+                if (oldVal !== value) {
+                    el.classList.add('number-change');
+                    setTimeout(() => el.classList.remove('number-change'), 1200);
                 }
 
-                // Color
-                pnlElement.className = data.current_unrealized_pnl >= 0 
-                    ? 'profit fw-bold ms-2 number-change' 
-                    : 'loss fw-bold ms-2 number-change';
-            }
-
-            // Bot status
-            if (statusElement) {
-                statusElement.textContent = data.bot_running ? 'Running' : 'Stopped';
-            }
-            if (detailElement) {
-                detailElement.innerHTML = data.bot_running 
-                    ? '<span class="status-running">RUNNING</span>' 
-                    : '<span class="text-danger">STOPPED</span>';
-            }
-
-            // Today/Weekly/Monthly P&L
-            ['today-pnl', 'weekly-pnl', 'monthly-pnl'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    const key = id.split('-')[0];
-                    const value = data[`${key}_pnl`].toFixed(2);
-                    const oldVal = el.textContent.replace('₹', '').trim();
-                    el.textContent = `₹${value}`;
-
-                    if (oldVal !== value) {
-                        el.classList.add('number-change');
-                        setTimeout(() => el.classList.remove('number-change'), 1200);
-                    }
-
-                    el.className = `value ${data[`${key}_pnl`] >= 0 ? 'profit' : 'loss'}`;
-                }
-            });
-
-            // Restore opacity
-            if (pnlElement) pnlElement.style.opacity = '1';
-        })
-        .catch(error => {
-            console.error('Dashboard update failed:', error);
-            // Optional: show warning once
-            if (!document.getElementById('refresh-warning')) {
-                const warning = document.createElement('div');
-                warning.id = 'refresh-warning';
-                warning.className = 'alert alert-warning mt-3 small';
-                warning.textContent = 'Live updates temporarily unavailable. Please refresh page.';
-                document.querySelector('.dashboard-content').prepend(warning);
+                el.className = `value ${data[`${key}_pnl`] >= 0 ? 'profit' : 'loss'}`;
             }
         });
+    })
+    .catch(() => {
+        // Silent catch - no popup, no console spam
+    });
 }
 
-// Run immediately + every 8 seconds (good balance between fresh & not spamming server)
+// Refresh every 8 seconds + on load
 setInterval(refreshDashboard, 8000);
-refreshDashboard();
+window.addEventListener('load', refreshDashboard);
 </script>
 {% endblock %}

@@ -283,6 +283,11 @@
             padding: 2rem 1.5rem;
         }
     }
+
+    .loading {
+        opacity: 0.6;
+        pointer-events: none;
+    }
 </style>
 {% endblock %}
 
@@ -317,21 +322,23 @@
                                         {{ bot_status.is_running|yesno:"Active,Inactive" }}
                                     </div>
                                     <div class="ms-3">
-                                        {% if bot_status.is_running %}
-                                            <small id="status-time">Started {{ bot_status.last_started|timesince }} ago</small>
-                                        {% else %}
-                                            <small id="status-time">Stopped {{ bot_status.last_stopped|timesince }} ago</small>
-                                        {% endif %}
+                                        <small id="status-time">
+                                            {% if bot_status.is_running %}
+                                                Started {{ bot_status.last_started|timesince }} ago
+                                            {% else %}
+                                                Stopped {{ bot_status.last_stopped|timesince }} ago
+                                            {% endif %}
+                                        </small>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Today's Target & Stop-Loss -->
+                            <!-- Today's Target & Stop-Loss (Live Updating) -->
                             <div class="mb-4">
-                                <h6 class="text-muted mb-3">Today's Target & Stop-Loss</h6>
+                                <h6 class="text-muted mb-3">Today's Target & Stop-Loss <small class="text-muted">(Live)</small></h6>
                                 <div class="row g-3">
                                     <div class="col-6">
-                                        <div class="stat-card-sm">
+                                        <div class="stat-card-sm loading" id="target-card">
                                             <div class="value text-success" id="daily-target">
                                                 {% if daily_target and daily_target != 0 %}
                                                     ₹{{ daily_target|floatformat:0 }}
@@ -343,7 +350,7 @@
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <div class="stat-card-sm">
+                                        <div class="stat-card-sm loading" id="stop-card">
                                             <div class="value text-danger" id="daily-stop">
                                                 {% if daily_stop_loss and daily_stop_loss != 0 %}
                                                     ₹{{ daily_stop_loss|floatformat:0 }}
@@ -356,14 +363,13 @@
                                     </div>
                                 </div>
                                 <small class="text-muted mt-2 d-block">
-                                    Automatically calculated when the bot enters a trade.<br>
-                                    Based on premiums / margin. Reset daily. Visible after successful entry.
+                                    Automatically calculated on entry/adjustment. Resets daily.
                                 </small>
                             </div>
 
                             <!-- Max Lots Hard Cap Control -->
                             <div class="mb-4">
-                                <h6 class="text-muted mb-3">Max Lots Hard Cap(Each lot ≈ ₹1.2 lakh to ₹1.5 lakh)</h6>
+                                <h6 class="text-muted mb-3">Max Lots Hard Cap (Each lot ≈ ₹1.2–1.5 lakh)</h6>
                                 <div class="input-group">
                                     <input type="number" 
                                            class="form-control bg-dark text-white border-secondary" 
@@ -377,6 +383,17 @@
                                 <small class="text-muted d-block mt-2">
                                     Limits maximum lots the bot can use (1 = safest). Applies only to your account.
                                 </small>
+                            </div>
+
+                            <!-- Live PnL Display -->
+                            <div class="mb-4">
+                                <h6 class="text-muted mb-3">Live Unrealized P&L</h6>
+                                <div class="stat-card-sm text-center" id="pnl-card">
+                                    <div class="value {% if bot_status.current_unrealized_pnl >= 0 %}text-success{% else %}text-danger{% endif %}" id="current-pnl">
+                                        ₹{{ bot_status.current_unrealized_pnl|floatformat:2|default:"0.00" }}
+                                    </div>
+                                    <div class="label">Current Position P&L</div>
+                                </div>
                             </div>
 
                             <div class="mb-4">
@@ -810,9 +827,19 @@ setInterval(updateMarketStatus, 1000);
 
 {% if user.is_staff %}
     // ────────────────────────────────────────────────
-    // LIVE REFRESH FOR P&L, STATUS, TARGET, etc.
+    // LIVE REFRESH FOR TARGET, STOP-LOSS, PnL, STATUS
     // ────────────────────────────────────────────────
     function refreshBotData() {
+        const loadingElements = [
+            document.getElementById('target-card'),
+            document.getElementById('stop-card'),
+            document.getElementById('pnl-card')
+        ];
+
+        loadingElements.forEach(el => {
+            if (el) el.classList.add('loading');
+        });
+
         fetch('{% url "bot_status" %}')
             .then(response => response.json())
             .then(data => {
@@ -835,19 +862,37 @@ setInterval(updateMarketStatus, 1000);
                     timeEl.textContent = 'Stopped ' + (data.last_stopped ? new Date(data.last_stopped).toLocaleString() : 'recently');
                 }
 
-                // P&L & Target/Stop
-                document.getElementById('daily-target').textContent = data.daily_target ? '₹' + data.daily_target.toLocaleString() : '---';
-                document.getElementById('daily-stop').textContent = data.daily_stop_loss ? '₹' + data.daily_stop_loss.toLocaleString() : '---';
+                // Target & Stop-Loss
+                const targetEl = document.getElementById('daily-target');
+                const stopEl = document.getElementById('daily-stop');
+                targetEl.textContent = data.daily_target && data.daily_target != 0 
+                    ? '₹' + data.daily_target.toLocaleString('en-IN', {minimumFractionDigits: 0, maximumFractionDigits: 0})
+                    : '---';
+                stopEl.textContent = data.daily_stop_loss && data.daily_stop_loss != 0 
+                    ? '₹' + data.daily_stop_loss.toLocaleString('en-IN', {minimumFractionDigits: 0, maximumFractionDigits: 0})
+                    : '---';
 
-                // Last error (if exists)
+                // Live PnL
+                const pnlEl = document.getElementById('current-pnl');
+                const pnlValue = data.current_unrealized_pnl.toFixed(2);
+                pnlEl.textContent = '₹' + pnlValue.toLocaleString('en-IN');
+                pnlEl.className = `value ${data.current_unrealized_pnl >= 0 ? 'text-success' : 'text-danger'}`;
+
+                // Last error
                 const errorEl = document.getElementById('last-error');
                 if (errorEl && data.last_error && data.last_error !== 'None') {
                     errorEl.textContent = data.last_error;
                 }
 
-                console.log('Bot data refreshed:', data);
+                // Remove loading state
+                loadingElements.forEach(el => {
+                    if (el) el.classList.remove('loading');
+                });
             })
-            .catch(err => console.error('Failed to refresh bot data:', err));
+            .catch(err => {
+                console.error('Failed to refresh bot data:', err);
+                // Silent fail - no user-facing message
+            });
     }
 
     // Run immediately + every 12 seconds

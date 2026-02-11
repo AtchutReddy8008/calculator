@@ -19,17 +19,14 @@
         --loss-text: #f87171;
         --current: #60a5fa;
         --date-color: #f1f5f9;
+        --zero: #64748b;
     }
 
-    body {
-        background: var(--bg);
-        color: var(--text);
-    }
+    body { background: var(--bg); color: var(--text); }
 
     .calendar {
         background: var(--card-bg);
         backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
         border: 1px solid var(--card-border);
         border-radius: 16px;
         padding: 1.8rem;
@@ -123,6 +120,11 @@
         border: 1.5px solid var(--loss);
     }
 
+    .calendar-day.zero {
+        background: rgba(100,116,139,0.18);
+        border: 1.5px solid var(--zero);
+    }
+
     .calendar-day .date {
         font-weight: 800;
         font-size: 1.45rem;
@@ -131,11 +133,6 @@
         text-shadow: 0 1px 4px rgba(0,0,0,0.65);
         line-height: 1;
         z-index: 2;
-    }
-
-    .calendar-day:not(.has-pnl) .date {
-        color: #ffffff;
-        text-shadow: 0 0 8px rgba(255,255,255,0.35);
     }
 
     .calendar-day .pnl {
@@ -164,21 +161,20 @@
         border: 1px solid rgba(239,68,68,0.65);
     }
 
+    .calendar-day.zero .pnl {
+        color: var(--zero);
+        background: rgba(100,116,139,0.25);
+        border: 1px solid var(--zero);
+    }
+
     .calendar-day .pnl::before {
-        content: "";
         font-size: 1.05rem;
         margin-right: 0.45rem;
     }
 
-    .calendar-day.profit .pnl::before {
-        content: "↑";
-        color: var(--profit-text);
-    }
-
-    .calendar-day.loss .pnl::before {
-        content: "↓";
-        color: var(--loss-text);
-    }
+    .calendar-day.profit .pnl::before { content: "↑"; color: var(--profit-text); }
+    .calendar-day.loss   .pnl::before { content: "↓"; color: var(--loss-text);   }
+    .calendar-day.zero   .pnl::before { content: "–"; color: var(--zero);         }
 
     .calendar-day:hover .pnl {
         transform: scale(1.12);
@@ -254,6 +250,7 @@
 
     .profit { color: var(--profit) !important; }
     .loss   { color: var(--loss)   !important; }
+    .zero   { color: var(--zero)   !important; }
 
     .profit-bg {
         border-left: 5px solid var(--profit) !important;
@@ -264,6 +261,12 @@
     .loss-bg {
         border-left: 5px solid var(--loss) !important;
         background: rgba(239,68,68,0.10) !important;
+        border-radius: 6px;
+    }
+
+    .zero-bg {
+        border-left: 5px solid var(--zero) !important;
+        background: rgba(100,116,139,0.10) !important;
         border-radius: 6px;
     }
 
@@ -315,28 +318,38 @@
                         {% if day == 0 %}
                             <div class="calendar-day empty"></div>
                         {% else %}
-                            {% with day_date=year|stringformat:"04d"|add:"-"|add:month|stringformat:"02d"|add:"-"|add:day|stringformat:"02d" %}
+                            {% with year|stringformat:"04d"|add:"-"|add:month|stringformat:"02d"|add:"-"|add:day|stringformat:"02d" as day_date %}
                                 <div class="calendar-day {% if day_date == today_str %}current-day{% endif %}">
                                     <div class="date">{{ day }}</div>
 
-                                    {% for record in daily_records %}
-                                        {% if record.date|date:"Y-m-d" == day_date %}
-                                            <div class="pnl {% if record.pnl >= 0 %}profit{% else %}loss{% endif %}">
-                                                ₹{{ record.pnl|floatformat:0 }}
-                                            </div>
+                                    {% with found=False %}
+                                        {% for record in daily_records %}
+                                            {% if record.date|date:"Y-m-d" == day_date %}
+                                                <div class="pnl 
+                                                    {% if record.pnl > 0 %}profit
+                                                    {% elif record.pnl < 0 %}loss
+                                                    {% else %}zero{% endif %}">
+                                                    ₹{{ record.pnl|floatformat:0|default:"0" }}
+                                                </div>
+                                                <div class="day-details">
+                                                    <strong>{{ day_date }}</strong><br>
+                                                    P&L: ₹{{ record.pnl|floatformat:2|default:"0.00" }}<br>
+                                                    Trades: {{ record.total_trades|default:0 }}<br>
+                                                    Wins: {{ record.win_trades|default:0 }}<br>
+                                                    Losses: {{ record.loss_trades|default:0 }}
+                                                </div>
+                                                {% with found=True %}{% endwith %}
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {% if not found %}
+                                            <div class="pnl zero">₹0</div>
                                             <div class="day-details">
                                                 <strong>{{ day_date }}</strong><br>
-                                                P&L: ₹{{ record.pnl|floatformat:2 }}<br>
-                                                Trades: {{ record.total_trades|default:0 }}<br>
-                                                Wins: {{ record.win_trades|default:0 }}<br>
-                                                Losses: {{ record.loss_trades|default:0 }}
+                                                No trade / ₹0.00
                                             </div>
                                         {% endif %}
-                                    {% empty %}
-                                        <div class="pnl" style="background:rgba(255,255,255,0.08); color:#94a3b8;">
-                                            ₹0
-                                        </div>
-                                    {% endfor %}
+                                    {% endwith %}
                                 </div>
                             {% endwith %}
                         {% endif %}
@@ -354,7 +367,7 @@
                     <span>Loss Day</span>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color" style="background: rgba(51,65,85,0.45); border-color: #475569;"></div>
+                    <div class="legend-color" style="background: rgba(100,116,139,0.18); border-color: var(--zero);"></div>
                     <span>No Trade / ₹0</span>
                 </div>
             </div>
@@ -369,23 +382,23 @@
             <div class="card-body">
                 <div class="mb-3 d-flex justify-content-between">
                     <strong>Total P&L:</strong>
-                    <span class="{% if stats.total_pnl >= 0 %}profit{% else %}loss{% endif %}">
+                    <span class="{% if stats.total_pnl > 0 %}profit{% elif stats.total_pnl < 0 %}loss{% else %}zero{% endif %}">
                         ₹{{ stats.total_pnl|floatformat:2|default:"0.00" }}
                     </span>
                 </div>
                 <div class="mb-3 d-flex justify-content-between">
                     <strong>Average Daily P&L:</strong>
-                    <span class="{% if stats.average_pnl >= 0 %}profit{% else %}loss{% endif %}">
+                    <span class="{% if stats.average_pnl > 0 %}profit{% elif stats.average_pnl < 0 %}loss{% else %}zero{% endif %}">
                         ₹{{ stats.average_pnl|floatformat:2|default:"0.00" }}
                     </span>
                 </div>
                 <div class="mb-3 d-flex justify-content-between">
                     <strong>Profitable Days:</strong>
-                    <span>{{ stats.positive_days|default:0 }}</span>
+                    <span class="profit">{{ stats.positive_days|default:0 }}</span>
                 </div>
                 <div class="mb-3 d-flex justify-content-between">
                     <strong>Loss Days:</strong>
-                    <span>{{ stats.negative_days|default:0 }}</span>
+                    <span class="loss">{{ stats.negative_days|default:0 }}</span>
                 </div>
                 <div class="mb-3 d-flex justify-content-between">
                     <strong>Best Day:</strong>
@@ -397,20 +410,14 @@
                 </div>
                 <div class="mb-3 d-flex justify-content-between">
                     <strong>Win Rate:</strong>
-                    {% if stats.positive_days or stats.negative_days %}
-                        {% with total=stats.positive_days|add:stats.negative_days %}
-                            <span>
-                                {{ stats.positive_days|default:0 }} / {{ total|default:0 }}
-                                {% if total > 0 %}
-                                    ({{ stats.positive_days|div:total|multiply:100|floatformat:0 }}%)
-                                {% else %}
-                                    (0%)
-                                {% endif %}
-                            </span>
-                        {% endwith %}
-                    {% else %}
-                        <span>0%</span>
-                    {% endif %}
+                    {% with total_days=stats.positive_days|add:stats.negative_days %}
+                        {% if total_days > 0 %}
+                            {{ stats.positive_days }} / {{ total_days }} 
+                            ({{ stats.positive_days|div:total_days|multiply:100|floatformat:1 }}%)
+                        {% else %}
+                            —
+                        {% endif %}
+                    {% endwith %}
                 </div>
             </div>
         </div>
@@ -423,14 +430,16 @@
                 {% if daily_records %}
                     {% for record in daily_records %}
                         <div class="d-flex justify-content-between align-items-center mb-2 p-2 
-                            {% if record.pnl >= 0 %}profit-bg{% else %}loss-bg{% endif %}">
+                            {% if record.pnl > 0 %}profit-bg
+                            {% elif record.pnl < 0 %}loss-bg
+                            {% else %}zero-bg{% endif %}">
                             <div>
                                 <strong>{{ record.date|date:"D, M d" }}</strong><br>
                                 <small class="text-muted">{{ record.total_trades|default:0 }} trades</small>
                             </div>
                             <div class="text-end">
-                                <span class="{% if record.pnl >= 0 %}profit{% else %}loss{% endif %}">
-                                    ₹{{ record.pnl|floatformat:2 }}
+                                <span class="{% if record.pnl > 0 %}profit{% elif record.pnl < 0 %}loss{% else %}zero{% endif %}">
+                                    ₹{{ record.pnl|floatformat:2|default:"0.00" }}
                                 </span><br>
                                 <small class="text-muted">
                                     {{ record.win_trades|default:0 }}W / {{ record.loss_trades|default:0 }}L
