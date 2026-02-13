@@ -105,8 +105,7 @@ celery -A niftybot worker -l info --pool=gevent --concurrency=100
 CTRL+A + D
 --------------------------------------
 
-screen -r django
-screen -r celery
+pkill screen
 
 
 pip install celery redis gevent
