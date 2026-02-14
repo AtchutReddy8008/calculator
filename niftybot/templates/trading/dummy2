@@ -27,18 +27,22 @@
     .main-layout {
         display: flex;
         flex-wrap: wrap;
-        gap: 1.25rem;
+        gap: 1.5rem;
+        width: 100%;
+        max-width: none !important;
+        margin: 0 auto;
+        padding: 0 1rem;
+        box-sizing: border-box;
     }
 
     .calendar-container {
-        flex: 0 0 80%;
-        max-width: 80%;
+        flex: 3 1 600px;
+        min-width: 0;
     }
 
     .details-container {
-        flex: 0 0 20%;
-        max-width: 20%;
-        min-width: 280px;          /* prevents becoming too narrow */
+        flex: 1 1 340px;
+        min-width: 340px;
     }
 
     .calendar {
@@ -302,7 +306,6 @@
         border-radius: 6px;
     }
 
-    /* Compressed Daily P&L card */
     .daily-pnl-item {
         padding: 0.7rem 1rem;
         margin-bottom: 0.55rem;
@@ -324,19 +327,19 @@
         font-weight: 700;
     }
 
-    @media (max-width: 1200px) {
-        .calendar-container { flex: 0 0 75%; max-width: 75%; }
-        .details-container { flex: 0 0 25%; max-width: 25%; }
-    }
-
-    @media (max-width: 992px) {
-        .main-layout { flex-direction: column; }
+    @media (max-width: 1100px) {
+        .main-layout {
+            flex-direction: column;
+            gap: 2rem;
+        }
         .calendar-container,
         .details-container {
-            flex: 0 0 100%;
-            max-width: 100%;
+            flex: 1 1 100%;
+            min-width: 100%;
         }
-        .details-container { margin-top: 1.5rem; }
+        .details-container {
+            margin-top: 1rem;
+        }
     }
 
     @media (max-width: 768px) {
@@ -361,138 +364,140 @@
 {% endblock %}
 
 {% block content %}
-<div class="row mb-4">
-    <div class="col-12">
-        <h1 class="mb-3"><i class="fas fa-calendar-alt me-2" style="color:var(--primary)"></i> PnL Calendar</h1>
-    </div>
-</div>
 
-<div class="main-layout">
-    <div class="calendar-container">
-        <div class="calendar">
-            <div class="calendar-header">
-                <div class="calendar-nav">
-                    <a href="?year={{ prev_year }}&month={{ prev_month }}" class="me-3">
-                        <i class="fas fa-chevron-left"></i> {{ prev_month|stringformat:"02d" }}/{{ prev_year }}
-                    </a>
-                </div>
-                <div class="calendar-title">{{ month_name }} {{ year }}</div>
-                <div class="calendar-nav">
-                    <a href="?year={{ next_year }}&month={{ next_month }}" class="ms-3">
-                        {{ next_month|stringformat:"02d" }}/{{ next_year }} <i class="fas fa-chevron-right"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="calendar-weekdays">
-                <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div>
-                <div>Fri</div><div>Sat</div><div>Sun</div>
-            </div>
-            
-            <div class="calendar-days">
-                {% for week in calendar %}
-                    {% for day in week %}
-                        {% if day == 0 %}
-                            <div class="calendar-day empty"></div>
-                        {% else %}
-                            {% with day_date=year|stringformat:"04d"|add:"-"|add:month|stringformat:"02d"|add:"-"|add:day|stringformat:"02d" %}
-                                <div class="calendar-day {% if day_date == today_str %}current-day{% endif %}">
-                                    <div class="date">{{ day }}</div>
-
-                                    {% with pnl_value=pnl_by_date|get_item:day_date|default:0 %}
-                                        <div class="pnl 
-                                            {% if pnl_value > 0 %}profit
-                                            {% elif pnl_value < 0 %}loss
-                                            {% else %}zero{% endif %}">
-                                            ₹{{ pnl_value|floatformat:0|intcomma }}
-                                        </div>
-                                        <div class="day-details">
-                                            <strong>{{ day_date }}</strong><br>
-                                            P&L: ₹{{ pnl_value|floatformat:2|intcomma }}<br>
-                                            {% if day_date == today_str and today_live_pnl != 0 and bot_running %}
-                                                <small class="text-info">(Live unrealized)</small>
-                                            {% endif %}
-                                        </div>
-                                    {% endwith %}
-                                </div>
-                            {% endwith %}
-                        {% endif %}
-                    {% endfor %}
-                {% endfor %}
-            </div>
-            
-            <div class="legend">
-                <div class="legend-item">
-                    <div class="legend-color" style="background: linear-gradient(135deg, rgba(16,185,129,0.22), rgba(16,185,129,0.08)); border-color: var(--profit);"></div>
-                    <span>Profit Day</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: linear-gradient(135deg, rgba(239,68,68,0.22), rgba(239,68,68,0.08)); border-color: var(--loss);"></div>
-                    <span>Loss Day</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: rgba(100,116,139,0.18); border-color: var(--zero);"></div>
-                    <span>No Trade / ₹0</span>
-                </div>
-            </div>
+<div class="container-fluid px-3 px-md-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="mb-3"><i class="fas fa-calendar-alt me-2" style="color:var(--primary)"></i> PnL Calendar</h1>
         </div>
     </div>
 
-    <div class="details-container">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0"><i class="fas fa-list-alt me-2"></i> Daily P&L Details</h5>
-            </div>
-            <div class="card-body" style="max-height: 680px; overflow-y: auto; padding: 0.6rem;">
-                {% if daily_records or today_live_pnl %}
-                    {% for record in daily_records %}
-                        <div class="d-flex justify-content-between align-items-center daily-pnl-item
-                            {% if record.pnl > 0 %}profit-bg
-                            {% elif record.pnl < 0 %}loss-bg
-                            {% else %}zero-bg{% endif %}">
-                            <div>
-                                <strong>{{ record.date|date:"D, M d" }}</strong><br>
-                                <small class="text-muted">{{ record.total_trades|default:0 }} trades</small>
-                            </div>
-                            <div class="text-end">
-                                <span class="{% if record.pnl > 0 %}profit{% elif record.pnl < 0 %}loss{% else %}zero{% endif %}">
-                                    ₹{{ record.pnl|floatformat:2|intcomma }}
-                                </span><br>
-                                <small class="text-muted">
-                                    {{ record.win_trades|default:0 }}W / {{ record.loss_trades|default:0 }}L
-                                </small>
-                            </div>
-                        </div>
-                    {% endfor %}
+    <div class="main-layout">
+        <div class="calendar-container">
+            <div class="calendar">
+                <div class="calendar-header">
+                    <div class="calendar-nav">
+                        <a href="?year={{ prev_year }}&month={{ prev_month }}" class="me-3">
+                            <i class="fas fa-chevron-left"></i> {{ prev_month|stringformat:"02d" }}/{{ prev_year }}
+                        </a>
+                    </div>
+                    <div class="calendar-title">{{ month_name }} {{ year }}</div>
+                    <div class="calendar-nav">
+                        <a href="?year={{ next_year }}&month={{ next_month }}" class="ms-3">
+                            {{ next_month|stringformat:"02d" }}/{{ next_year }} <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="calendar-weekdays">
+                    <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div>
+                    <div>Fri</div><div>Sat</div><div>Sun</div>
+                </div>
+                
+                <div class="calendar-days">
+                    {% for week in calendar %}
+                        {% for day in week %}
+                            {% if day == 0 %}
+                                <div class="calendar-day empty"></div>
+                            {% else %}
+                                {% with day_date=year|stringformat:"04d"|add:"-"|add:month|stringformat:"02d"|add:"-"|add:day|stringformat:"02d" %}
+                                    <div class="calendar-day {% if day_date == today_str %}current-day{% endif %}">
+                                        <div class="date">{{ day }}</div>
 
-                    {% if today_live_pnl and bot_running %}
-                        <div class="d-flex justify-content-between align-items-center daily-pnl-item
-                            {% if today_live_pnl > 0 %}profit-bg
-                            {% elif today_live_pnl < 0 %}loss-bg
-                            {% else %}zero-bg{% endif %}">
-                            <div>
-                                <strong>Today (Live)</strong><br>
-                                <small class="text-muted">Unrealized (bot running)</small>
+                                        {% with pnl_value=pnl_by_date|get_item:day_date|default:0 %}
+                                            <div class="pnl 
+                                                {% if pnl_value > 0 %}profit
+                                                {% elif pnl_value < 0 %}loss
+                                                {% else %}zero{% endif %}">
+                                                ₹{{ pnl_value|floatformat:0|intcomma }}
+                                            </div>
+                                            <div class="day-details">
+                                                <strong>{{ day_date }}</strong><br>
+                                                P&L: ₹{{ pnl_value|floatformat:2|intcomma }}<br>
+                                                {% if day_date == today_str and today_live_pnl != 0 and bot_running %}
+                                                    <small class="text-info">(Live unrealized)</small>
+                                                {% endif %}
+                                            </div>
+                                        {% endwith %}
+                                    </div>
+                                {% endwith %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, rgba(16,185,129,0.22), rgba(16,185,129,0.08)); border-color: var(--profit);"></div>
+                        <span>Profit Day</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, rgba(239,68,68,0.22), rgba(239,68,68,0.08)); border-color: var(--loss);"></div>
+                        <span>Loss Day</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: rgba(100,116,139,0.18); border-color: var(--zero);"></div>
+                        <span>No Trade / ₹0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="details-container">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-list-alt me-2"></i> Daily P&L Details</h5>
+                </div>
+                <div class="card-body" style="max-height: 680px; overflow-y: auto; padding: 0.6rem;">
+                    {% if daily_records or today_live_pnl %}
+                        {% for record in daily_records %}
+                            <div class="d-flex justify-content-between align-items-center daily-pnl-item
+                                {% if record.pnl > 0 %}profit-bg
+                                {% elif record.pnl < 0 %}loss-bg
+                                {% else %}zero-bg{% endif %}">
+                                <div>
+                                    <strong>{{ record.date|date:"D, M d" }}</strong><br>
+                                    <small class="text-muted">{{ record.total_trades|default:0 }} trades</small>
+                                </div>
+                                <div class="text-end">
+                                    <span class="{% if record.pnl > 0 %}profit{% elif record.pnl < 0 %}loss{% else %}zero{% endif %}">
+                                        ₹{{ record.pnl|floatformat:2|intcomma }}
+                                    </span><br>
+                                    <small class="text-muted">
+                                        {{ record.win_trades|default:0 }}W / {{ record.loss_trades|default:0 }}L
+                                    </small>
+                                </div>
                             </div>
-                            <div class="text-end">
-                                <span class="{% if today_live_pnl > 0 %}profit{% elif today_live_pnl < 0 %}loss{% else %}zero{% endif %}">
-                                    ₹{{ today_live_pnl|floatformat:2|intcomma }}
-                                </span>
+                        {% endfor %}
+
+                        {% if today_live_pnl and bot_running %}
+                            <div class="d-flex justify-content-between align-items-center daily-pnl-item
+                                {% if today_live_pnl > 0 %}profit-bg
+                                {% elif today_live_pnl < 0 %}loss-bg
+                                {% else %}zero-bg{% endif %}">
+                                <div>
+                                    <strong>Today (Live)</strong><br>
+                                    <small class="text-muted">Unrealized (bot running)</small>
+                                </div>
+                                <div class="text-end">
+                                    <span class="{% if today_live_pnl > 0 %}profit{% elif today_live_pnl < 0 %}loss{% else %}zero{% endif %}">
+                                        ₹{{ today_live_pnl|floatformat:2|intcomma }}
+                                    </span>
+                                </div>
                             </div>
-                        </div>
+                        {% endif %}
+                    {% else %}
+                        <p class="text-muted text-center py-5">
+                            No P&L records or live data found for {{ month_name }} {{ year }}.
+                        </p>
                     {% endif %}
-                {% else %}
-                    <p class="text-muted text-center py-5">
-                        No P&L records or live data found for {{ month_name }} {{ year }}.
-                    </p>
-                {% endif %}
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-// Your existing JS remains the same
 document.addEventListener("DOMContentLoaded", function () {
     const detailItems = document.querySelectorAll(".card-body .profit-bg, .card-body .loss-bg, .card-body .zero-bg");
 

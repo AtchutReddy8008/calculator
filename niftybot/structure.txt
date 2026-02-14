@@ -32,6 +32,6 @@ niftybot/
 │       ├── coming_soon.html
 │       ├── broker.html
 │       ├── home.html           # note: this is inside trading/, not top-level
-│       ├── pnl_calender.html   # ← typo: should be calendar
+│       ├── pnl_calendar.html   # ← typo: should be calendar
 │       └── connect_zerodha.html
 └── requirements.txt

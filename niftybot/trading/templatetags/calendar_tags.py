@@ -1,22 +1,33 @@
 # trading/templatetags/calendar_tags.py
+
 from django import template
-from datetime import datetime, timedelta
+from calendar import monthcalendar
 
 register = template.Library()
 
 
-@register.filter(name='add_days')
-def add_days(date_str, days):
+@register.simple_tag(name='calendar')
+def get_calendar(year, month):
     """
-    Adds days to a date string in 'YYYY-MM-DD' format.
-    Used to calculate exact date for monthcalendar day numbers.
+    Custom template tag that returns a calendar grid for a given year and month.
+    
+    Returns:
+        list of lists (weeks), each containing 7 integers (day numbers or 0)
     
     Usage:
-        {{ '2025-02-01'|add_days:5 }} → '2025-02-06'
+        {% calendar year month as cal %}
+        {% for week in cal %}
+            {% for day in week %}
+                {{ day }}
+            {% endfor %}
+        {% endfor %}
     """
     try:
-        dt = datetime.strptime(str(date_str), '%Y-%m-%d')
-        new_dt = dt + timedelta(days=int(days) - 1)  # monthcalendar days start from 1
-        return new_dt.strftime('%Y-%m-%d')
+        y = int(year)
+        m = int(month)
+        if not (1900 <= y <= 2100 and 1 <= m <= 12):
+            raise ValueError("Invalid year or month")
+        return monthcalendar(y, m)
     except (ValueError, TypeError):
-        return date_str  # fallback to original if invalid
+        # Return empty grid on error (prevents template crash)
+        return [[0] * 7 for _ in range(6)]

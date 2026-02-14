@@ -13,6 +13,7 @@ from datetime import date, timedelta
 import json
 import traceback
 from calendar import monthcalendar
+from decimal import Decimal
 
 from django.contrib.auth.models import User
 from django.db import transaction
@@ -119,7 +120,7 @@ def dashboard_stats(request):
             delta = now - bot_status.last_heartbeat
             data['last_heartbeat_ago'] = f"{delta.total_seconds() // 60:.0f} min ago"
 
-        # Try cached value first
+        # Try cached value first (already Decimal → convert safely)
         cached_pnl = float(bot_status.current_unrealized_pnl or 0)
         data['current_unrealized_pnl'] = cached_pnl
         data['current_margin'] = float(bot_status.current_margin or 0)
@@ -144,7 +145,7 @@ def dashboard_stats(request):
                     data['current_unrealized_pnl'] = float(live_pnl)
                     data['pnl_source'] = 'live_fallback'
                     # Optionally persist it to avoid repeated heavy calc
-                    bot_status.current_unrealized_pnl = live_pnl
+                    bot_status.current_unrealized_pnl = Decimal(str(live_pnl))
                     bot_status.save(update_fields=['current_unrealized_pnl'])
                 else:
                     data['pnl_source'] = 'zero_fallback'
@@ -262,16 +263,23 @@ def pnl_calendar(request):
     # Get live data for today from BotStatus
     today = date.today()
     bot_status = BotStatus.objects.filter(user=request.user).first()
-    today_pnl = 0.0
+    today_pnl = Decimal('0.00')
     today_record_exists = daily_records.filter(date=today).exists()
 
     if bot_status and bot_status.current_unrealized_pnl is not None:
-        today_pnl = float(bot_status.current_unrealized_pnl)
+        today_pnl = bot_status.current_unrealized_pnl
 
-    # Build lookup dict: date → pnl (use live value for today if bot running)
-    pnl_by_date = {rec.date: float(rec.pnl) for rec in daily_records}
+    # Use STRING keys to match template's day_date format
+    pnl_by_date = {
+    str(rec.date): rec.pnl
+    for rec in daily_records
+}
+
+
+    # Override today's value if bot is running (also as string key)
+    today_str = today.strftime("%Y-%m-%d")
     if bot_status and bot_status.is_running:
-        pnl_by_date[today] = today_pnl
+        pnl_by_date[today_str] = today_pnl
 
     # Monthly stats with fallback
     monthly_stats = daily_records.aggregate(
@@ -282,15 +290,15 @@ def pnl_calendar(request):
         max_pnl=Max('pnl'),
         min_pnl=Min('pnl'),
     ) or {
-        'total_pnl': 0, 'average_pnl': 0,
+        'total_pnl': Decimal('0.00'), 'average_pnl': Decimal('0.00'),
         'positive_days': 0, 'negative_days': 0,
-        'max_pnl': 0, 'min_pnl': 0
+        'max_pnl': Decimal('0.00'), 'min_pnl': Decimal('0.00')
     }
 
     # Convert None → 0
     for key in monthly_stats:
         if monthly_stats[key] is None:
-            monthly_stats[key] = 0
+            monthly_stats[key] = Decimal('0.00') if 'pnl' in key else 0
 
     context = {
         'year': year,
@@ -306,7 +314,7 @@ def pnl_calendar(request):
         'prev_year': year if month > 1 else year - 1,
         'next_month': month + 1 if month < 12 else 1,
         'next_year': year if month < 12 else year + 1,
-        'today_str': date.today().strftime('%Y-%m-%d'),
+        'today_str': today.strftime('%Y-%m-%d'),
         'current_month_str': date(year, month, 1).strftime('%B %Y'),
         'bot_running': bot_status.is_running if bot_status else False,
     }
@@ -426,7 +434,7 @@ def calculate_average_pnl(user):
     if count == 0:
         return 0.0
     total = qs.aggregate(total=Sum('pnl'))['total'] or 0
-    return round(total / count, 2)
+    return round(float(total) / count, 2)
 
 
 def get_best_day(user):
@@ -543,10 +551,12 @@ def stop_bot(request):
             )
             messages.warning(request, 'Could not revoke task cleanly (still stopping via flag).')
 
-    bot_status.is_running = False
-    bot_status.celery_task_id = None
-    bot_status.last_stopped = timezone.now()
-    bot_status.save(update_fields=['is_running', 'celery_task_id', 'last_stopped'])
+    with transaction.atomic():
+        bot_status.refresh_from_db()
+        bot_status.is_running = False
+        bot_status.celery_task_id = None
+        bot_status.last_stopped = timezone.now()
+        bot_status.save(update_fields=['is_running', 'celery_task_id', 'last_stopped'])
 
     LogEntry.objects.create(
         user=user,

@@ -38,7 +38,19 @@ bs.save()
 
 print("Reset complete! Bot can now attempt new entry today.")
 ------------------------------------------------------------------------------------------------
+from trading.models import Trade, DailyPnL
+from django.contrib.auth.models import User
 
+user = User.objects.get(username='balaji')
+
+# See closed trades today
+print(Trade.objects.filter(user=user, status='CLOSED', exit_time__date=date.today()).values('symbol', 'pnl'))
+
+# See today's DailyPnL
+print(DailyPnL.objects.filter(user=user, date=date.today()).values('pnl', 'total_trades'))
+
+
+-------------------------------------------------------------------------
 
 sudo python manage.py runserver 0.0.0.0:80
 

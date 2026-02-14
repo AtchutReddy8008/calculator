@@ -9,10 +9,6 @@ from django.utils import timezone
 from decimal import Decimal
 import json
 
-# Optional: for production encryption of sensitive fields
-# pip install django-fernet-fields
-# from fernet_fields import EncryptedCharField
-
 
 class Broker(models.Model):
     """
@@ -23,8 +19,8 @@ class Broker(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='brokers')
     broker_name = models.CharField(max_length=50, default='ZERODHA')
     
-    api_key = models.CharField(max_length=255)          # EncryptedCharField(max_length=255) in production
-    secret_key = models.CharField(max_length=255)       # EncryptedCharField(max_length=255) in production
+    api_key = models.CharField(max_length=255)          # → Use EncryptedCharField in production
+    secret_key = models.CharField(max_length=255)       # → Use EncryptedCharField in production
     totp = models.CharField(max_length=100, null=True, blank=True,
                             help_text="TOTP secret for 2FA")
     zerodha_user_id = models.CharField(max_length=100, null=True, blank=True,
@@ -79,6 +75,7 @@ class Trade(models.Model):
         ('EXECUTED', 'Executed'),
         ('CANCELLED', 'Cancelled'),
         ('FAILED', 'Failed'),
+        ('CLOSED', 'Closed'),           # ← Added for proper exit state
     ]
 
     DIRECTION_CHOICES = [
@@ -113,6 +110,11 @@ class Trade(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PENDING')
     broker = models.CharField(max_length=50, default='ZERODHA')
     metadata = models.JSONField(default=dict, blank=True)
+    
+    # Optional: Zerodha-specific tracking
+    order_id = models.CharField(max_length=50, blank=True, null=True)
+    parent_order_id = models.CharField(max_length=50, blank=True, null=True)
+    
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -122,28 +124,36 @@ class Trade(models.Model):
             models.Index(fields=['trade_id']),
             models.Index(fields=['status']),
         ]
+        verbose_name = 'Trade'
+        verbose_name_plural = 'Trades'
 
     def __str__(self):
         return f"{self.trade_id} - {self.symbol} ({self.status})"
 
-    def close_trade(self, exit_price: Decimal, exit_time=None, brokerage_fee: Decimal = Decimal('20.0')):
-        """Auto-calculate PnL when closing trade - improved version"""
-        if self.exit_price is not None:
-            return
-
+    def calculate_pnl(self, brokerage_fee: Decimal = Decimal('20.0')) -> Decimal:
+        """Calculate gross PnL before fees"""
         qty_abs = abs(self.quantity)
         
         if self.direction == 'LONG':
-            gross_pnl = (exit_price - self.entry_price) * qty_abs
+            gross = (self.exit_price - self.entry_price) * qty_abs
         else:  # SHORT
-            gross_pnl = (self.entry_price - exit_price) * qty_abs
+            gross = (self.entry_price - self.exit_price) * qty_abs
+            
+        return gross
 
-        # Subtract approximate brokerage/slippage (customize as needed)
-        self.pnl = gross_pnl - brokerage_fee
+    def close_trade(self, exit_price: Decimal, exit_time=None, brokerage_fee: Decimal = Decimal('20.0')):
+        """Auto-calculate PnL when closing trade - improved version"""
+        if self.exit_price is not None:
+            return  # Already closed
+
         self.exit_price = exit_price
+        gross_pnl = self.calculate_pnl()
+        self.pnl = gross_pnl - brokerage_fee
         self.exit_time = exit_time or timezone.now()
-        self.status = 'EXECUTED'
+        self.status = 'CLOSED'
         self.save()
+
+        return self.pnl
 
 
 class DailyPnL(models.Model):
@@ -155,6 +165,13 @@ class DailyPnL(models.Model):
     total_trades = models.PositiveIntegerField(default=0)
     win_trades = models.PositiveIntegerField(default=0)
     loss_trades = models.PositiveIntegerField(default=0)
+    
+    # Optional: richer stats
+    max_unrealized_adverse = models.DecimalField(max_digits=12, decimal_places=2, default=0, null=True)
+    margin_peak_used = models.DecimalField(max_digits=14, decimal_places=2, default=0, null=True)
+    vix_at_open = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    entry_spot = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -209,6 +226,7 @@ class BotStatus(models.Model):
     )
     
     state_json = models.JSONField(default=dict, blank=True)
+    
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -253,6 +271,7 @@ class LogEntry(models.Model):
 
     def __str__(self):
         return f"[{self.level}] {self.user.username} - {self.timestamp.strftime('%Y-%m-%d %H:%M:%S')}"
+
 
 # ───────────────────────────────────────────────
 # Signals

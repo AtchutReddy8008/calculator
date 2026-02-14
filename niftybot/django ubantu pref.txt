@@ -96,7 +96,7 @@ CTRL+A + D
 ----------------
 screen -S celery
 
-cd /root/calculator/
+cd /root/calculator/nifty
 source /root/calculator/venv/bin/activate
 
 
@@ -110,20 +110,6 @@ pkill screen
 
 pip install celery redis gevent
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 screen -ls
 
 screen -r django
@@ -133,6 +119,20 @@ exit
 screen -r celery
 CTRL + C
 exit
+
+
+
+
+
+
+nano ~/.screenrc
+
+hardstatus on
+hardstatus alwayslastline
+hardstatus string "%{= kG}[%n %t] %{= kw}%H"
+
+
+
 
 
 -----------------------------------------------------------------

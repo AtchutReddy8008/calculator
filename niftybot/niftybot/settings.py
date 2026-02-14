@@ -39,12 +39,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    # Add this line ↓
+    'django.contrib.humanize',          # ← REQUIRED for |intcomma, |naturalday, etc.
+
     # Your app
     'trading',
     
-    # Celery + beat + results
+    # Celery stuff
     'django_celery_beat',
     'django_celery_results',
+
+    # Redis cache (if you added it earlier)
+    'django_redis',
 ]
 
 MIDDLEWARE = [
@@ -98,6 +104,7 @@ DATABASES = {
 #     }
 # }
 #pip install psycopg2-binary
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -177,6 +184,26 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 
 # ───────────────────────────────────────────────
+# REDIS CACHE (highly recommended for Celery + real-time dashboard)
+# ───────────────────────────────────────────────
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",  # Different DB than Celery (0)
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100},
+        }
+    }
+}
+
+# Use Redis for session storage (optional but good for scaling)
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+
+
+# ───────────────────────────────────────────────
 # EMAIL CONFIGURATION (for alerts, notifications)
 # ───────────────────────────────────────────────
 
@@ -249,7 +276,26 @@ LOGGING = {
 
 
 # ───────────────────────────────────────────────
-# STATIC FILES (CSS, JS, Images)
+# SECURITY SETTINGS (uncomment / configure in production)
 # ───────────────────────────────────────────────
 
+# SECURE_SSL_REDIRECT = True                    # Force HTTPS
+# SESSION_COOKIE_SECURE = True                  # Cookies only over HTTPS
+# CSRF_COOKIE_SECURE = True                     # CSRF only over HTTPS
+# SECURE_HSTS_SECONDS = 31536000                # 1 year HSTS
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# SECURE_BROWSER_XSS_FILTER = True
+# X_FRAME_OPTIONS = 'DENY'
 
+
+# ───────────────────────────────────────────────
+# STATIC FILES (CSS, JS, Images)
+# ───────────────────────────────────────────────
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+          # Development: local static files
+STATIC_ROOT = BASE_DIR / 'staticfiles'            # Production: collectstatic destination

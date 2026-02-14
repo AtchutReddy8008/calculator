@@ -12,7 +12,8 @@ from celery import shared_task, current_app as celery_app
 from celery.exceptions import SoftTimeLimitExceeded, Ignore
 from django.contrib.auth.models import User
 from django.utils import timezone
-from django.db import transaction
+from django.db import transaction, close_old_connections
+from decimal import Decimal
 
 from .models import Broker, BotStatus, LogEntry, Trade, DailyPnL
 from .core.bot_original import TradingApplication
@@ -89,6 +90,7 @@ def run_user_bot(self, user_id):
 
     runner = BotRunner()
     bot_status = None
+    app = None  # TradingApplication instance
 
     try:
         # Initialize / update BotStatus
@@ -126,8 +128,8 @@ def run_user_bot(self, user_id):
 
         # Initial heartbeat
         bot_status.last_heartbeat = timezone.now()
-        bot_status.current_unrealized_pnl = 0
-        bot_status.current_margin = 0
+        bot_status.current_unrealized_pnl = Decimal('0.00')
+        bot_status.current_margin = Decimal('0.00')
         bot_status.save(update_fields=[
             'last_heartbeat',
             'current_unrealized_pnl',
@@ -136,8 +138,9 @@ def run_user_bot(self, user_id):
         logger.info(f"{user_prefix}[{task_id}] Initial heartbeat saved")
 
         # Main loop
-        HEARTBEAT_INTERVAL = 2   # seconds — more responsive for dashboard
+        HEARTBEAT_INTERVAL = 5   # seconds — more responsive for dashboard
         last_heartbeat = time.time()
+        last_db_cleanup = time.time()
 
         while runner.running:
             # Celery revocation check
@@ -153,6 +156,11 @@ def run_user_bot(self, user_id):
                 runner.stop()
                 break
 
+            # Prevent stale DB connections in long-running task
+            if time.time() - last_db_cleanup > 300:  # every 5 minutes
+                close_old_connections()
+                last_db_cleanup = time.time()
+
             try:
                 # Run ONE full bot cycle
                 app.run()
@@ -161,8 +169,8 @@ def run_user_bot(self, user_id):
                 if time.time() - last_heartbeat >= HEARTBEAT_INTERVAL:
                     try:
                         bot_status.last_heartbeat = timezone.now()
-                        bot_status.current_unrealized_pnl = float(app.engine.algo_pnl() or 0)
-                        bot_status.current_margin = float(app.engine.actual_used_capital() or 0)
+                        bot_status.current_unrealized_pnl = Decimal(str(app.engine.algo_pnl() or 0))
+                        bot_status.current_margin = Decimal(str(app.engine.actual_used_capital() or 0))
                         bot_status.save(update_fields=[
                             'last_heartbeat',
                             'current_unrealized_pnl',
@@ -211,6 +219,14 @@ def run_user_bot(self, user_id):
             bot_status.is_running = False
             bot_status.last_stopped = timezone.now()
             bot_status.save(update_fields=['is_running', 'last_stopped'])
+
+        # Ensure graceful exit of trading logic if still active
+        if app and app.engine.state.data.get("trade_active", False):
+            try:
+                logger.info(f"{user_prefix}[{task_id}] Final cleanup: forcing engine exit")
+                app.engine.exit("Task shutdown / Celery final cleanup")
+            except Exception as exit_err:
+                logger.critical(f"Final engine exit failed: {str(exit_err)}")
 
         logger.info(f"{user_prefix}[{task_id}] Task cleanup complete — bot marked stopped")
 
@@ -397,14 +413,14 @@ def save_daily_pnl_all_users():
 
             bot_status = BotStatus.objects.filter(user=user).first()
 
-            pnl = 0.0
+            pnl = Decimal('0.00')
             total_trades = 0
             win_trades = 0
             loss_trades = 0
 
             # Prefer live bot data if running
             if bot_status and bot_status.is_running:
-                pnl = float(bot_status.current_unrealized_pnl or 0)
+                pnl = bot_status.current_unrealized_pnl or Decimal('0.00')
 
             # Count executed trades today (more reliable than bot state)
             trades_today = Trade.objects.filter(

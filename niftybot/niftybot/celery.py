@@ -14,6 +14,9 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "niftybot.settings")
 # ------------------------------------------------------------------------------
 app = Celery("niftybot")
 
+# Makes "from niftybot.celery import app" cleaner
+__all__ = ("app",)
+
 # ------------------------------------------------------------------------------
 # LOAD CONFIGURATION FROM DJANGO SETTINGS (CELERY_ namespace)
 # ------------------------------------------------------------------------------
@@ -39,7 +42,8 @@ app.conf.update(
 
     # ── Connection stability ──
     broker_connection_retry_on_startup=True,
-    broker_connection_max_retries=None,
+    broker_connection_max_retries=100,  # ← Changed: safer than None (infinite)
+    broker_connection_timeout=10,
 
     # ── Result backend cleanup (not using results heavily) ──
     result_expires=3600,                # 1 hour
@@ -50,6 +54,15 @@ app.conf.update(
 
     # ── Better visibility in Flower / logs ──
     task_track_started=True,
+
+    # Optional: global rate limit example (uncomment if needed)
+    # task_default_rate_limit='30/m',   # e.g. max 30 tasks per minute globally
+
+    # Optional: example queue routing (uncomment and customize when scaling)
+    # task_routes={
+    #     'trading.tasks.run_user_bot': {'queue': 'bot_tasks'},
+    #     'trading.tasks.check_bot_health': {'queue': 'beat_tasks'},
+    # },
 )
 
 # ------------------------------------------------------------------------------
