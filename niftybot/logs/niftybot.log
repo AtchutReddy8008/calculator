@@ -2541,3 +2541,1310 @@ WARNING 2026-02-14 10:12:46,960 tasks [SIGNAL] Received signal 2 — exiting worke
 WARNING 2026-02-16 09:20:37,018 tasks [SIGNAL] Received signal 2 — exiting worker gracefully
 WARNING 2026-02-16 09:35:18,503 tasks [SIGNAL] Received signal 2 — exiting worker gracefully
 WARNING 2026-02-16 21:34:47,227 tasks [SIGNAL] Received signal 2 — exiting worker gracefully
+INFO 2026-02-17 09:36:51,872 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 09:36:52,062 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=jwr8RF3sGTBc3NVsyz5fzEFIzVNgy8o8)
+DEBUG 2026-02-17 09:36:52,111 auth [AUTH] Login success - request_id: Uito4ImtHzXOdjXyTJ6ubqc6iMZxT6l3HNQodT5e17xYo0Tq2AWsLFZoHwcR614c
+DEBUG 2026-02-17 09:36:52,160 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 09:36:52,293 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=a7WubgWu6DG1ouW0l6gUFiuEbYn2YS1h&action=login&type=login&status=success
+INFO 2026-02-17 09:36:52,293 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 09:36:52,415 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 09:36:52,427 tasks Token generation task succeeded for broker 1
+INFO 2026-02-17 09:37:11,828 tasks [user:balaji] [TASK START] run_user_bot task_id=eb531427-fd0b-402f-ad57-28b5a43423b3
+INFO 2026-02-17 09:37:11,865 tasks [user:balaji] [eb531427-fd0b-402f-ad57-28b5a43423b3] BotStatus updated
+INFO 2026-02-17 09:37:11,885 tasks [user:balaji] [eb531427-fd0b-402f-ad57-28b5a43423b3] Broker loaded successfully
+INFO 2026-02-17 09:37:11,926 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 09:37:12,148 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=Je0tKknUoLtqf6lp6pLMNZVvOJf0YKp5)
+DEBUG 2026-02-17 09:37:12,206 auth [AUTH] Login success - request_id: xfNTF6PimGpRgAHY1wdYJYrbFDdk2X62MN6CM0qS7SPxmFfSQjsh2gLNuqj5e3y3
+DEBUG 2026-02-17 09:37:12,265 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 09:37:12,535 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=wMkVrMthkYAZkwYTgkTKvrk9W0TsS1KX
+INFO 2026-02-17 09:37:12,539 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 09:37:12,709 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 09:37:12,765 tasks [user:balaji] [eb531427-fd0b-402f-ad57-28b5a43423b3] TradingApplication initialized
+INFO 2026-02-17 09:37:12,782 tasks [user:balaji] [eb531427-fd0b-402f-ad57-28b5a43423b3] Initial heartbeat saved
+INFO 2026-02-17 09:37:23,435 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 09:37:23,637 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=Hkqfl26xXNpKN5D45vegQW0ce0J2mFpf&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-17 09:37:23,692 auth [AUTH] Login success - request_id: CH14mVJ4gkVZjkedmCe5Q0SbTrOhWqgLv82O864bR2OwqAkKWAIaLKPrQJR4njAk
+DEBUG 2026-02-17 09:37:23,772 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 09:37:23,965 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=w02tIDa3VdF7T1oMpE7ajWBtH8YIV89h
+INFO 2026-02-17 09:37:23,965 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 09:37:24,042 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 09:37:45,655 tasks [user:balaji] [eb531427-fd0b-402f-ad57-28b5a43423b3] Task cleanup complete — bot marked stopped
+INFO 2026-02-17 09:37:45,716 tasks [user:balaji] [TASK START] run_user_bot task_id=c974a3dc-8d73-480e-8074-89cdc65e365d
+INFO 2026-02-17 09:37:45,738 tasks [user:balaji] [c974a3dc-8d73-480e-8074-89cdc65e365d] BotStatus updated
+INFO 2026-02-17 09:37:45,752 tasks [user:balaji] [c974a3dc-8d73-480e-8074-89cdc65e365d] Broker loaded successfully
+INFO 2026-02-17 09:37:45,801 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 09:37:46,224 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=zF01GzU21nQT0Su6GP0iuCZW598bWrG7)
+DEBUG 2026-02-17 09:37:46,321 auth [AUTH] Login success - request_id: aCqYvhs1HaaTqrqrt74M6szgkUDJNTvztwR0DhXeKdb9evDaElrbsBObioCJbN2O
+DEBUG 2026-02-17 09:37:46,409 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 09:37:46,716 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=gpPGl6QpELHJ7gRTFHE0VhUIhY0t086v
+INFO 2026-02-17 09:37:46,725 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 09:37:46,980 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 09:37:47,086 tasks [user:balaji] [c974a3dc-8d73-480e-8074-89cdc65e365d] TradingApplication initialized
+INFO 2026-02-17 09:37:47,135 tasks [user:balaji] [c974a3dc-8d73-480e-8074-89cdc65e365d] Initial heartbeat saved
+INFO 2026-02-17 09:38:03,388 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+INFO 2026-02-17 09:38:03,420 tasks [user:balaji] [TASK START] run_user_bot task_id=7ea4157a-167c-414e-b8dc-2e05864c1bb3
+INFO 2026-02-17 09:38:03,446 tasks [user:balaji] [7ea4157a-167c-414e-b8dc-2e05864c1bb3] BotStatus updated
+INFO 2026-02-17 09:38:03,455 tasks [user:balaji] [7ea4157a-167c-414e-b8dc-2e05864c1bb3] Broker loaded successfully
+INFO 2026-02-17 09:38:03,486 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+INFO 2026-02-17 09:38:03,563 tasks [user:balaji] [c974a3dc-8d73-480e-8074-89cdc65e365d] Task cleanup complete — bot marked stopped
+DEBUG 2026-02-17 09:38:03,762 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=4Ah7N5XRFNoSagK2CaMZ5UtXdbFmziG9)
+DEBUG 2026-02-17 09:38:03,827 auth [AUTH] Login success - request_id: 2eRGK02P7PcoKaxxlaA0w76RcsWmoD3caGioBzpuFQZf0XRPeU6OOgXMryLHvngs
+DEBUG 2026-02-17 09:38:03,907 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 09:38:04,118 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=YdVMIiFgp80HFe4u7CRl7t41YYkovasG
+INFO 2026-02-17 09:38:04,119 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 09:38:04,305 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 09:38:04,367 tasks [user:balaji] [7ea4157a-167c-414e-b8dc-2e05864c1bb3] TradingApplication initialized
+INFO 2026-02-17 09:38:04,381 tasks [user:balaji] [7ea4157a-167c-414e-b8dc-2e05864c1bb3] Initial heartbeat saved
+INFO 2026-02-17 09:38:04,390 tasks [user:balaji] [7ea4157a-167c-414e-b8dc-2e05864c1bb3] BotStatus.is_running=False — stopping gracefully
+INFO 2026-02-17 09:38:04,392 tasks [user:balaji] [7ea4157a-167c-414e-b8dc-2e05864c1bb3] Main loop exited cleanly
+INFO 2026-02-17 09:38:04,423 tasks [user:balaji] [7ea4157a-167c-414e-b8dc-2e05864c1bb3] Task cleanup complete — bot marked stopped
+INFO 2026-02-17 10:37:51,515 tasks [user:balaji] [TASK START] run_user_bot task_id=47a03a01-b631-4bf1-be6f-5d5cbed36a61
+INFO 2026-02-17 10:37:51,535 tasks [user:balaji] [47a03a01-b631-4bf1-be6f-5d5cbed36a61] BotStatus updated
+INFO 2026-02-17 10:37:51,544 tasks [user:balaji] [47a03a01-b631-4bf1-be6f-5d5cbed36a61] Broker loaded successfully
+INFO 2026-02-17 10:37:51,569 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:37:51,847 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=HupG0e9qx3WC9v08UExX4XMcMj3BBvIz)
+DEBUG 2026-02-17 10:37:51,905 auth [AUTH] Login success - request_id: v42mMWn6TkEQanpGeygRa2NOAVq4rkLoXC5jXaOfa0H3zJUJ42NLVhuVTqOkA0kb
+DEBUG 2026-02-17 10:37:51,970 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:37:52,139 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=Sg4TCfOAf8uyrlnpPIklRgg4UXWOBSWD
+INFO 2026-02-17 10:37:52,140 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:37:52,352 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:37:52,397 tasks [user:balaji] [47a03a01-b631-4bf1-be6f-5d5cbed36a61] TradingApplication initialized
+INFO 2026-02-17 10:37:52,411 tasks [user:balaji] [47a03a01-b631-4bf1-be6f-5d5cbed36a61] Initial heartbeat saved
+INFO 2026-02-17 10:37:52,577 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:37:52,736 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=OvCHytSS0Ob73H9pYtyISnZOxNnSk22g)
+DEBUG 2026-02-17 10:37:52,777 auth [AUTH] Login success - request_id: jfzjbtAV0obZspxil8RthWeLtOGOt2PWFVf1PrKt5uEGCyNQJXXtJ4pabhjIg6AE
+DEBUG 2026-02-17 10:37:52,830 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:37:53,004 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=YhTIuU58xZQ04BF3WoB303u7gm1crLZc
+INFO 2026-02-17 10:37:53,005 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:37:53,127 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:40:42,540 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:40:43,120 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=5rkPOmOC6m6z4POekqLUhrPevouWPtLC)
+DEBUG 2026-02-17 10:40:43,378 auth [AUTH] Login success - request_id: t2x6aZVoo5q44pAdZAC8YF7OpXSc0134LdNmThg804Uds4JuCfC0HOMrJoPU5z5d
+DEBUG 2026-02-17 10:40:43,456 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:40:43,625 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=OdQ4AE5yELNIdBc9H8UXlMWfbEaiRIoj&action=login&type=login
+INFO 2026-02-17 10:40:43,630 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:40:43,843 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:46:04,644 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:46:05,094 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=2Nl1PDhhi7kXScoPxq6XGU68NuIH0bvM)
+DEBUG 2026-02-17 10:46:05,173 auth [AUTH] Login success - request_id: 6PEWyUDtDjGWk8vHivvDfvEpFyvPaeJ4xEY6RrCXqIkvUEgCsDNGb6Lv2pjZDbGb
+DEBUG 2026-02-17 10:46:05,243 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:46:05,407 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=n5GplHx7yIINGT2kLz5HOjS3xMAzRw3r&action=login
+INFO 2026-02-17 10:46:05,407 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:46:05,616 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:46:17,222 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:46:17,376 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=rRxN02TAzkzKwZ0f5suoVBcn0UR7Rnts&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-17 10:46:17,427 auth [AUTH] Login success - request_id: 34PPOF64JHPWKBK3j5pbwpEKppXRoBe8h0aFvO3MzyLau45PBFtqLzQwG9uLM3mV
+DEBUG 2026-02-17 10:46:17,487 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:46:17,649 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=Nm16V5CsJ1D84ZHd7JkhR664YogmU7m3
+INFO 2026-02-17 10:46:17,649 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:46:17,816 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:46:37,555 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:46:37,712 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=TpmIy5QA6O5QqPmLyOQ0SYbrCVNGscrn)
+DEBUG 2026-02-17 10:46:37,755 auth [AUTH] Login success - request_id: wLKrQdXhl8mY1ABmwqJEsgKcnGzxPX4u8uYwX5FykKUs1kuXX83rIA6JqiGu6w4E
+DEBUG 2026-02-17 10:46:37,816 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:46:37,967 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=VGypSeCA1s01jnn4P1irJUK3HSL6QgfD
+INFO 2026-02-17 10:46:37,967 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:46:38,089 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:47:15,476 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:47:15,704 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=RuYD1TUyi4K98X24Pk443vtXkjVgkZ5T)
+DEBUG 2026-02-17 10:47:15,769 auth [AUTH] Login success - request_id: sFJ9jhO1ijMjXkjW8JXBYWogs0JiNGj8esMuQyL41Oe4haVGIhIirjf6icy77yT9
+DEBUG 2026-02-17 10:47:15,824 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:47:16,012 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=5XgEWL4UIH7DnfMPlcrBOH7PXjvvWOvU
+INFO 2026-02-17 10:47:16,020 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:47:16,164 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:47:30,886 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:47:31,452 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=UtqkkeG4VEbJ4VYL7YEdtIHN0GV4iq8C)
+DEBUG 2026-02-17 10:47:31,856 auth [AUTH] Login success - request_id: OPLXsR8UpUFCRGaY2xYtEbqw00AXpKXQg8OUi54L9wX0bbJ2Y82o3lthLo9QXScC
+DEBUG 2026-02-17 10:47:31,942 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:47:32,407 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=4AGrQhx34mr3dbxoGSKnDDZYRVTFf5nQ
+INFO 2026-02-17 10:47:32,430 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:47:32,629 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:47:59,087 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:47:59,285 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=4dVIcOq6LYPQVegYjav2VbxCAd1W8iyQ)
+DEBUG 2026-02-17 10:47:59,331 auth [AUTH] Login success - request_id: 3c9OF75GPDYolZowYJjUAcK2JzNtUQ5u75CTMjsM8snnb7LvJax12JnX83ZlQL0i
+DEBUG 2026-02-17 10:47:59,382 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:47:59,560 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=Tfquf1KdvqkVKGEGf6IroVyoUWk7MO7c&action=login
+INFO 2026-02-17 10:47:59,567 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:47:59,782 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:48:19,009 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:48:19,149 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=rem5IzIc91Tpxtj8jNjqpj52atUm6AsY&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-17 10:48:19,197 auth [AUTH] Login success - request_id: YtnIF2H7NNV11LjYn5WtsBL3lsRT3UGaZX8qTxJGMRoRMAnFLbUihorcKxkH84Tq
+DEBUG 2026-02-17 10:48:19,268 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:48:19,461 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=gF7A2j46eX9z0aWGLH7FXbEqHcKd8EI5
+INFO 2026-02-17 10:48:19,461 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:48:19,711 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:48:29,048 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:48:29,304 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=YpOCIthhmm293ftFUlXzsVLFvhZKLtbN)
+DEBUG 2026-02-17 10:48:29,382 auth [AUTH] Login success - request_id: mvMXkc2hT2Ocua8wThmH7WC9TxysXnDBG9A5OF1FXQ7m5iqEquwJOLUuYEmxu0My
+DEBUG 2026-02-17 10:48:29,432 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:48:29,608 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=jkQnxIxOlwoaSzw47sjesmDvv764muup&action=login&type=login
+INFO 2026-02-17 10:48:29,609 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:48:29,744 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:48:41,544 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:48:41,678 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=IQ8mnTsY67xA1zzWdCsRZDjilRnTNjlJ)
+DEBUG 2026-02-17 10:48:41,719 auth [AUTH] Login success - request_id: W65UsX487VIDH75164Lj6403lFGMdiAtamY9zP52mK5NEDL9NkZvvGKMDBL3pzVA
+DEBUG 2026-02-17 10:48:41,769 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:48:41,895 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=WNVlFbm55VUNLHFPSJmjGEowdIOL1DLX&action=login&type=login&status=success
+INFO 2026-02-17 10:48:41,895 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:48:42,007 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:49:07,041 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:49:07,283 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=nTiW9DhcIvmA0tlgu1RM7hgXSxjOCoGI)
+DEBUG 2026-02-17 10:49:07,346 auth [AUTH] Login success - request_id: uT7IPub75cHo7yE2OOhT6HoRoPVO53ldOxanf6lGI1NkSs3C5iBRyrEsEAB6cbcM
+DEBUG 2026-02-17 10:49:07,416 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:49:07,615 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=fNblsEwd1KwyKc4wgjnV24fBm5V3DD80&action=login&type=login
+INFO 2026-02-17 10:49:07,617 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:49:07,744 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:49:16,999 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:49:17,206 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=e4bta1JGH5V9dCO0TIIm51dlP7qTNFq9)
+DEBUG 2026-02-17 10:49:17,255 auth [AUTH] Login success - request_id: 54ECixQnRrzp3rU26tYNxMGoQZW1n5VUkhc9i40gK0pFGH3D6dobg0P6nB5JtAhI
+DEBUG 2026-02-17 10:49:17,308 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:49:17,460 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=mAZHqtOfyERk6WzTX6e07HHmLV5z522P
+INFO 2026-02-17 10:49:17,471 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:49:17,628 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:49:55,009 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:49:55,213 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=7J9EeHaH5OFFs0tVKP1yX939ax1MZrpV&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-17 10:49:55,266 auth [AUTH] Login success - request_id: Wkv0QvQLxH2P5TdEUpGL5LfbkrU1kvcBZ0ggFy28EjVC5LA8O7vhwFb5Xd5Fveeh
+DEBUG 2026-02-17 10:49:55,315 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:49:55,494 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=YqJ05p6PT2QFNFVCdvJvYy0imKsLv7dI
+INFO 2026-02-17 10:49:55,494 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:49:55,647 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:50:17,555 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:50:17,730 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=W0nmw1b1IObgJ58SIAKDgPv8ZcvMPw8t)
+DEBUG 2026-02-17 10:50:17,781 auth [AUTH] Login success - request_id: fFsTn6KuvuvMaDT0LZfkgN9vlmLXctTOLHfzoBfisuWqWyGrdhnnHIKX3bidaPJg
+DEBUG 2026-02-17 10:50:17,823 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:50:17,957 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=qDdwpBeETu477m8o6qzNqUG5PNZBizr5
+INFO 2026-02-17 10:50:17,957 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:50:18,085 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:51:13,090 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:51:13,267 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=AhezpGPOtTTeu7vs60EW1rdtvChwBC2y)
+DEBUG 2026-02-17 10:51:13,315 auth [AUTH] Login success - request_id: x3CcAUc051WS7p91iuGS22G8YIvwctS9rtpHAeid2YKnsvMUd4Wr4Hayh2lqLdmJ
+DEBUG 2026-02-17 10:51:13,376 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:51:13,523 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=nIGuRPFltIAxp0VdlFUv3n5Wj1dIzolF
+INFO 2026-02-17 10:51:13,527 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:51:13,724 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:51:23,118 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:51:23,302 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=OG0HCLY5JDfIzNf1YcDtBYfkru1JxgcP)
+DEBUG 2026-02-17 10:51:23,360 auth [AUTH] Login success - request_id: D89CxG13P1c8Si9Kmq23OYnOn8SG1mxPbFBt02DPSa2JvqhhSApw412bXd8HI6B5
+DEBUG 2026-02-17 10:51:23,427 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:51:23,616 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=6Dq0y37LO42qXyEkApe4uZ1Sj12RbUfe
+INFO 2026-02-17 10:51:23,617 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:51:23,758 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:51:41,128 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:51:41,299 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=1DKMGFJcgjq88giFoX77CgJhyB3dG73F&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-17 10:51:41,341 auth [AUTH] Login success - request_id: B7D5yTFV32zBjfXTy78rgAxvBpmHJsJp9wLhxFv2xCMiUQp33aZSQqI44BR51q3r
+DEBUG 2026-02-17 10:51:41,399 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:51:41,562 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=6zh334WgdzFbDCRCPOOSNshKoWMdor5O
+INFO 2026-02-17 10:51:41,566 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:51:41,696 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:51:46,147 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:51:46,355 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=dT0SxSzabY0bNDEzfUPIlSaOZS1tM698)
+DEBUG 2026-02-17 10:51:46,437 auth [AUTH] Login success - request_id: 1qU9kM2v6oLm1TxR4EGGm11Rsm3P18rTq5FfQz4VZ35gO6QofED7YLcl3XDDpGcc
+DEBUG 2026-02-17 10:51:46,502 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:51:46,652 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=jHdtuGjzuKl9GN5gOlGxT22FTknHOn8e
+INFO 2026-02-17 10:51:46,652 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:51:46,795 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:52:03,718 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:52:03,860 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=lKNbWm97Ad7XorMygs4jiLsportd1TRH)
+DEBUG 2026-02-17 10:52:03,908 auth [AUTH] Login success - request_id: O0V4fhR5umi26uM6nkRM9rL4VQ9cfpK9QnIE7H5vDNC1ShqHjTI4RtvQDfEErG7m
+DEBUG 2026-02-17 10:52:03,951 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:52:04,096 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=1IKmcWDOjRZVCozZp1XlRtI6z158Iaz2&action=login&type=login
+INFO 2026-02-17 10:52:04,111 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:52:04,241 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:52:21,466 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:52:21,670 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=WQ3goTgbnzP24A2JQlOOsnZVxCony5Qn)
+DEBUG 2026-02-17 10:52:21,723 auth [AUTH] Login success - request_id: cVMRZslFx52xV6nyrLPaZBR732932mnHSts1EKPGOAnm5BZLybmSuYoOtyeQLxQv
+DEBUG 2026-02-17 10:52:21,784 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:52:21,967 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=pYqpUxp2M0dv4OcFsKwrJT6Xzcjvxtoy
+INFO 2026-02-17 10:52:21,968 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:52:22,167 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:52:51,457 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:52:51,670 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=tVNgrURilrn0oVvw0bx1WTZIzeObP74V)
+DEBUG 2026-02-17 10:52:51,715 auth [AUTH] Login success - request_id: t8fhT3raZErFn5yyUK6DKD8YU22ld0UUKPu8zJ89Tg1jQtBlQ0lRetmiiTY8H3JT
+DEBUG 2026-02-17 10:52:51,766 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:52:51,912 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=CqPf2Sx6clIogOxiPDUIufkXgEoZG9o6
+INFO 2026-02-17 10:52:51,913 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:52:52,041 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:53:01,536 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:53:01,738 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=znWA1p53Q71FT83DgsQ7JJJ7BAqqGKCH)
+DEBUG 2026-02-17 10:53:01,786 auth [AUTH] Login success - request_id: 4Td4oynmte2pUH7QgANhhmb5E5KPaHhW1b1rLqfjyk1piIKQ39sgPHP1YnYesRdf
+DEBUG 2026-02-17 10:53:01,837 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:53:02,048 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=40kaeXRVCit0i786EeeWirCPE9hehI3G&action=login&type=login
+INFO 2026-02-17 10:53:02,048 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:53:02,199 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:53:11,520 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:53:11,706 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=6jfYVDrl3bpo61oNgU5myMv80737j0Ez)
+DEBUG 2026-02-17 10:53:11,754 auth [AUTH] Login success - request_id: FiznJ0wG5z0TUi2jO4G93GHXHEkatdCPHqOXLW4PXZ6N2IMefPQCP157bicI5aJR
+DEBUG 2026-02-17 10:53:11,837 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:53:12,012 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=NhDL21Kb8OiLDkdfZObQ6UxSfVoU57QS
+INFO 2026-02-17 10:53:12,027 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:53:12,232 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:53:44,472 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:53:44,678 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=X4LcDWsbb44ZSMlWD327P6YQOsQdbJok&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-17 10:53:44,733 auth [AUTH] Login success - request_id: NEY9Y66zCdP7WoTAwQT0CZked6FcS2EvEih3uCs7PM9iRoeEtUyKzJR0w85RZVzA
+DEBUG 2026-02-17 10:53:44,784 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:53:44,989 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=RBVKrIFIsXpFN4zhU2bxwfwBbinE69pf
+INFO 2026-02-17 10:53:44,996 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:53:45,264 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:55:12,614 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:55:12,812 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=DPJuP5Fj0SoXIdOgzN4Y88bHiD7L5T5X)
+DEBUG 2026-02-17 10:55:12,864 auth [AUTH] Login success - request_id: neLk7dZPUmkjDw2mIYvxI41hxX8Zk6SSuXuy8s5mKKvbA33deT5jGz4oGMVoYBjv
+DEBUG 2026-02-17 10:55:12,931 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:55:13,126 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=m1qyVqm86kOASbNjnwr0G611nUwe1X7V
+INFO 2026-02-17 10:55:13,137 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:55:13,267 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:56:13,540 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:56:13,729 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=VQZb7Iandfd8qJTuHs8KDjPFlZG9W12H)
+DEBUG 2026-02-17 10:56:13,776 auth [AUTH] Login success - request_id: qWVvU1jp36nS81ZLFhHE7fP4oJUWP25S4RuXbVyDCs2Zn6MTtF9w4eClkN3fuI23
+DEBUG 2026-02-17 10:56:13,828 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:56:13,983 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=xk0LnZjbYJwgAfB5lQCwMEOl82bls7Xe
+INFO 2026-02-17 10:56:13,984 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:56:14,111 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:57:49,963 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:57:50,164 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=SqgyY5UVnsh2CRAtUHJlVd7kg62oySYH)
+DEBUG 2026-02-17 10:57:50,221 auth [AUTH] Login success - request_id: nh0HNqWuqFZIqDoOIR8nZ9ow3rjkqReY7DeT4qKTDG2c7EO4I3Fkm3drGSfg0n3A
+DEBUG 2026-02-17 10:57:50,295 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:57:50,479 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=VKP4mTHYOx1sGirig7dlqulaSjArjTAL&action=login&type=login
+INFO 2026-02-17 10:57:50,479 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:57:50,711 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 10:58:19,579 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 10:58:19,747 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=XHhgjsHeB1DeFY54CBCaJ92gpi187yiJ)
+DEBUG 2026-02-17 10:58:19,798 auth [AUTH] Login success - request_id: SUox8GbrDC9Z0enf9CJLT4yL8ZsZptKSd5IgvNQl70kAX1D18ma8D4tbkAAPoyM0
+DEBUG 2026-02-17 10:58:19,852 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 10:58:19,992 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=W4oMS4v5wWgcxTIid56vckj6B76YYyrA&action=login
+INFO 2026-02-17 10:58:19,992 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 10:58:20,105 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:01:18,468 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:01:18,635 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=9fiAZDCRGptCdosAtqNiZhlcthAatLfw)
+DEBUG 2026-02-17 11:01:18,694 auth [AUTH] Login success - request_id: XRQTp967GKk99YJkWJCX5Wz8kzX4TGurZHfq20UgYc5zXBKIPdl7fAeKUENLryI2
+DEBUG 2026-02-17 11:01:18,763 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:01:18,931 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=GSnKL2E86x3g2OJqR4HN3mcrpZhLTqK1
+INFO 2026-02-17 11:01:18,937 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:01:19,136 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:02:33,543 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:02:33,697 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=QvDBF7fFmb7uWLZ3h46aCv1KnXzz9Fpa)
+DEBUG 2026-02-17 11:02:33,735 auth [AUTH] Login success - request_id: hUsir38uG0Nkc3YfM6b5ba9IYwZkWGFFnyNgETE37alNWOQlJinfggtbJ7Dn74Pp
+DEBUG 2026-02-17 11:02:33,790 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:02:33,919 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=z7tIwFOUeKyRdamkXacTVDMtbBzARvit
+INFO 2026-02-17 11:02:33,927 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:02:34,064 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:03:18,574 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:03:18,787 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=pGqxKxpxrbSA2dttXMCW7gc19bNd3XQw)
+DEBUG 2026-02-17 11:03:18,865 auth [AUTH] Login success - request_id: sP2a1THZ0UMGl5rXuqBraGodDKc1L2uzY8ZCKyeVIISauWW4UB5JBfvHc4MzvSgB
+DEBUG 2026-02-17 11:03:18,947 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:03:19,134 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=dJ9zYqq6sdU443bMsr1Z6IeB2CdiCycR&action=login&type=login
+INFO 2026-02-17 11:03:19,134 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:03:19,272 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:04:26,540 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:04:26,703 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=h1le897HPZs5pHEwpH4kN1GM4IWGLqNX)
+DEBUG 2026-02-17 11:04:26,753 auth [AUTH] Login success - request_id: 5bh0zvuPAVRsjJJCe9Rd7nSp7St7pWPb8xBPHMXzpCaR8QsIbIlBbaFNNREq71dk
+DEBUG 2026-02-17 11:04:26,798 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:04:26,939 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=hZ5LBVk671ikLORAbj1W4hiqB01s6J5o
+INFO 2026-02-17 11:04:26,941 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:04:27,099 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:04:31,374 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:04:31,544 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=1PHPMX293NH426OMTNdYySfTpjKyVC6C)
+DEBUG 2026-02-17 11:04:31,618 auth [AUTH] Login success - request_id: pfahRoTWhyb1V7OOFf0AjZmEXVzA4dvTUlZw9Ga90YE4u61sR0K6o12xfgWoMWJQ
+DEBUG 2026-02-17 11:04:31,672 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:04:31,841 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=1ISwZq0NUam0USlwP8UIJSZiap5tHU9K&action=login&type=login&status=success
+INFO 2026-02-17 11:04:31,844 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:04:32,010 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:04:33,447 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:04:33,621 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=ockj4Q5gP3mqPLbycnyAgS56VCpWGAon)
+DEBUG 2026-02-17 11:04:33,674 auth [AUTH] Login success - request_id: zzMZ7cBXatCOgZMmPLXzNb3Z3ur0sgPSIa5bZ79aZSLXVls0t2gifv2aKp8uB3Ic
+DEBUG 2026-02-17 11:04:33,729 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:04:33,904 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=kAJIMCwNuWd7KAzDCpsVThBqsb2Rdnmy
+INFO 2026-02-17 11:04:33,906 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:04:34,049 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:04:36,434 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:04:36,597 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=eU1OzGuclRESrbquBxJcmxwQO8CWbYEk)
+DEBUG 2026-02-17 11:04:36,654 auth [AUTH] Login success - request_id: L29UKSE6Nv0I4jsSdmG4h75CWOwkgsLWdVPrYCtd08DeAlujWLWBu0fLFQEuaOcA
+DEBUG 2026-02-17 11:04:36,709 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:04:36,912 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=4MeS5wA3IKN7xSlneSP5aB2e3MeN0UKv&action=login&type=login
+INFO 2026-02-17 11:04:36,917 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:04:37,054 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:04:38,246 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:04:38,473 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=wmC9e9nXgsHN4CYVBWzDxCaX9DAjY2iC)
+DEBUG 2026-02-17 11:04:54,702 auth [AUTH] Login success - request_id: IbO94McnOvWXbij693ussf6dl8PTea4AOE444awhEI2hnx4ESxvw39ps3GodmpC1
+DEBUG 2026-02-17 11:04:54,751 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:04:54,951 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=Po0hMOO0OWvu9GolCpeUXUYUbM5Rqc96
+INFO 2026-02-17 11:04:54,956 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:04:55,080 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:04:55,499 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:04:55,664 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=HJgHr4wmxsd3mjrlxIIumsNkdEMiKf9d)
+DEBUG 2026-02-17 11:04:55,710 auth [AUTH] Login success - request_id: hztHMCWfyNMsfeeJr4IqI0o6abqa8RxJ2U1dMy44to2YS0gO6Ib1okvoqEPK9dBj
+DEBUG 2026-02-17 11:04:55,792 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:04:55,995 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=IlKGRJcPbf7Dghhz4IOiYOHEKkTlsjpv
+INFO 2026-02-17 11:04:55,995 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:04:56,169 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:04:57,498 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:04:57,691 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=znAhbOSFl0gxdL5Pk8n6spXpB5iZhP0l)
+DEBUG 2026-02-17 11:04:57,739 auth [AUTH] Login success - request_id: YSurId4MzxU5nUtA0FZgdNLOfPFpQfKJgZzBupPsLzIZJzC3F8CR2aHdLtKDeJBJ
+DEBUG 2026-02-17 11:04:57,805 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:04:57,963 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=tA76FfIA6LvSKJI76n7041vZZsK6mICI
+INFO 2026-02-17 11:04:57,965 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:04:58,091 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:05:01,228 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:05:01,401 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=rVebAF7wLptksWFaqnW1RAMu87l0d3Eq)
+DEBUG 2026-02-17 11:05:01,447 auth [AUTH] Login success - request_id: hMPUDija1nvX8eHQqbFGclhA0QFagzkJF6PfRq4jzZKr7aCdiH6nFyKmW6sNl8c2
+DEBUG 2026-02-17 11:05:01,525 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:05:01,705 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=UZcDWqGBVNrLEw2APLEVPbAtifRAQSpT
+INFO 2026-02-17 11:05:01,710 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:05:01,846 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:05:04,329 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:05:04,555 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=HF8wenEY7KUaKkhJTuvm5feORK82ck1J)
+DEBUG 2026-02-17 11:05:04,615 auth [AUTH] Login success - request_id: lBVenr4RtbL1zeGnEZghWQ9BUYc3HpnKIG9WfBtq1kTz7Nu99Y31F29YrpkFgQgr
+DEBUG 2026-02-17 11:05:04,662 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:05:04,837 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=ILA24COE79UHS9ABCkzWDrJwD6vpE7xi
+INFO 2026-02-17 11:05:04,844 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:05:05,011 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:05:07,285 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:05:07,470 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=aQZXGltwaLgQtdhE68p2LD2OJZj4qNrO)
+DEBUG 2026-02-17 11:05:07,522 auth [AUTH] Login success - request_id: NidATqgJCPNtzMX1eh7GExYf6O1nxNZ3cQDRtqmXOyO5VsHmm18ailxNgjoIv6zY
+DEBUG 2026-02-17 11:05:07,587 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:05:07,754 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=dOGFOLykAk6nTr7YyPbt5ArwAqe4gnDz
+INFO 2026-02-17 11:05:07,756 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:05:07,943 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:05:10,236 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:05:10,409 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=PR41Bt0Qr7gSq8vcrQWujUi7rtumh79C)
+DEBUG 2026-02-17 11:05:10,449 auth [AUTH] Login success - request_id: BoxlcZCkN2x1l3QcKqryy5HdtMuJJkMumoc7tU6qXMQXuW5gNItOqu6nsp19iZlx
+DEBUG 2026-02-17 11:05:10,504 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:05:10,649 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=XJf1ZNjirEpgjFkDTdGL1RqrlYIKuRMo
+INFO 2026-02-17 11:05:10,649 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:05:10,791 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:05:13,200 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:05:13,411 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=kvvFQFDZdDcZ7WD7pvrkFAC4ltfW1HQr)
+DEBUG 2026-02-17 11:05:13,465 auth [AUTH] Login success - request_id: 0vVftd6ZC4H1ZHZFBS7C97pNenhpQHTrk0XD7MreyTcdArDABzhZQu8LYMnSI5bc
+DEBUG 2026-02-17 11:05:13,515 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:05:13,687 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=pXT3LSh9R2XKbTgDziMkZ3d5PsW1C59v
+INFO 2026-02-17 11:05:13,687 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:05:13,836 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:05:16,545 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:05:16,684 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=8pIYjkHPaqs0y4qTcD1w6uwwcLiv6Y1d)
+DEBUG 2026-02-17 11:05:16,731 auth [AUTH] Login success - request_id: r3f0setwbMjj1p6htocWKwMTSaoMPpp0H8hWMmDoWQ3dqQ2c5X9r2XH6SdT03n7D
+DEBUG 2026-02-17 11:05:16,782 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:05:16,914 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=d5fdDJzoKuWg6vPkP7HAMeetxvlePg0n
+INFO 2026-02-17 11:05:16,914 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:05:17,039 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:05:19,547 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:05:19,716 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=ecgHbZubgtleEb8HshyZX0gyPZVe31Wz)
+DEBUG 2026-02-17 11:05:19,759 auth [AUTH] Login success - request_id: hXSt1KzZUXIONqLzJySQBWC6O0ptzH8fhwE5jwZrT7z0GQlO6WZNP8R8d0Cngd73
+DEBUG 2026-02-17 11:05:19,808 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:05:19,957 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=9yXpe49W2DcZlN0cjbnNqFt0tL65oPY9&action=login&type=login
+INFO 2026-02-17 11:05:19,957 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:05:20,055 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:05:22,568 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:05:22,718 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=WDC0co62091Toe1JDt5oiE7lUiWJxl4C)
+DEBUG 2026-02-17 11:05:22,766 auth [AUTH] Login success - request_id: 4mGhQO7TWvSOqvXzMrxGcOzSOtJWyTEmhwnR9Prd3lSdhGcK46C3nImqSw7yCn59
+DEBUG 2026-02-17 11:05:22,836 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:05:22,966 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=rsX1uRxuPMt4KM6XR3l982c6oOE6Ys7J&action=login
+INFO 2026-02-17 11:05:22,968 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:05:23,100 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:05:25,552 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:05:25,728 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=7M2Fp2NSiS8MOgLWWbPgnBZDKiNHlJXn)
+DEBUG 2026-02-17 11:05:25,769 auth [AUTH] Login success - request_id: OYthVV3PJpxxqUS888078z6XaoFH1bKAweKlm21bpBl372DMnuHN8EyGRA7Ecl7F
+DEBUG 2026-02-17 11:05:25,833 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:05:25,968 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=Z1fbkySugZSh71Er8oOKszTLpujj7szK&action=login&type=login&status=success
+INFO 2026-02-17 11:05:25,968 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:05:26,099 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:05:28,542 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:05:28,686 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=7LQxI1YltjsNohQ9d4NFcMOM7Vc7h2cr)
+DEBUG 2026-02-17 11:05:28,725 auth [AUTH] Login success - request_id: 6H4J5DTmgHFOSmlPqThZW335X2tRRCVdC2GO4g1vZuSGr1f1iwb1HElImwfklai3
+DEBUG 2026-02-17 11:05:28,775 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:05:28,919 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=22gHdroMjqThgF6Pq7m4O7VbehjC8TTV&action=login&type=login
+INFO 2026-02-17 11:05:28,920 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:05:29,054 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:05:31,524 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:05:31,663 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=AxFbGU6GFd7zb6x6QPdIxEwK5d6gZ529)
+DEBUG 2026-02-17 11:05:31,719 auth [AUTH] Login success - request_id: FHA2fz5GF3PEeN74FYfIyePa74qLL72e83JlspJs49Y385YU6o6splMBZN0OICRk
+DEBUG 2026-02-17 11:05:31,760 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:05:31,878 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=wD3eJDjfELmGTi1FyVwzO7vzOToY2vZN&action=login&type=login&status=success
+INFO 2026-02-17 11:05:31,878 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:05:32,004 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:05:34,535 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:05:34,671 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=rl81kbp4zSAhKCxJNhYYHLxOKipVh5Ey)
+DEBUG 2026-02-17 11:05:34,715 auth [AUTH] Login success - request_id: ILMJUXZh7mxlfLT4PWlDPAH26adwnAgexAEO3MVCs7OOLb53i8ap8UTrozekgueQ
+DEBUG 2026-02-17 11:05:34,761 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:05:34,894 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=wv8EkjAdrHtRzrSNEWoL3v3hH3UG4Guy
+INFO 2026-02-17 11:05:34,894 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:05:35,013 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:05:37,593 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:05:37,752 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=C31DDKg7eiixZWxGexfymevViTD5Ew0S)
+DEBUG 2026-02-17 11:05:37,794 auth [AUTH] Login success - request_id: jaS3yv7Jlx6lg3jYV3Rj6FNdy1dhNqbubpxDSEENDrRroNxwf5AlhD6lHNPkzALA
+DEBUG 2026-02-17 11:05:37,842 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:05:37,998 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=5gtPclk8fMZZyrNJx2eTEdES0E03U1rV&action=login&type=login
+INFO 2026-02-17 11:05:37,998 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:05:59,065 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:05:59,238 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=fmt7THbFFa5H0nZRYXV97Ahy7A8lqcqM)
+DEBUG 2026-02-17 11:05:59,278 auth [AUTH] Login success - request_id: Z8B1cUPyZEV6q65Jgs6udZlZMbrqnpP2GnIyd4f8JMPLgWgkyQ3sqDktIOEz0RXd
+DEBUG 2026-02-17 11:05:59,335 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:05:59,464 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=9R3NT7QZAaiE8IQC4VAl1emNwPHJEUgh
+INFO 2026-02-17 11:05:59,465 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:05:59,590 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:01,533 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:01,678 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=f1BNqVmPpZnJMJ2iw48XXEtUwS504Zl0)
+DEBUG 2026-02-17 11:06:01,716 auth [AUTH] Login success - request_id: keQFUAgNx5XAbdTwtMSKtRmTCNhJwb53AmtyxN8i7EcrWdZ5zek8U2v0TFTYg7dB
+DEBUG 2026-02-17 11:06:01,758 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:01,887 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=UV3dhfQhsen0osxcbWpkruOm3yS3WuXl
+INFO 2026-02-17 11:06:01,887 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:01,999 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:04,558 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:04,743 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=iv1ktHfVP1DUyXOcZBNqlfCMo1R7TFUY)
+DEBUG 2026-02-17 11:06:04,816 auth [AUTH] Login success - request_id: QfgzklLqbll4dYn1qy8R1HbEgisUQBQe2fYuCpSqx8UmJTAjVEoGtPGdHhHnr0g1
+DEBUG 2026-02-17 11:06:04,871 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:05,042 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=c9kwX0BWl2NdZHj6LD0vewT4TpXYNlHF
+INFO 2026-02-17 11:06:05,042 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:05,179 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:07,543 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:07,688 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=QYt0FanYCCiyo0VlhAxCTXFA1tOuBxH4)
+DEBUG 2026-02-17 11:06:07,734 auth [AUTH] Login success - request_id: sPx3XCyV2BS5UfxL3h9IOVSDhnzEDoW9i37XatPjbQQ0YTPBJyk1rNgWJirU7XNU
+DEBUG 2026-02-17 11:06:07,782 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:07,926 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=81V2kU3MHy34ejp0G82NYhgHLhSJrVhc&action=login&type=login&status=success
+INFO 2026-02-17 11:06:07,926 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:08,070 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:10,545 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:10,711 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=AZLhwq7XOTv6XC3E1pI9qEFmh3hqoK4M)
+DEBUG 2026-02-17 11:06:10,768 auth [AUTH] Login success - request_id: OxOPrlYyg2nvgKNXCrHHTO0IM1Cyx90MEStr2cqTGqN1n5Sd2N7LUEDaRG0s0wyk
+DEBUG 2026-02-17 11:06:10,831 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:10,990 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=qX0yZJHuGhYRchziLMPIwUPtXwjh6GWA
+INFO 2026-02-17 11:06:10,990 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:11,143 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:13,566 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:13,728 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=l3r8iFeQhxxUdQYulRJtJsdMzGwO54bV)
+DEBUG 2026-02-17 11:06:13,774 auth [AUTH] Login success - request_id: 1hRohJJHUKDiO85knMPhtBaKwg3SkJICRyvWmveUOWXBxaNCQarlxl7VMaqlNH3l
+DEBUG 2026-02-17 11:06:13,824 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:13,967 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=w85uES5K43Sel55DKsE5WGFVds2Ka9xd
+INFO 2026-02-17 11:06:13,968 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:14,126 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:16,181 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:16,353 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=Ig1xUTaAfVwWyrWgd4haHo63c6AGjNXd)
+DEBUG 2026-02-17 11:06:16,403 auth [AUTH] Login success - request_id: ZOen4bNaPYO7uzRqxqxrPxLj26mANpge47zM17d560sXpoWn0s1j6qxdBQgCLPgv
+DEBUG 2026-02-17 11:06:16,451 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:16,602 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=Bge7WURAuEOYPHJ2SMNzMcrn5so6bPni&action=login&type=login
+INFO 2026-02-17 11:06:16,606 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:16,757 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:19,235 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:19,425 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=ZNA4aDxFMH10nomLi6U0Q3ZKgIhSFUJf)
+DEBUG 2026-02-17 11:06:19,475 auth [AUTH] Login success - request_id: GcEF0eCsrN653r408TJ7x5ANiAwssBDkjWjb6OYcSuo5mSxZ3vd6LA3a4oaW3ouE
+DEBUG 2026-02-17 11:06:19,538 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:19,710 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=oVPglDErKYZsbZnCtxueGkVlJjU6wHK4
+INFO 2026-02-17 11:06:19,711 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:19,836 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:21,603 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:21,788 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=4s04WOQ9TCIaEEeEDliJ1cHpS45mqG09)
+DEBUG 2026-02-17 11:06:21,847 auth [AUTH] Login success - request_id: x25DhFn8caakv0h7X79Fsardww67mO2WrCAcOlIPRV9ZFTb8BsJUQWJWHsJ0eoCu
+DEBUG 2026-02-17 11:06:21,904 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:22,098 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=voAbqHuRpuTGnJagsXa7r0n4BfmKuX6l&action=login&type=login
+INFO 2026-02-17 11:06:22,098 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:22,230 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:22,417 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:22,617 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=mnSwau91Zmlh8aB24y6nu39cIfHl7o7X)
+DEBUG 2026-02-17 11:06:22,659 auth [AUTH] Login success - request_id: Gex8N7etlfxrBX5q6UCkrPrh8uti2TG1mIgbQOoDo4PSdtoE1UVM761TG3bmhnCZ
+DEBUG 2026-02-17 11:06:22,723 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:22,866 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=5pS61ShrSMwLwYsS6KevdAzD7jpKZytM
+INFO 2026-02-17 11:06:22,866 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:23,007 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:23,604 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:23,807 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=4gfSvMqOeJrDiPXInXxHTClP6phoW1tr)
+DEBUG 2026-02-17 11:06:23,868 auth [AUTH] Login success - request_id: PB1Y05fBbTvMbj1o6nLhBpW2qViAEF64aj2D0KUHXt3Wx3mM30T1iq06JqY4swSS
+DEBUG 2026-02-17 11:06:23,923 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:24,105 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=3LHt0GXeuuRGVRuK4lUlBgIoO4eCEq2L&action=login
+INFO 2026-02-17 11:06:24,105 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:24,270 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:27,558 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:27,699 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=51JJ0I10D3iowYr0ttXq1ttc1IxgxHNI&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-17 11:06:27,740 auth [AUTH] Login success - request_id: U9SqxTUhkEQfM10nXtEmMQyOWMOYSa0gtwoq8ROgx5GyyVaW08dvojrtjl5O7Fda
+DEBUG 2026-02-17 11:06:27,780 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:27,918 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=7MXwiW9DoB7rDnNao7zIcN2uk44E5weY
+INFO 2026-02-17 11:06:27,920 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:28,023 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:30,540 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:30,667 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=NKVGEaMNg08azTDxUNyAOXC3Hgej3IoR)
+DEBUG 2026-02-17 11:06:30,710 auth [AUTH] Login success - request_id: Hs5qHoLNHbMdeg43nyRhm9mEdjLnfBdeMS1inX0LQB3UXt1vyzERKPMe2ki7OVA8
+DEBUG 2026-02-17 11:06:30,758 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:30,893 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=26fNF88nJ6k1NikN70KYZpI77DtwMnJ2&action=login&type=login&status=success
+INFO 2026-02-17 11:06:30,895 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:30,996 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:33,529 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:33,658 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=u58t1jesBGx7ZnS0rKWy99Mb8MR54iMK)
+DEBUG 2026-02-17 11:06:33,696 auth [AUTH] Login success - request_id: AWDdpWM9I0MPRVsg99STg4soO3JlwniSdDf5wMTp0o75O8Aikrb0Ju0mlg6n260k
+DEBUG 2026-02-17 11:06:33,741 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:33,865 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=nPMI9rAn4WJWz4sP0GSRaN6mLpNgGuVs&action=login&type=login&status=success
+INFO 2026-02-17 11:06:33,866 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:33,979 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:36,565 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:36,719 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=uXqXODYqJfv5gSCewgjKUydLPvHngIV2)
+DEBUG 2026-02-17 11:06:36,762 auth [AUTH] Login success - request_id: qyTbEp0lNyDMFTyonmawVo4vEE1DlA7n4SkxWrpGi9Pec94b0VVHNSgTe5yn97cV
+DEBUG 2026-02-17 11:06:36,814 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:36,951 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=lG4v8lyW4LQk66mJ4Fcx7siKXklji1UI&action=login&type=login&status=success
+INFO 2026-02-17 11:06:36,953 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:37,063 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:39,528 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:39,712 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=yCkFw8Qhe0jTUgApDIZjYYKK6PaH4Dvx)
+DEBUG 2026-02-17 11:06:39,752 auth [AUTH] Login success - request_id: zCBnPoFNzos98FbYNiJD0oACX9YXpwZm7DyD088QaIiwZe1r5q0vC5vnt48OlZLI
+DEBUG 2026-02-17 11:06:39,797 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:39,923 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=3iGVlwMRhziKQnz5cctTSslEbQLQV9Yn
+INFO 2026-02-17 11:06:39,924 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:40,024 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:42,584 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:42,741 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=MCzaiWzfpbXjVHiT9kp7R4mfhnMwVahU)
+DEBUG 2026-02-17 11:06:42,777 auth [AUTH] Login success - request_id: pId3K8cJKrOXKVkp1IWZ4qpwZ70oaBVFf9tFGeN2EJlyu9YH9NVxafH8dFnNPPNt
+DEBUG 2026-02-17 11:06:42,831 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:42,962 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=IQR86XD5o8tsP4CkOktaZvYPl31lIV47&action=login&type=login&status=success
+INFO 2026-02-17 11:06:42,962 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:43,082 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:45,545 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:45,692 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=kbzSEadeiWO1DiegeCmNtbwo6p2MGeug)
+DEBUG 2026-02-17 11:06:45,737 auth [AUTH] Login success - request_id: 4fAOe0Efe8HXn6ErzM4C3o91rcXxTuR70Iqx0b6EqFe8LA3Q29MZ3nMaQ4RoYnzt
+DEBUG 2026-02-17 11:06:45,787 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:45,912 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=Ssj8CcJG0L72xV3inRZxUvElWZr2xfS1&action=login
+INFO 2026-02-17 11:06:45,912 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:46,042 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:48,547 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:48,713 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=hSBAToTbBEiTjLeNSXRFf2a8whiUweyL)
+DEBUG 2026-02-17 11:06:48,759 auth [AUTH] Login success - request_id: xZWQmdOyGr0p3tfIfzj6FK1eokQIoEpTHgDQ2eKfscA641h26ZORz7QW4JcMBQhJ
+DEBUG 2026-02-17 11:06:48,822 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:48,973 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=H3bposd43olpjVY5wyNSAF37dZ99KBUo
+INFO 2026-02-17 11:06:48,973 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:49,091 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:51,579 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:51,734 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=TOwmH7hpy7jV0VlcLSYlTn5Mqz1Aakfe)
+DEBUG 2026-02-17 11:06:51,781 auth [AUTH] Login success - request_id: BuzMskgSGl6HTbl6iTN2g0P2yGI37nJSn1h3F8xIwgAGPSuscTx03AH1HEd3UXZD
+DEBUG 2026-02-17 11:06:51,832 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:51,975 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=J3miBrN1dAV466BoGAQ65A2L5yfwwH05&action=login&type=login
+INFO 2026-02-17 11:06:51,976 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:52,088 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:54,531 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:54,648 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=nKSUQprPuDdk9aTysWj9WmgPNaNih0fW)
+DEBUG 2026-02-17 11:06:54,693 auth [AUTH] Login success - request_id: aV4ddyPvLKId7sjAZzQ8zvdAk1ZXHHw2sW4SAwskMvYG3mUiFRlqj4h1dOT2BAti
+DEBUG 2026-02-17 11:06:54,728 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:54,872 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=ejDdD1gwmqfVZ9GqXFQvK9FFVxTDFEK2
+INFO 2026-02-17 11:06:54,872 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:54,997 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:06:57,532 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:06:57,684 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=vvtUv5Wfdfbq1HWtaQbbXKC2yFtr1sPg)
+DEBUG 2026-02-17 11:06:57,741 auth [AUTH] Login success - request_id: AJDUnx8iI1eFA40iPZWTA05kkaiQArmYaEfZgFQ4dE6oYRynvSXdbECMayWN64GG
+DEBUG 2026-02-17 11:06:57,801 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:06:57,946 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=zSfeo1lF0wv2ui7N5OR1qaWvVdHqM9hn&action=login
+INFO 2026-02-17 11:06:57,947 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:06:58,044 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:07:00,544 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:07:00,680 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=XVcCYsdcyrD2Bo4WFBDYig62IUYOe4Zc)
+DEBUG 2026-02-17 11:07:00,721 auth [AUTH] Login success - request_id: AXJKoqiO8w4yVDqRO82rzOzWRY4MSuwY3OZP1GdqLpsjPNJ1QWaoUSZdQxIoxVJq
+DEBUG 2026-02-17 11:07:00,774 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:07:00,938 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=N5qEwJe9YgAP1YMF0fEdNMmQZH060Nbr&action=login&type=login
+INFO 2026-02-17 11:07:00,938 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:07:01,035 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:07:03,540 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:07:03,683 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=FukYx7pEWT1TWaMS2WZc06GaXljdeWJy)
+DEBUG 2026-02-17 11:07:03,728 auth [AUTH] Login success - request_id: 5oxBNgBuiC1BtihPdeau6e0dKSzenG7apIF36s1ox2WSsJScUdLI4XqS23jWP5lt
+DEBUG 2026-02-17 11:07:03,786 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:07:03,930 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=Rse9P13K7obrQX2Q48IDVzmqP7EMb4t4
+INFO 2026-02-17 11:07:03,930 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:07:04,064 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:07:06,532 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:07:06,703 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=25OtsRjA1cfDZDEaj9l7GpQh7DUzOrUO)
+DEBUG 2026-02-17 11:07:06,746 auth [AUTH] Login success - request_id: 6ScuVk6C2TqV0wNtvollxsLbEDev815AJ2mqLa1Df8dpfp6wnOyQzQmXzPnQL8a7
+DEBUG 2026-02-17 11:07:06,795 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:07:06,926 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=Lvj1I2OxMo3GOAgXoNgjU4bQATZsAlKj&action=login
+INFO 2026-02-17 11:07:06,927 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:07:07,043 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:07:09,529 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:07:09,728 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=0QkR6nDE5BxHk9F6cVwIz6V9cYsT6JdW)
+DEBUG 2026-02-17 11:07:09,841 auth [AUTH] Login success - request_id: 6LULICaIRxITPnnxmEpide7S8TnK4wdPgueQhvV4MmqolKC9ZC7cKw2Za5JZaVKi
+DEBUG 2026-02-17 11:07:09,896 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:07:10,057 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=QhdC7TdoA0ZSN7HyvhA2mIWGSyO38USV
+INFO 2026-02-17 11:07:10,058 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:07:10,185 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:07:12,544 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:07:12,725 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=1j5l08GqUzkF74a39OyddWaxmuuVb1oN)
+DEBUG 2026-02-17 11:07:12,778 auth [AUTH] Login success - request_id: 6SZU61bvJzE102BogEx3wplyai4Y6ezENgQtdF1yrTN8EtsM89R3bVp6x1Cp39x2
+DEBUG 2026-02-17 11:07:12,820 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:07:12,971 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=Ss1YGLGe6H7noxXSRl1CLvuxpPYQavsh
+INFO 2026-02-17 11:07:12,973 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:07:13,101 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:07:15,536 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:07:15,697 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=JpZqFA4J7vTaGrYOk08Z0Vt2ir7dtVOT)
+DEBUG 2026-02-17 11:07:15,739 auth [AUTH] Login success - request_id: TQG79oGjZa2cZsdK655ZTY2MSiuGh8MucnTwzHDtBt6U34TE1nw5lJN9hbO5M6p5
+DEBUG 2026-02-17 11:07:15,819 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:07:15,945 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=DVSyufupjXhYdFOxQX4woq2lfD9PnrqJ
+INFO 2026-02-17 11:07:15,948 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:07:16,098 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:07:18,555 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:07:18,715 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=QLi5TyX2iudbkeY5kJSBVC46YcP0WFBF)
+DEBUG 2026-02-17 11:07:18,769 auth [AUTH] Login success - request_id: qlW8KGfJ1sxYGVgM7Dh1vwV3PSnmuVCwnkatUIbervAKQ0XMV34XZgpMqEevIkXl
+DEBUG 2026-02-17 11:07:18,820 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:07:18,964 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=CxAE0SUbmUWmK5x2npUYjJSecahkyMJQ&action=login
+INFO 2026-02-17 11:07:18,964 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:07:19,073 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:07:21,541 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:07:21,700 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=g3N3bf5Q6LUPrM7wcsFDMEwCswRfqvMV)
+DEBUG 2026-02-17 11:07:21,743 auth [AUTH] Login success - request_id: AF2M7A4chKdVMiIZsUsB64yvOYDHE0ia3duxoeZWVisrXuN8Vjtw5BdkBlJUIkIA
+DEBUG 2026-02-17 11:07:21,780 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:07:21,919 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=bxhrHVy23xjef4Gwzgt7TPQcsSMyY3xq
+INFO 2026-02-17 11:07:21,919 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:07:22,065 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:07:24,554 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:07:24,718 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=OVcmnHpC43qNBxkw6gsKL2vmfXiu07ku&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-17 11:07:24,752 auth [AUTH] Login success - request_id: 7dew1z9L7j731ZzPYvySNe4m9x7NyOhcN4sKkI8F4drxg2XcO1UArN2zuTbEcigj
+DEBUG 2026-02-17 11:07:24,800 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:07:24,928 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=VTSsAXsv7VDsuGtw38IdZ9p0TqjtlMcs&action=login
+INFO 2026-02-17 11:07:24,928 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:07:25,039 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:08:26,546 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:08:26,734 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=1pagt6KGN066BBvumZsDXcnZlhx5fcfx)
+DEBUG 2026-02-17 11:08:26,776 auth [AUTH] Login success - request_id: gn7Wnm5bJXZars6z2l5ovBMnZtdFoa7QgloF5VcVNPV5lwOR3sl63Rdhs3CYjuRj
+DEBUG 2026-02-17 11:08:26,826 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:08:26,951 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=SOsNGlG0esA8QM6PYS3FEBnm2wtK5w4K
+INFO 2026-02-17 11:08:26,951 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:08:27,093 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:09:26,538 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:09:26,680 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=BmrJR8optjffdUWN63CC75PBKsmf1MOG)
+DEBUG 2026-02-17 11:09:26,714 auth [AUTH] Login success - request_id: d9U8w22jvolX6J2jneRN0XzbNybu1Bfqcd35JSIHLymPJIGrrSyk2Iky5VLwU8Fi
+DEBUG 2026-02-17 11:09:26,762 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:09:26,920 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=LPTSSGdw2866r1fsfUPXCUGdBGB5BRU4&action=login&type=login
+INFO 2026-02-17 11:09:26,920 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:09:27,117 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:10:26,547 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:10:26,705 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=Rai3KXqSftynaNOy5YsFghmRH2CgBhhf)
+DEBUG 2026-02-17 11:10:26,745 auth [AUTH] Login success - request_id: 1Zk70KA9vEkAYch6SrRs2U09iUXEq4LwIyS8FBOhdYqiV9cklv1nA6KuzteyZRw1
+DEBUG 2026-02-17 11:10:26,798 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:10:26,930 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=960x9KOs3334QRXO9alJST2CsrsroT9i
+INFO 2026-02-17 11:10:26,930 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:10:27,226 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:15:17,457 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:15:17,647 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=PmUi53OGwlGHQlsnTWsYXTT6phY565HG)
+DEBUG 2026-02-17 11:15:17,694 auth [AUTH] Login success - request_id: 8e4Fsjv11fENsrL7x0oayL8FD8umC9isYU1QFL1zN3eBbAy9lyM3RazLx9l3NxQV
+DEBUG 2026-02-17 11:15:17,764 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:15:17,921 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=3ryAfDFsZ3at7oM5L1vZeSn3ADdclUly
+INFO 2026-02-17 11:15:17,922 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:15:18,097 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:15:18,340 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:15:18,523 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=BOLXSUY2frPgyX2wwEyIoes7V0SkpJoe)
+DEBUG 2026-02-17 11:15:18,600 auth [AUTH] Login success - request_id: ImKThvRwE8WiT797Z5gB5P6xPz3t4Te7gBgN8zgsg3CpAMCA3Gp2Fqxaxg3pzyjD
+DEBUG 2026-02-17 11:15:18,698 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:15:19,029 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=49A5UoUhOu2LcKa5wX6q3LthPygYSawF
+INFO 2026-02-17 11:15:19,046 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:15:19,278 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:15:21,948 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:15:22,101 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=e5VCmX52xeqAL8wofL3lYA2LUPXyjEue)
+DEBUG 2026-02-17 11:15:22,147 auth [AUTH] Login success - request_id: rfwKEJC1ELvRBg35LIleMVjroKQa6f7Mg02yXbAuvpNebWE1DmKalcLiE6edLWkE
+DEBUG 2026-02-17 11:15:22,202 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:15:22,387 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=RndWkH3JRGSFDqkxpxKxT9yE882Tn8d2
+INFO 2026-02-17 11:15:22,388 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:15:22,553 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:15:22,971 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:15:23,134 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=87F5xpbd2Le494hanZsh3iGZ3YGzu7Rg)
+DEBUG 2026-02-17 11:15:23,184 auth [AUTH] Login success - request_id: FLgM6R43QtuTZ6H72R4DW90AxDMnje8Yo092MvtpQ041zQ6YC9r47XwRkABOblXb
+DEBUG 2026-02-17 11:15:23,240 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:15:23,404 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=gfvnq7jUEw1mczAsgWFo6n0mwUfdZ5Wy
+INFO 2026-02-17 11:15:23,412 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:15:23,570 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:15:23,993 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:15:24,169 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=ztpJVfYcIXkrAIcgsBIA2rLDMnT7JTtp)
+DEBUG 2026-02-17 11:15:24,233 auth [AUTH] Login success - request_id: 78au06VYPXrFmEYJz7zLeLmtbCHnKVnKxEYfyuywIqQd6bNLZaXoOQ7SywyLy7q1
+DEBUG 2026-02-17 11:15:24,325 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:15:24,471 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=tmpOyhVUt2191vIxzPRMJqQX2n443sgV
+INFO 2026-02-17 11:15:24,479 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:15:24,675 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:15:26,446 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:15:26,630 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=ibfgDB42PtNs8Qii8Hv1qqsUC7Hv9vaR)
+DEBUG 2026-02-17 11:15:26,705 auth [AUTH] Login success - request_id: ASOiYtlgeoqpeNjV8rCqttIG3q7xi4bq1Vcej8ufH2zASgNoNGT0jocne4dv0hLE
+DEBUG 2026-02-17 11:15:26,757 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:15:26,910 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=YzcdJYJGzat0sCML2a48XTdcNfZaIUBf&action=login
+INFO 2026-02-17 11:15:26,916 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:15:27,078 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:15:28,454 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:15:28,632 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=zEpdnSVQo2QjO5WFQdrpOujMYBdrbU3K)
+DEBUG 2026-02-17 11:15:28,685 auth [AUTH] Login success - request_id: LvK3LVD141FqxxqnYZab15PzJHakSOaYkz6XJgkWbmmOuOr1N6ZMLWDfVgUxL7nh
+DEBUG 2026-02-17 11:15:28,751 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:15:28,909 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=1RBSfsbQ9QxXUZ1HHmzFpZbogPnYveZQ&action=login
+INFO 2026-02-17 11:15:28,912 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:15:29,051 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:15:30,456 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:15:30,623 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=T9UFTlpqiKDm94KsXlX76j13D5AKWOaj)
+DEBUG 2026-02-17 11:15:30,663 auth [AUTH] Login success - request_id: Myj6iVcyC5hOSiPbriBeQL2qpVPoevOW45nv3am4A7MOvm4ZPw2VVggArU6WK3kd
+DEBUG 2026-02-17 11:15:30,718 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:15:30,877 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=53O3rnzHVXKZyVFio8lmEgj7yuQEXXXT&action=login&type=login
+INFO 2026-02-17 11:15:30,878 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:15:31,059 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:15:32,458 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:15:32,637 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=7d7D7l8OXWmIyNbziXRqzpr2IwCVrADJ)
+DEBUG 2026-02-17 11:15:32,680 auth [AUTH] Login success - request_id: I9uzi2i09738n56BwXCUKJLadRTk7QLu5ffrbWHBd22HOE7tbdbUZMmU9QTgkhHT
+DEBUG 2026-02-17 11:15:32,754 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:15:32,921 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=ohcduWOK76YbpNC5wFs0EOeEcvZD2cs8
+INFO 2026-02-17 11:15:32,924 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:15:33,076 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:15:34,455 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:15:34,646 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=m2Cj3MY6eOZGAU6y4LZQy7vMXa9EsYhF)
+DEBUG 2026-02-17 11:15:34,704 auth [AUTH] Login success - request_id: sVyvhgJDsMMENoxIPffo6xcFKrONDLyhaJQoLiy7UT2loZy0nQsw4BmHectkkD15
+DEBUG 2026-02-17 11:15:34,749 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:15:34,938 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=MSCatIi68g4Xd6xO5J4vslg7PMPoOgnH
+INFO 2026-02-17 11:15:34,938 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:15:35,114 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:15:51,406 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:15:51,619 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=wWvT5dTc1sbnPtPksl8kPlAbm7nrdpkq)
+DEBUG 2026-02-17 11:15:51,685 auth [AUTH] Login success - request_id: YYnnbZio4SdYnKo8wt0mObgw3ts4E0T5XDdSkqpP2yRECx760DJryw43dINOfu0H
+DEBUG 2026-02-17 11:15:51,767 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:15:51,956 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=ILdR63wmj3kfQVfF69XovpS8dAGicqxe
+INFO 2026-02-17 11:15:52,046 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:15:52,197 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:15:52,402 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:15:52,580 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=QMXcEJEhjFjMz71dyAfg2SkXSreeD3dC)
+DEBUG 2026-02-17 11:15:52,636 auth [AUTH] Login success - request_id: 4Dc2SI63EkG7UQ8nyZoEXxl8Fb30rN2wkCj1z0uYYWSc2E06rICjqOWbxbe0zEPh
+DEBUG 2026-02-17 11:15:52,729 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:15:52,908 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=XVDUxeX1a4bTet0vthbF9iCK6Z8NT15g
+INFO 2026-02-17 11:15:52,910 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:15:53,072 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:15:53,414 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:15:53,590 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=PLYYYwtlswDPSo7mJcDtaFshAUqik008)
+DEBUG 2026-02-17 11:15:53,680 auth [AUTH] Login success - request_id: EokRoGtzcf1h68vg0Cfr6W5GWAIN4a4M9joCJYayZZteyIbDDcijB2vAVbRunMPd
+DEBUG 2026-02-17 11:15:53,784 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:15:53,928 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=Tm0JjCZRXNarvVvR5y2abLCq4eQUG1DI
+INFO 2026-02-17 11:15:53,928 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:15:54,139 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:15:55,086 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:15:55,291 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=7H5OoUbr0mH7rJnfkMeOc13v7WqWGjD1)
+DEBUG 2026-02-17 11:15:55,340 auth [AUTH] Login success - request_id: uKW5t1pY0ov6ngAdfaQvop7n7YKv7HMiP0eGKAEcTEDYYSJHx1eemsBO6WXTH2FF
+DEBUG 2026-02-17 11:15:55,396 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:15:55,555 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=294s7lumZjaOk1NLKhEIM2lcmzbJ8Fkj&action=login&type=login&status=success
+INFO 2026-02-17 11:15:55,555 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:15:55,728 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:15:56,931 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:15:57,106 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=6PnAlcl8NcrRFmQmjB2gLFMEgxAv3yEH)
+DEBUG 2026-02-17 11:15:57,171 auth [AUTH] Login success - request_id: KlaMj34BBTJ4tFRpOR5gzYWwG0Og6DkL65qMXvb80dCWStORVOSxwa6dw9cIO0ii
+DEBUG 2026-02-17 11:15:57,233 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:15:57,404 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=w54hxlQNjjZhCgS8K6Nt9Q3nKOD6IQfv&action=login
+INFO 2026-02-17 11:15:57,405 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:15:57,570 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:15:58,923 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:15:59,073 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=HIHajZGB12MzL1uQBV63A90411iewMba)
+DEBUG 2026-02-17 11:15:59,130 auth [AUTH] Login success - request_id: 52KY30epiktRpsJfRKU8BFC7kGPJ83BONNE2Mcr18EmULMPTLdsKvhVvihfsc3Ow
+DEBUG 2026-02-17 11:15:59,183 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:15:59,336 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=6se8EKVdp6Cepix6vj0o6gAbAB8sfxtZ&action=login
+INFO 2026-02-17 11:15:59,343 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:15:59,503 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:00,915 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:01,109 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=lwLs1Ag4GjaJre6j62Zx7mM0fXvqp59U)
+DEBUG 2026-02-17 11:16:01,171 auth [AUTH] Login success - request_id: RWmWDHmPwaXXn5WVnJAIpDln0xBOAznfnA32WsKXpZYA60YRYv0WCSuG89Oz1kv3
+DEBUG 2026-02-17 11:16:01,226 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:01,433 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=hDVNh4D3DYPsf1RkrqOOYf667BSQEo9H
+INFO 2026-02-17 11:16:01,440 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:01,612 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:02,927 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:03,117 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=F8uG5aApHsWh2x8qzW0ivqYevGgtLkQ1&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-17 11:16:03,173 auth [AUTH] Login success - request_id: jMU1pMyv9av0TV6153yP7WpavgSUXQh7JIcBweCmUgsXAN3fRiahexqjDECFMRzJ
+DEBUG 2026-02-17 11:16:03,237 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:03,399 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=EAOOWuLzgYETXJM2TTRM66wtTSKfZn8t
+INFO 2026-02-17 11:16:03,401 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:03,799 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:04,908 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:05,148 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=j9dCRyp0UzcooZfZHiJiE2znQeeIvFi4)
+DEBUG 2026-02-17 11:16:05,201 auth [AUTH] Login success - request_id: XyJh9R0JfxjXtIHIvjcRBR5GaHWVYSqwBfpqHKRaa3IAWXhxu7oYH6s1yH9Ba9IH
+DEBUG 2026-02-17 11:16:05,265 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:05,436 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=EG7VIz0poNqtcj9Z2a87kTQrLTs7NUn1
+INFO 2026-02-17 11:16:05,437 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:05,609 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:06,986 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:07,339 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=oeO35g8oqazsCxZBWbj4vyCKAYK5IHFm)
+DEBUG 2026-02-17 11:16:07,405 auth [AUTH] Login success - request_id: 9AS279h51fPsBOpzvFv8WjgKDOMMKaPXX8pkXtxwIxOfJqsKB3S02LRsG3qAnikd
+DEBUG 2026-02-17 11:16:07,462 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:07,635 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=5NWgaLPYPVhBSn7fW57YZii0uH2yy61P
+INFO 2026-02-17 11:16:07,640 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:07,896 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:08,961 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:09,141 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=QNavVoa79a5JTJvA8z9EDcLvPubREiKA)
+DEBUG 2026-02-17 11:16:09,188 auth [AUTH] Login success - request_id: R3Mj8JwNzaYg14qb9hs1F094CdZNVe00qQhQouzOnSOoX0MxIsQS7A3xoBqpITdf
+DEBUG 2026-02-17 11:16:09,255 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:09,416 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=yGNCsLBbblM93K5rMW5IJOaFnkCniODA
+INFO 2026-02-17 11:16:09,417 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:09,606 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:10,936 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:11,212 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=v7sRg74taXfL6vjLjcYxjSSWUfrPkOen)
+DEBUG 2026-02-17 11:16:11,265 auth [AUTH] Login success - request_id: Rki8fdoflXbGnlW6jOJWDVBBvF1tqBFTjxj1PjNwSvdUcWrcZSdvr7J8s2zpw0De
+DEBUG 2026-02-17 11:16:11,328 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:11,487 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=WxP85AU40PFt0z3KQHT6ua5JBgW3Y67z&action=login&type=login&status=success
+INFO 2026-02-17 11:16:11,490 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:11,641 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:13,554 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:13,704 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=0yC2DbmJkUBWGGo29C56srSV9H2qfnK4)
+DEBUG 2026-02-17 11:16:13,761 auth [AUTH] Login success - request_id: e0BHxL2itflAr8wmzfKesIUE6f8nh8bqdY7KfaIdOMvh9X8ZHEV9x8keuZNZYBuN
+DEBUG 2026-02-17 11:16:13,818 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:13,969 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=bSo8s8k67ocbujH6GU1WpKKp5k0WUHwE
+INFO 2026-02-17 11:16:13,973 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:14,760 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:15,543 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:15,680 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=5NbnkJNj5yhSol6UgonjA9H8SvPE1czh)
+DEBUG 2026-02-17 11:16:15,731 auth [AUTH] Login success - request_id: ZAIdp6rPiH4Y3IE6CbtdAW53vn4DAFNmnwoCSMkC5qMFvJKFHrzWmASMAHi4aS4Z
+DEBUG 2026-02-17 11:16:15,778 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:15,905 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=s30vwGxwlMIlM9kk55uGMv4K4ffMFSE9
+INFO 2026-02-17 11:16:15,914 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:16,075 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:16,974 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:17,144 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=GCY9Ch2FMON8bTFMbhJoVdKw1x9RlxfA)
+DEBUG 2026-02-17 11:16:17,197 auth [AUTH] Login success - request_id: Vqz0UgUvA9gS86ZKcy4aKv7Jttzq7rVKa5lLkvzzZdiP3DXidShyeMUdYwFD2QZh
+DEBUG 2026-02-17 11:16:17,253 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:17,392 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=SU0wsOA2e0M3jIjztCw0QU43c6VCR19p
+INFO 2026-02-17 11:16:17,394 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:17,538 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:19,539 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:19,693 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=WBhBQQmHLZLC5icJmfhBBCtCfSIvKCMO)
+DEBUG 2026-02-17 11:16:19,759 auth [AUTH] Login success - request_id: TT3tHnuQ4qMl0Lrs7QEu5ayy55wSZywW7dJcAgLuX266zfysFl0kkk1UQIkIArGe
+DEBUG 2026-02-17 11:16:19,818 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:19,969 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=A6D1f2sqfwBqLsRoJid0A9uyHKg7VwYl
+INFO 2026-02-17 11:16:19,969 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:20,082 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:21,552 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:21,707 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=197VCngOvkXgraxeRIwhHnmxF0oh8MDj)
+DEBUG 2026-02-17 11:16:21,750 auth [AUTH] Login success - request_id: Od19tRyaFZl7ytNa9qGg0bUS4Rp34kRLHXvMvyClHUh9xtrhXabER3hal1wDb5PA
+DEBUG 2026-02-17 11:16:21,804 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:21,962 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=tqEEO5gH70o2O8oxp7Fc5nD2lB0yHW1F&action=login
+INFO 2026-02-17 11:16:21,962 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:22,091 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:23,533 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:23,670 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=pYOiHV46HSB1D0682SPYGNp39nk8HZOo)
+DEBUG 2026-02-17 11:16:23,728 auth [AUTH] Login success - request_id: NYODaWq69Gwmvabzlop0EI2C1gGUygwyVHZ0wnQvsdmWdI5M3MaYaTfitcAfMhHE
+DEBUG 2026-02-17 11:16:23,779 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:23,922 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=x1FK4r6dFztbJq5dEfczmDrV8h0Xn6S7&action=login
+INFO 2026-02-17 11:16:23,922 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:24,064 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:25,532 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:25,676 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=dAThORMYQviIfYdwDUZiwo2a9R0slvs5)
+DEBUG 2026-02-17 11:16:25,720 auth [AUTH] Login success - request_id: B7MsF2DUM6mohknHWHGqN4tLmbBJO9bUygdXlCgysMH0ZZJ17Xh6p0Im6fWJyis5
+DEBUG 2026-02-17 11:16:25,776 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:25,912 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=bPYhF5nbW3zSY7CBdTZzfu7Sg4Oy4jwM
+INFO 2026-02-17 11:16:25,913 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:26,051 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:27,546 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:27,682 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=u33y2hDthnYZysBspVV8W8HkMie1LBAE&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-17 11:16:27,722 auth [AUTH] Login success - request_id: amu19gQbIbN1QAXsEbw2b9R5XDELNpkdysDPuDojyCGYbdOUoT2frPctM6YTIkTv
+DEBUG 2026-02-17 11:16:27,787 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:27,940 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=2NZSCHm6f3AtTfuYMbDJKS4MsH2owoVS&action=login&type=login
+INFO 2026-02-17 11:16:27,940 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:28,089 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:29,552 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:29,683 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=7GxjzE6nNnHT59LYeh6Fq3CIWWMOm4K0)
+DEBUG 2026-02-17 11:16:29,731 auth [AUTH] Login success - request_id: OADK8Gv4Qc9qN50WwQus7HzK3N78qTrqujeo1pasE4WOYep4asWeSagwuO6T5Dzq
+DEBUG 2026-02-17 11:16:29,776 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:29,896 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=gqaP6QZDhw8qXNajdgzuMsF2qYDZGiI6&action=login&type=login&status=success
+INFO 2026-02-17 11:16:29,898 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:30,017 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:31,548 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:31,688 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=M0DPVD9RXHdluQ7S0fs1e84EoXODByZ2)
+DEBUG 2026-02-17 11:16:31,721 auth [AUTH] Login success - request_id: 0wvij7FUc8OHT03IMNAgTauN6pht0m02h2ouh1Ts2u3fE9hS2J3NZ7yHd2FT57Hl
+DEBUG 2026-02-17 11:16:31,792 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:31,910 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=eXbXh6WEkFLSD2c1Bf63Iwj2iTMh5Pej
+INFO 2026-02-17 11:16:31,910 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:32,042 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:33,530 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:33,678 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=KQ0qFeEJDmr3SaOWDbo0iLbVTgzxBusG)
+DEBUG 2026-02-17 11:16:33,728 auth [AUTH] Login success - request_id: JMv8QyXt6vcrLsaZlJ5iyGwBSNa1gSKRc02fS7lw0tfxA1H7bUl250rXf4dQWCMU
+DEBUG 2026-02-17 11:16:33,780 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:33,927 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=kma4Ef8b2cPgTHKKsr8YB0vMCrhBTDe6
+INFO 2026-02-17 11:16:33,929 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:34,323 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:35,569 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:35,716 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=Gy6TQGkx1fhIkXo772qDKjRGo5wmsZr9)
+DEBUG 2026-02-17 11:16:35,760 auth [AUTH] Login success - request_id: LKsNlsSSCfAZU0TBn7V5iLaTcNSl0pnb9nya2lRd6b47zXlhztQ9GRRKRaq8bdKD
+DEBUG 2026-02-17 11:16:35,812 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:35,936 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=jtkfXHsW1OltdHNHeObE797kdJFp4fdB
+INFO 2026-02-17 11:16:35,944 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:36,053 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:37,552 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:37,691 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=zDQxQOg38phpEMDCgo15svAVxI3jGstT)
+DEBUG 2026-02-17 11:16:37,742 auth [AUTH] Login success - request_id: miMdrzP8BaF5Hurn73SDRCieurtigc2y4AwPK45Loyb4BnRWAWvXi6yRDUA4NOeo
+DEBUG 2026-02-17 11:16:37,788 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:37,928 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=qXKrU0QzY7EmE5g0O02GpMBgp7qMlIUP&action=login&type=login&status=success
+INFO 2026-02-17 11:16:37,928 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:38,065 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:39,547 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:39,664 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=tLj1OfOU2hNAr6xyQW1SNBTzyAs2503i)
+DEBUG 2026-02-17 11:16:39,706 auth [AUTH] Login success - request_id: LLKCfuLabqelmmh4SuGS8V6ghVlidza4ZjVTD32lpHpYmRtGuHK5cfQrJm3bVl6E
+DEBUG 2026-02-17 11:16:39,752 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:39,872 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=cnv1VyDyzmmCqh6KOs6W7W6E2LvS0GS3
+INFO 2026-02-17 11:16:39,872 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:39,996 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:41,540 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:41,723 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=74Csxil6GtfpIrzsbjfAU9t81zqdQthD)
+DEBUG 2026-02-17 11:16:41,766 auth [AUTH] Login success - request_id: DlqJwYjq7brVx8qHTmwG8Jz6lMeraXULyGK7LhaJsC6c8J9MzErHivgCYxu1Splt
+DEBUG 2026-02-17 11:16:41,818 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:41,967 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=WNXznVWQrkPTudBRFqu8L4yj9KI9pZwX
+INFO 2026-02-17 11:16:41,967 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:42,125 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:43,536 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:43,675 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=q2jGK0Z2CD996gvzUrcY6o5m22yNKhSo)
+DEBUG 2026-02-17 11:16:43,721 auth [AUTH] Login success - request_id: cbLE2SFP514PY5OgAQRerJsNEDh0Ul2zK2Zl8Cl1O1wkr4MTxpQbMY6WMMePgYSc
+DEBUG 2026-02-17 11:16:43,772 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:43,926 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=mx4miQXqJGb2EdxBKPm04Avb5sE8yDqC
+INFO 2026-02-17 11:16:43,926 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:44,044 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:45,538 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:45,700 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=yWLXmS2m7axY8tjIYTy5wjwqtzfsYRdb)
+DEBUG 2026-02-17 11:16:45,770 auth [AUTH] Login success - request_id: K7kE3YWMjc6x9HEKYUR92e4kaoTui5IidzaDgtdTzTO3DpJaruMVtuyWiAVZNI0c
+DEBUG 2026-02-17 11:16:45,824 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:45,991 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=PJsG2XCjNuySrLzG1ncpA52BfmOYb5al
+INFO 2026-02-17 11:16:45,995 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:46,127 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:47,557 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:47,730 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=psKhsScAt3mM6w4Uj1plS5SpC0FjcEtr)
+DEBUG 2026-02-17 11:16:47,790 auth [AUTH] Login success - request_id: uz7qR211jHI30X3raIuS0vEIvlDEd2cAnTpcEiMxw4lPsIZMf6U972OLK47DuEZj
+DEBUG 2026-02-17 11:16:47,855 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:48,013 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=fJAzrnAdqceydkjaYjdCoYDZnesL0p9H&action=login
+INFO 2026-02-17 11:16:48,013 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:48,441 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:49,543 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:49,676 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=y7MlAsmlb8dNkGQ0TFdH9ykc3rcr4ypb)
+DEBUG 2026-02-17 11:16:49,712 auth [AUTH] Login success - request_id: 0siWs0dFEQhuNNSyPO5VHO9S8f4KoMXOwpB8cxhugdNhvNrVaCTA72h89HVQ6gBe
+DEBUG 2026-02-17 11:16:49,752 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:49,872 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=xHY49kqsWLoSzoQQe2i6P3uT0SP4cSTI
+INFO 2026-02-17 11:16:49,872 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:49,988 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:51,545 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:51,677 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=EDexDl8dWy5pegM9MuCjJMsiTKI7xAyb)
+DEBUG 2026-02-17 11:16:51,718 auth [AUTH] Login success - request_id: RQS9Y38UObSPeu7KnPMtPDWQxHD0jsOJGs1inZRdxPyp7tHWD0Klr6ymRwjugiQE
+DEBUG 2026-02-17 11:16:51,766 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:51,920 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=iAww5SaT8a6b6Qwc8UwLWIoTD8fHUSKF
+INFO 2026-02-17 11:16:51,925 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:52,031 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:53,551 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:53,690 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=oEf51wZlUWWVqebowFba3wWz7e1FMllD)
+DEBUG 2026-02-17 11:16:53,741 auth [AUTH] Login success - request_id: ovOmajXiKfe7JeyXdhvKN88y62P0npAmvcTYEu30Xe3l2wlaY3BWMtXsix03hQyp
+DEBUG 2026-02-17 11:16:53,801 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:54,147 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=N9nGlI2pN7rGiRx5fnLUv2NOGTCf53gN
+INFO 2026-02-17 11:16:54,148 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:54,274 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:55,547 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:55,680 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=mRVkGNN1S13PShwYZJZ0LCu1XW3Ovuvs)
+DEBUG 2026-02-17 11:16:55,744 auth [AUTH] Login success - request_id: PcX1uTzHFdW5Lfwgkrf8jEWiXLwqxz8pLnm9Pbe5JJQ5YK5JtVlEIC3qfwqRsK30
+DEBUG 2026-02-17 11:16:55,832 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:56,032 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=s2RoVcjRl82gkidb2ukNBZy42W6K6zKD&action=login&type=login&status=success
+INFO 2026-02-17 11:16:56,038 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:56,183 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:57,551 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:57,724 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=l6Nr1qapdlFHUrt54MnTVv2lRa4qDwDW)
+DEBUG 2026-02-17 11:16:57,767 auth [AUTH] Login success - request_id: ubiqJbs5zy4n7U3NJnT5FTdLQysp66R6Yhmbqn0LtuQtFySL7fb7aNWN5DLj3Efy
+DEBUG 2026-02-17 11:16:57,823 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:58,005 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=MlZudJwRbvOnFp8h8tq4NVpfzdEvdEzd
+INFO 2026-02-17 11:16:58,005 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:16:58,387 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:16:59,557 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:16:59,713 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=IbUfuG3MPjdU3hr4pwfDh8gOsgmipXpb)
+DEBUG 2026-02-17 11:16:59,762 auth [AUTH] Login success - request_id: Iaapsov9KWDTEbl1axdXM3IvP3DBtOAbhX91Bfe4cyl2wAF5jfliyS0siIeK14ra
+DEBUG 2026-02-17 11:16:59,817 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:16:59,973 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=t5PDdHn5avydRob4qA2iq3EiVwkmRL3n&action=login&type=login&status=success
+INFO 2026-02-17 11:16:59,973 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:17:00,312 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:17:02,360 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:17:02,492 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=0BM1RnPbAllA47ikGWCBovfxf9bIBwTy)
+DEBUG 2026-02-17 11:17:02,540 auth [AUTH] Login success - request_id: Z9HnHRAFNtUmgA1LmODs9Rnbbgc7PX6f0r1MI46Kck2LKVrLZBck8ykWaGtwsnOi
+DEBUG 2026-02-17 11:17:02,588 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:17:02,709 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=FOeFJQ0W8j9WF2nBZwdzkfzBCjb6WZvZ&action=login&type=login&status=success
+INFO 2026-02-17 11:17:02,709 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:17:02,821 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:17:03,537 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:17:03,688 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=d9lmlMmL5PX0eQyEvt1SM83Ka3FUgqEc)
+DEBUG 2026-02-17 11:17:03,731 auth [AUTH] Login success - request_id: 0t4BC374WUOOHjWY53AKdx05lamNl1WUzHCOYDCEbRGCLlb7g8RQkwOfZG9Jqlro
+DEBUG 2026-02-17 11:17:03,783 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:17:03,938 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=MoadKBdjzl0B06fN98kosqndy6FiPXCl&action=login&type=login&status=success
+INFO 2026-02-17 11:17:03,938 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:17:04,045 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:17:05,538 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:17:05,676 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=jUHzyL4q9KylHXJqGWh3aa25GgEhZwQb)
+DEBUG 2026-02-17 11:17:05,715 auth [AUTH] Login success - request_id: syWB1pgmVmjy3Dt0EdU8kgv60Kvnv0tWJsRuUKhIv9lUyLX2RmppfCnT1LwG0J1P
+DEBUG 2026-02-17 11:17:05,772 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:17:05,891 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=NsrXCnahFlaZXyP32FVB3BpOnbFhBoVV
+INFO 2026-02-17 11:17:05,891 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:17:05,996 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:17:07,683 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:17:07,814 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=Jb1l2MJPVUZ316txrEGUha89WhBXFXjV)
+DEBUG 2026-02-17 11:17:07,855 auth [AUTH] Login success - request_id: AtF6gTVYmhtwtNpEUf5HMk0eVJ5bITQEJjpHie7Q6yIaNfHKMev72OC1jN8DG87c
+DEBUG 2026-02-17 11:17:07,900 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:17:08,029 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=mFm5ewzhHLzMsa4m2Cs6K1Sq3nyL1k5n
+INFO 2026-02-17 11:17:08,030 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:17:08,152 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:17:09,619 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:17:09,812 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=29L6kq2OjQM4ACbgS0llgU8zpCbt8l4u)
+DEBUG 2026-02-17 11:17:09,861 auth [AUTH] Login success - request_id: Aj85CYSNxlye1TXEpWNEaido20Sot9D8z00wbSYRtlDuh4t4TuDW81CyqRJEZCOI
+DEBUG 2026-02-17 11:17:09,910 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:17:10,045 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=ZS5NVrPolgf54k4vSxZKFR6sm3MlCotf
+INFO 2026-02-17 11:17:10,045 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:17:10,133 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:17:11,551 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:17:11,682 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=oY8IqldDjeiMOn2cyGRPOJufzqU46mx1)
+DEBUG 2026-02-17 11:17:11,731 auth [AUTH] Login success - request_id: DQECBst7G3Yh001unZ5rgv3DFve7G6ODOgn3hiOjJrg9v6c0VuBH7goDOaxA1qlc
+DEBUG 2026-02-17 11:17:11,774 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:17:11,911 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=livV1eIo4ZUSlZhuAKr1cVmP6glboXuu&action=login&type=login&status=success
+INFO 2026-02-17 11:17:11,913 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:17:12,008 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:17:13,539 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:17:13,664 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=5jhxE7BdtULxB4o7tuDEhkpaBArn5rXQ)
+DEBUG 2026-02-17 11:17:13,701 auth [AUTH] Login success - request_id: GNsxOo8EWS0RkckKC5er0GhoR53cgW55EqMxvzbIbKCT3Ptc5fPJYnwTFcYCMNGU
+DEBUG 2026-02-17 11:17:13,748 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:17:13,861 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=xbmpiezramTLoGcp1KdR8MRYkp5KZ3RX
+INFO 2026-02-17 11:17:13,861 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:17:13,964 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:17:15,539 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:17:15,711 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=jWx7HiuF4CEWLlEF1XRe6WuNq4Vv621f)
+DEBUG 2026-02-17 11:17:15,747 auth [AUTH] Login success - request_id: iWfUngW6h1IaQPfKjVvKRzbeW8xz9FA6tN11tknIPUnDnECAfZXiijrcCOku0Mx8
+DEBUG 2026-02-17 11:17:15,816 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:17:15,977 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=m3ntIoGJT0vcaSKH1k82rUpoC6sbcmdG
+INFO 2026-02-17 11:17:15,977 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:17:16,114 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:17:17,538 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:17:17,705 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=9aoZkJY5qUDvehRoxvHoh8RkLW7lky5u)
+DEBUG 2026-02-17 11:17:17,753 auth [AUTH] Login success - request_id: 1AQ5f772uNjCD8dbowLDCu4hihsHoNwsIxhrAw4RGnqwLdV1cNnCEHxyr11TjI7o
+DEBUG 2026-02-17 11:17:17,815 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:17:18,000 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=EcL0fSUBaD1Ep3E9BD160nT6xipot7wI
+INFO 2026-02-17 11:17:18,000 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:17:18,097 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:17:26,552 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:17:26,727 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=8X1IakHT76aidyaejzmt3rawJInyqsw1)
+DEBUG 2026-02-17 11:17:26,768 auth [AUTH] Login success - request_id: Cc4lgQVq4OUTAOSeSigrL02tNj60P2qH0TmNgPKXTD1vsDULvB71kfAAtb0QwAKZ
+DEBUG 2026-02-17 11:17:26,815 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:17:26,969 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=nO0RcMRSfJZ9XVseFYwCKxnbdu2HJAw5&action=login
+INFO 2026-02-17 11:17:26,969 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:17:27,323 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:18:29,189 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:18:29,468 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=ZXcU449iy1FwOCBN8g07m0vTrk9WZjnr)
+DEBUG 2026-02-17 11:18:29,527 auth [AUTH] Login success - request_id: QJEAlvlrojESU3paoyl1g7sJZOsg8jJ8bpnbGABsCt4LfVCKCyOGEVQkPIgaP565
+DEBUG 2026-02-17 11:18:29,596 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:18:29,747 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=GR6h2JAKCuBnjfcMMb1vvvzeOb929NE6&action=login&type=login&status=success
+INFO 2026-02-17 11:18:29,751 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:18:29,944 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:18:30,181 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:18:30,357 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=GsxRWeS185nlx5AfQBo1b5HY71vpTtTS)
+DEBUG 2026-02-17 11:18:30,402 auth [AUTH] Login success - request_id: feT4uk02ilsffhD3f7sOwfLNrHigLIh3AIRb3IOPkziLSXXAgo0c1Z5wjEMAiOuZ
+DEBUG 2026-02-17 11:18:30,452 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:18:30,716 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=3RA18zP9YKXxvyYwU1bywgAD5zkJ6mRZ&action=login&type=login
+INFO 2026-02-17 11:18:30,716 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:18:30,861 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:18:31,168 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:18:31,330 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=1FbUttFrxAdVY2ORs4sfEf4XTLDRH5jm&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-17 11:18:31,387 auth [AUTH] Login success - request_id: 7N3FJ4sOqq1oMov2UUMc1MxWZNj7TP4PIRVArId2veaAep1IWewjzvmtzd8p0y8X
+DEBUG 2026-02-17 11:18:31,443 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:18:31,614 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=lnXzbeg5VBZoxSVY5kLclMGGHhC34IOO
+INFO 2026-02-17 11:18:31,663 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:18:31,976 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:18:33,995 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:18:34,156 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=pT2TkftDCcBYwSDevQCfCFpbO57VDfAx)
+DEBUG 2026-02-17 11:18:34,211 auth [AUTH] Login success - request_id: 86PfJo2tlQTjq5Bwytq7lx8fnp1nIlcDV9ofWm6Ep1I3tyEJTsWcjKrfd80RYEG2
+DEBUG 2026-02-17 11:18:34,262 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:18:34,419 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=qJgjzfb1adFW3Wbt8HB9ebUIy5RGdJ0F&action=login&type=login&status=success
+INFO 2026-02-17 11:18:34,425 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:18:34,549 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:18:35,959 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:18:36,159 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=K06FlMqDsGmmh9q0yFMadtwid6bXIOlT)
+DEBUG 2026-02-17 11:18:36,209 auth [AUTH] Login success - request_id: Wh234i90qFASOXwL9aywfOTKW3yHEeviX5mB1E6Jhb7k71qEj2q7BMfjW73GY7sV
+DEBUG 2026-02-17 11:18:36,266 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:18:36,440 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=N01nwixPiSlxZcVeOINuywVGn8u2tEHX&action=login
+INFO 2026-02-17 11:18:36,445 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:18:36,582 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:18:37,924 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:18:38,121 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=HuIXd3RSIM2B4VlWtDRqem4pf2TVM37z&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-17 11:18:38,172 auth [AUTH] Login success - request_id: 4VsZNmjU0IJUMVIof7b4uCVS0CO0jYn2iZvk3keV6ck6yytLNmo7O2dQQI76vjRg
+DEBUG 2026-02-17 11:18:38,225 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:18:38,397 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=fVJeDB7QAFUWQRhXdVsIklLmACFMdAWU&action=login
+INFO 2026-02-17 11:18:38,401 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:18:38,544 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:18:39,929 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:18:40,089 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=KdfouYX0n0iAaeN6NC5zg9BzvcZzzPuu)
+DEBUG 2026-02-17 11:18:40,152 auth [AUTH] Login success - request_id: s1ctJyPd4F4KGSnLFxw0LxO5E792hk332ZmD1b4XUVLEr2XZRsnhg3lhn0EL5hAl
+DEBUG 2026-02-17 11:18:40,195 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:18:40,339 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=tIa7ai1JPIGurZ8Rx116NrJax7Ig826h
+INFO 2026-02-17 11:18:40,339 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:18:40,475 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:18:41,922 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:18:42,099 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=R5e7ve99oZLDO4dHxtXR3ZFe3caqBlHI)
+DEBUG 2026-02-17 11:18:42,147 auth [AUTH] Login success - request_id: 68Sj4QxlDjOIiqrAVg7PPX1hyw2ydRf1dpDEj9DDI9P2BUf3Te6QjHZVFn7EfNQm
+DEBUG 2026-02-17 11:18:42,199 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:18:42,348 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=H0I2N6X4xWNW7NCK1aycS3obtK2OD1m9&action=login&type=login
+INFO 2026-02-17 11:18:42,349 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:18:42,457 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:18:43,918 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:18:44,066 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=o5bMa9cu6Ma3ZsskocWhJjwl148eOlbT)
+DEBUG 2026-02-17 11:18:44,113 auth [AUTH] Login success - request_id: pw7qwjx3pEY8k8207dYEQ3BMFpjsp54ZlckMaA6grDbYLZBTwOTBOtq7qBaPtZjn
+DEBUG 2026-02-17 11:18:44,181 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:18:44,326 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=y31pPcRf4BrcyYyNp1pHfIgIFuGtDfB0
+INFO 2026-02-17 11:18:44,337 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:18:44,477 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:18:45,919 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:18:46,095 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=8QxiRHdlPrUwCnllEMJjMtBbKs3Y6W7Q&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-17 11:18:46,153 auth [AUTH] Login success - request_id: UPr4bLso5VquBar1E0N0nHhS09DsqLuZJV73Uxx2CZd5VRvqscDnb5rG9gTaEZKs
+DEBUG 2026-02-17 11:18:46,209 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:18:46,374 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=RJa2IurHwiTN51SbiCEUz7L5NrRjLbC8
+INFO 2026-02-17 11:18:46,374 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:18:46,518 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:18:47,924 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:18:48,152 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=aGQERl3Hl24ndbSdhyJfJ4YU2qLxLiqL)
+DEBUG 2026-02-17 11:18:48,228 auth [AUTH] Login success - request_id: oJGG1MUeIN0SpFECj4Dycg0Vdu2yYyPwpZhLKeUQiMxioH2wSD88qvhF4L0BeMii
+DEBUG 2026-02-17 11:18:48,301 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:18:48,550 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=UqiQGFx3R2p73XiiaJ8wC1y0GDnbGhlZ&action=login&type=login
+INFO 2026-02-17 11:18:48,552 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:18:48,722 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:18:49,934 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:18:50,128 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=wofwhYNbALDHVIpDgGZAQedfpJYQUtfZ)
+DEBUG 2026-02-17 11:18:50,193 auth [AUTH] Login success - request_id: P1aImh7ReO9F7Le6cIS1NJMHCM6iAIPQFEQnIoiYanqbYUlvdbTGruiHx6DW2ZqA
+DEBUG 2026-02-17 11:18:50,271 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:18:50,496 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=0L8ktQ4T4fEyRZ2w2TfeRqd2PapT2Ug3
+INFO 2026-02-17 11:18:50,498 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:18:50,660 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:18:51,935 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:18:52,154 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=aFI7FV9eyHymeGfCiqLqYTKbdxe20hkl)
+DEBUG 2026-02-17 11:18:52,235 auth [AUTH] Login success - request_id: 36WTJv4a5BUToWCwaGBdqDC3eblLHOBPz3ffBj5W4E0moM1dty9Zu4hcF4hZCRPN
+DEBUG 2026-02-17 11:18:52,306 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:18:52,498 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=XvGjaYGp6hWa356KuR442Zn8JnZWtT4M
+INFO 2026-02-17 11:18:52,500 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:18:52,648 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:18:53,930 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:18:54,146 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=WTmkgrvxcB5TDRPgGxMceo4VjaZgn9hw)
+DEBUG 2026-02-17 11:18:54,227 auth [AUTH] Login success - request_id: GTyDZxlxbTkjw2r4KPaKYq4PsRDrlPygh3CUThwaPqOeUipTHtsqRJofkzGFNf8f
+DEBUG 2026-02-17 11:18:54,290 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:18:54,520 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=TF5SXS4xxFlWJ0eOG85YppioglqYEldz&action=login
+INFO 2026-02-17 11:18:54,520 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:18:54,682 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:18:55,917 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:18:56,118 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=NHz9QWh3HoG5LbqZ7K8fa6ZLdkbj2hpa&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-17 11:18:56,188 auth [AUTH] Login success - request_id: JlcFh3wNKyRM27kG9EFitw9mQxtZyba2e1JR7m6IsHsGyAaoktlejO5zmNcybAUk
+DEBUG 2026-02-17 11:18:56,259 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:18:56,451 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=CSDjV39l7aq8oq4y1VEiFyfb3pmzr9d1
+INFO 2026-02-17 11:18:56,451 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:18:56,570 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:18:57,926 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:18:58,135 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=Ow3oX1O4jtzBnfU6eJiDuPYUGeZuujHk)
+DEBUG 2026-02-17 11:18:58,187 auth [AUTH] Login success - request_id: yqygowlk0yhet2yhJTZvGOVdD5aU1Pv1Hum2HgmkY55jTrpZdWWnRUI6MFQOZ20T
+DEBUG 2026-02-17 11:18:58,243 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:18:58,404 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=SnQWr3Qqz6uRdpvqt648lLqUC4PNvlim&action=login
+INFO 2026-02-17 11:18:58,404 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:18:58,530 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:19:00,161 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:19:00,426 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=7y4rOO5YPKEixGkyAsLE31kUU0nZRI2s)
+DEBUG 2026-02-17 11:19:00,701 auth [AUTH] Login success - request_id: pR2fjMtS536j9O9EzHwhx5Ip1ib5DA3V8VrMottbMBWpPsrVe2UF5uNe8lgrl3WQ
+DEBUG 2026-02-17 11:19:00,752 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:19:00,898 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=xHGjOK6dvbQjhehtqn2RTZVRuo8G5c7G
+INFO 2026-02-17 11:19:00,898 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:19:01,035 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:19:01,917 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:19:02,089 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=4KQBmRis9L76XO37p36cBBddFlSaN5Fw)
+DEBUG 2026-02-17 11:19:02,140 auth [AUTH] Login success - request_id: LPkgr2jVORHirnHGB3rcu30rppn1DHAxIbw9EFoL7sVu88sgITPoiLIGMAM6awD7
+DEBUG 2026-02-17 11:19:02,198 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:19:02,371 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=luvNC86wjgNbFz7ySG2mWXDLiP81bPKJ
+INFO 2026-02-17 11:19:02,380 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:19:02,540 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:19:03,994 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:19:04,157 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=v7SXvrXljTABXVYrj3fRvwyIMMkyWatE)
+DEBUG 2026-02-17 11:19:04,213 auth [AUTH] Login success - request_id: UR2GMcggjZo6k5YYUiqC7Gfw07cXjDUnvHHQQwOitvp9leSSe21brsf9a12mJqUp
+DEBUG 2026-02-17 11:19:04,273 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:19:04,452 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=W2obg0jumrLUqjDadrN0UK0uAPdgyHAU
+INFO 2026-02-17 11:19:04,459 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:19:04,839 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:19:06,472 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:19:06,643 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=6IiJNDzgO3SsLHEM0gbeF5cwvuYvykoF)
+DEBUG 2026-02-17 11:19:06,691 auth [AUTH] Login success - request_id: 2SMKsz4VqY2rYy1gZ9c5lZPvxUoE7iY2zjQACAaDWWxcvYFHbg6dOg1Fga8sIHGs
+DEBUG 2026-02-17 11:19:06,746 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:19:06,889 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=MN86KjVLLjJ39zl9iF63T4iieS9eZICL
+INFO 2026-02-17 11:19:06,892 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:19:07,020 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:19:07,928 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:19:08,082 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=gzeTxyjrOkRbygP7StpqHFOjdTKGZIap)
+DEBUG 2026-02-17 11:19:08,134 auth [AUTH] Login success - request_id: MhNJe3Fm2M66aWFDDupH42PZIL1SKS3s7eqNXB4hssYC9MiHesfpAVlfhEKyWpBV
+DEBUG 2026-02-17 11:19:08,183 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:19:08,339 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=ThAQnxEemUS0FUrYsqZQCBYxEITpe8ob
+INFO 2026-02-17 11:19:08,343 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:19:08,461 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:19:09,932 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:19:10,120 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=yS6JLrSIawczWYvUrsJqfbJFyY35s4sN)
+DEBUG 2026-02-17 11:19:10,168 auth [AUTH] Login success - request_id: JYcNkIxP6pfg2lc71HhdFk0CCdw1aF0LCjIteIGbygZwNxz65vbvcx3HvXZD2tOa
+DEBUG 2026-02-17 11:19:10,225 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:19:10,389 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=ArYDatvciVbnJ5cDIgdoBJQzRPv3GXy4&action=login&type=login&status=success
+INFO 2026-02-17 11:19:10,389 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:19:10,521 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:19:11,922 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:19:12,098 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=lD0ZgBb8Yh5dwSPNFPMIzcY92OVl748L&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-17 11:19:12,159 auth [AUTH] Login success - request_id: 2fGg84Wbop3T0mVHfhbQwvnsP4jnXReS4cmQmF2vBuRduqh2uCPAKwV8wUh31NKQ
+DEBUG 2026-02-17 11:19:12,224 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:19:12,408 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=I5fM4B9cQmqHQSv9jUGDEtCu11jydQqg
+INFO 2026-02-17 11:19:12,408 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:19:12,783 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:19:13,933 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:19:14,088 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=bxk6og1RqkJ68ARXgMJIcLIfN8HFxA4V)
+DEBUG 2026-02-17 11:19:14,148 auth [AUTH] Login success - request_id: a24EPAi7l3GHkwr6tHIve0vXJybiZ44KLDEAxNa7TJv1WLyVP1A7PsvJi2pdiR8F
+DEBUG 2026-02-17 11:19:14,227 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:19:14,405 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=dYGpD3QDLk3evglZVfEtJ435Ib5w8j0v&action=login&type=login&status=success
+INFO 2026-02-17 11:19:14,410 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:19:14,538 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:19:15,928 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:19:16,109 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=zDwx0famYvyz7Z7wIGVVWEFAhIMs6gVa&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-17 11:19:16,160 auth [AUTH] Login success - request_id: AR3hKHSiS1uR0r968azfW5R9YkNdeJlGf0bFioaZzatHcUfWfPIkrltTG2zk6EL2
+DEBUG 2026-02-17 11:19:16,213 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:19:16,363 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=M9OLSK3n6VfBB3esWApng3kZ1iG4VWQ9
+INFO 2026-02-17 11:19:16,372 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:19:16,547 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:19:17,931 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:19:18,118 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=p26WWfCkA5JX1DlpdkC78hge4XGDCuXD)
+DEBUG 2026-02-17 11:19:18,172 auth [AUTH] Login success - request_id: uwdG1UbT1aCW56DertUpjCQtYZlP9pZQiMcbcFlhe8dyBI6wujCQzeH0PqYzSllV
+DEBUG 2026-02-17 11:19:18,245 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:19:18,442 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=34jCbgNrRdZUo0aiWJlmw4BGzjwV8J1U
+INFO 2026-02-17 11:19:18,442 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:19:18,565 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:19:19,957 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:19:20,123 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=cnGnC7otwMULRZg18n1GmsIJI4CpSO6C)
+DEBUG 2026-02-17 11:19:20,166 auth [AUTH] Login success - request_id: 9s8VAXSexBni39EeZ2DVKZkq6OM3IQMQvO4vHKCaFFSVMRB9XCmm47OcwgMFnb13
+DEBUG 2026-02-17 11:19:20,227 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:19:20,401 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=i9oC7L9cd0INE6WKeF1tHNFKKnZKvGDT
+INFO 2026-02-17 11:19:20,401 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:19:20,529 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:19:21,926 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:19:22,123 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=JEgkSLM6ymx10qF31x170nncB843PeJ1)
+DEBUG 2026-02-17 11:19:22,183 auth [AUTH] Login success - request_id: WYH2ql41d0n2VsGV02B7FQXs6bBq5uJpu9xgb3DyzbQk9wDonbxSi1LSHhsCnHeO
+DEBUG 2026-02-17 11:19:22,246 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:19:22,441 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=8KSh6ux7hpiVFXbAjHBm04u7ac142nST
+INFO 2026-02-17 11:19:22,450 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:19:22,606 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:19:23,942 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:19:24,137 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=WtEsO2XMHY2HwFTAgiZEVPK62d3i1mnK)
+DEBUG 2026-02-17 11:19:24,210 auth [AUTH] Login success - request_id: dRL7nz5S67zVy0ucsq8Zb26jd1BqjdVgRekPptFFKSE7IL3xXXDoT6n3kucS6VBQ
+DEBUG 2026-02-17 11:19:24,267 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:19:24,414 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=Chj0tnBh5YxQKrroaGXcTZ66uhdW8NON
+INFO 2026-02-17 11:19:24,414 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:19:24,536 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:19:25,922 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:19:26,127 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=WWbduknvyNSMFkzvC6u5ovEIQtc3RvgF)
+DEBUG 2026-02-17 11:19:26,175 auth [AUTH] Login success - request_id: 6dlVF4b2CwkFpN8upk0DXCAt2J0MyoKVTDpgBHUK7SJJaiz39eOsl1H2SZqrt2ao
+DEBUG 2026-02-17 11:19:26,234 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:19:26,385 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=SkJl3R3x6oBEe4OlZjYfU2GtyTaWzasq
+INFO 2026-02-17 11:19:26,385 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:19:26,506 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:19:27,930 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:19:28,394 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=erOC9lr0DyCXxIlDj1lwceNVrZuk8MM5&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-17 11:19:28,456 auth [AUTH] Login success - request_id: eQPUnX79L9j51XtDN128IMRatE107K6reJ76cawAnZH5Ztc097kWWbyx4dm01ld8
+DEBUG 2026-02-17 11:19:28,506 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:19:28,661 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=2mFHaJ8yV0lNx9s7nqq6XlagOTkVcvdL
+INFO 2026-02-17 11:19:28,662 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:19:28,808 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:19:29,924 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:19:30,122 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=hIla8VPOvZcXmTOK0hKO9lw1vCSjkeXR&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-17 11:19:30,174 auth [AUTH] Login success - request_id: HcCma8lciYvtWLkYd9DU1u3kOEp6pmUlVPQfVdbQm2Xb6Yb1hTSO31mzA3mJ8dwi
+DEBUG 2026-02-17 11:19:30,227 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:19:30,374 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=Qb2gf531kVQ9Yl1iTYUR71t4dFVZXr6I&action=login
+INFO 2026-02-17 11:19:30,374 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:19:30,525 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:19:31,930 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:19:32,116 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=RGV463TMhWwyYMzfkuNtPR4aBpHIE4QB)
+DEBUG 2026-02-17 11:19:32,173 auth [AUTH] Login success - request_id: 8XHPt9CB31BI9hBba6Q4kj5Zlmgenm21EbTHN6eLmxCV2wGQia1RQNFJb1tC5vrK
+DEBUG 2026-02-17 11:19:32,233 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:19:32,469 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=3rU5YVO6I0khMJ1QdlrDUOWflB2JfKMO&action=login&type=login&status=success
+INFO 2026-02-17 11:19:32,472 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:19:32,892 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:19:33,925 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:19:34,120 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=KTh3YrVooCKJ1p0yQsz59Ya2r3524hmu)
+DEBUG 2026-02-17 11:19:34,187 auth [AUTH] Login success - request_id: Nbh54HpnB3ycZeqVle43gAfdC7QVywUtfyztZoraHLEUo9Ktg2Kn9mLZEC41BUXf
+DEBUG 2026-02-17 11:19:34,258 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:19:34,431 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=JH62TW6p7zG1pjQqpQ9j9y19burpn943
+INFO 2026-02-17 11:19:34,435 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:19:34,591 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)
+INFO 2026-02-17 11:19:36,537 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-17 11:19:36,679 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=0lk4PtipH75xjEvqyT1xThaymPZI7ZjU)
+DEBUG 2026-02-17 11:19:36,721 auth [AUTH] Login success - request_id: 5NTq33yVECF5yQKtmINiQ9dOSIKhhxWs3Cuni94E2DwgHkjOf4eTQ3M6G64JsrH5
+DEBUG 2026-02-17 11:19:36,769 auth [AUTH] 2FA successful
+DEBUG 2026-02-17 11:19:36,907 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=N6CNPc0u5yhmZrHo0DLJdJrv4S3WEp9I
+INFO 2026-02-17 11:19:36,907 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-17 11:19:37,031 auth [AUTH SUCCESS] Access token generated & saved (prefix: jL7Y5i...)

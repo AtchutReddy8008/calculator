@@ -190,6 +190,11 @@ def dashboard_stats(request):
             'date': worst_day_record.date.strftime('%d %b %Y') if worst_day_record.date else None
         }
 
+    # ─── ADDED: Daily & Monthly PnL for live updates ───
+    stats = get_user_stats(user)
+    data['daily_pnl'] = float(stats['daily_pnl'].pnl) if stats['daily_pnl'] else 0.0
+    data['monthly_pnl'] = float(stats['monthly_pnl'])
+
     return JsonResponse(data)
 
 
