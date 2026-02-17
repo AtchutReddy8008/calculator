@@ -65,7 +65,7 @@ def dashboard(request):
         broker = Broker.objects.filter(user=request.user, broker_name='ZERODHA').first()
         broker_ready = broker and bool(broker.access_token)
 
-        # ─── ADDED: Performance stats for initial render ───
+        # Performance stats for initial render
         performance = {
             'total_trades': Trade.objects.filter(user=request.user).count(),
             'win_rate': calculate_win_rate(request.user),
@@ -93,7 +93,7 @@ def dashboard(request):
             'current_unrealized_pnl': float(bot_status.current_unrealized_pnl or 0),
             'current_margin': float(bot_status.current_margin or 0),
             'max_lots_hard_cap': bot_status.max_lots_hard_cap or 0,
-            'performance': performance,  # ← THIS WAS MISSING — now added
+            'performance': performance,  # Added for Best Day / BAD Day display
         }
         return render(request, 'trading/dashboard.html', context)
 
@@ -123,9 +123,9 @@ def dashboard_stats(request):
         'daily_target': 0.0,
         'daily_stop_loss': 0.0,
         'timestamp': now.isoformat(),
-        'pnl_source': 'cached',  # 'cached', 'live_fallback', 'zero_fallback', 'error'
+        'pnl_source': 'cached',
 
-        # ─── ADDED: Best Day & BAD Day for live updates ───
+        # Added: Best Day & BAD Day for live updates
         'best_day': None,
         'worst_day': None,
     }
@@ -136,17 +136,16 @@ def dashboard_stats(request):
             delta = now - bot_status.last_heartbeat
             data['last_heartbeat_ago'] = f"{delta.total_seconds() // 60:.0f} min ago"
 
-        # Try cached value first (already Decimal → convert safely)
+        # Cached values
         cached_pnl = float(bot_status.current_unrealized_pnl or 0)
         data['current_unrealized_pnl'] = cached_pnl
         data['current_margin'] = float(bot_status.current_margin or 0)
         data['daily_target'] = float(bot_status.daily_profit_target or 0)
         data['daily_stop_loss'] = float(bot_status.daily_stop_loss or 0)
 
-        # If cached PnL is 0 and bot is running → try live calculation as fallback
+        # Live PnL fallback
         if cached_pnl == 0 and bot_status.is_running:
             try:
-                # Import here to avoid circular import issues
                 from .core.bot_original import Engine, DBLogger
                 
                 broker = Broker.objects.filter(user=user, broker_name='ZERODHA').first()
@@ -160,7 +159,6 @@ def dashboard_stats(request):
                 if live_pnl != 0:
                     data['current_unrealized_pnl'] = float(live_pnl)
                     data['pnl_source'] = 'live_fallback'
-                    # Optionally persist it to avoid repeated heavy calc
                     bot_status.current_unrealized_pnl = Decimal(str(live_pnl))
                     bot_status.save(update_fields=['current_unrealized_pnl'])
                 else:
@@ -176,7 +174,7 @@ def dashboard_stats(request):
                     details={'trace': traceback.format_exc()[:500]}
                 )
 
-    # ─── ADDED: Include best_day and worst_day in JSON response ───
+    # Add best/worst day data
     best_day_record = get_best_day(user)
     worst_day_record = get_worst_day(user)
 
