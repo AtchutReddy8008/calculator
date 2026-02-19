@@ -1818,5 +1818,3 @@ class TradingApplication:
             })
         except Exception as e:
             self.logger.warning("Periodic snapshot failed", {"error": str(e)})
-
-not workng
