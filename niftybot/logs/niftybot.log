@@ -6564,3 +6564,4 @@ INFO 2026-02-19 12:44:00,647 auth [AUTH] Request token extracted successfully (l
 INFO 2026-02-19 12:44:00,767 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
 INFO 2026-02-19 12:48:19,007 tasks [user:balaji] [ae756212-0dca-47ef-8ad4-a0c9bf8939fd] Task cleanup complete — bot marked stopped
 INFO 2026-02-19 12:48:19,091 tasks [user:balaji] [e54f79c1-ec17-4b55-9111-9af53fe6da50] Task cleanup complete — bot marked stopped
+WARNING 2026-02-19 13:59:03,070 tasks [SIGNAL] Received signal 2 — exiting worker gracefully
