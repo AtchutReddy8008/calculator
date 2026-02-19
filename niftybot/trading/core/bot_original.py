@@ -26,8 +26,8 @@ class Config:
     EXCHANGE = "NFO"
     UNDERLYING = "NIFTY"
     LOT_SIZE = 65
-    ENTRY_START = dtime(10, 8, 0)
-    ENTRY_END = dtime(10, 9, 30)
+    ENTRY_START = dtime(10, 13, 0)
+    ENTRY_END = dtime(10, 14, 30)
     TOKEN_REFRESH_TIME = dtime(8, 30)
     EXIT_TIME = dtime(10, 45)
     MARKET_CLOSE = dtime(15, 30)
@@ -1519,7 +1519,7 @@ class TradingApplication:
         self._last_idle_date = None
         self._last_hourly_log = 0
         self._last_entry_check_time = 0.0
-        self._entry_guard_seconds = 60.0
+        self._entry_guard_seconds = 20.0
         self._last_token_health_check = time.time()
         self._daily_summary_saved = False
         self._last_snapshot_time = time.time()
