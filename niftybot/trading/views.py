@@ -54,17 +54,13 @@ def dashboard(request):
 
         stats = get_user_stats(request.user)
 
-        # Today's PnL (still shown separately)
         today_pnl = DailyPnL.objects.filter(user=request.user, date=date.today()).first()
 
         broker = Broker.objects.filter(user=request.user, broker_name='ZERODHA').first()
         broker_ready = broker and bool(broker.access_token)
 
-        # Overall win rate across all days
         overall_win_rate = calculate_overall_day_win_rate(request.user)
 
-
-        # Today's specific numbers
         if today_pnl and today_pnl.total_trades > 0:
             today_win_rate = round((today_pnl.win_trades / today_pnl.total_trades) * 100, 2)
             today_win_trades = today_pnl.win_trades
@@ -126,25 +122,20 @@ def dashboard_stats(request):
     now = timezone.now()
 
     data = {
-    'bot_running': bot_status.is_running if bot_status else False,
-    'last_heartbeat_ago': "Never",
-    'current_unrealized_pnl': 0.0,
-    'current_margin': 0.0,
-    'daily_target': 0.0,
-    'daily_stop_loss': 0.0,
-    'timestamp': now.isoformat(),
-    'pnl_source': 'cached',
-
-    # Correct: Overall day win rate (based on profitable days)
-    'overall_day_win_rate': calculate_overall_day_win_rate(user),
-
-    # Debug fields
-    'debug_today_record_exists': False,
-    'debug_today_total_trades': 0,
-    'debug_today_win_trades': 0,
-    'debug_today_pnl': 0.0,
-}
-
+        'bot_running': bot_status.is_running if bot_status else False,
+        'last_heartbeat_ago': "Never",
+        'current_unrealized_pnl': 0.0,
+        'current_margin': 0.0,
+        'daily_target': 0.0,
+        'daily_stop_loss': 0.0,
+        'timestamp': now.isoformat(),
+        'pnl_source': 'cached',
+        'overall_day_win_rate': calculate_overall_day_win_rate(user),
+        'debug_today_record_exists': False,
+        'debug_today_total_trades': 0,
+        'debug_today_win_trades': 0,
+        'debug_today_pnl': 0.0,
+    }
 
     if bot_status:
         if bot_status.last_heartbeat:
@@ -157,6 +148,7 @@ def dashboard_stats(request):
         data['daily_target'] = float(bot_status.daily_profit_target or 0)
         data['daily_stop_loss'] = float(bot_status.daily_stop_loss or 0)
 
+        # Live fallback only if cache is zero and bot is running
         if cached_pnl == 0 and bot_status.is_running:
             try:
                 from .core.bot_original import Engine, DBLogger
@@ -174,7 +166,6 @@ def dashboard_stats(request):
                 data['pnl_source'] = 'error'
                 data['error_message'] = str(e)[:100]
 
-    # Today's debug info
     today_pnl = DailyPnL.objects.filter(user=user, date=date.today()).first()
     if today_pnl:
         data['debug_today_record_exists'] = True
@@ -182,7 +173,6 @@ def dashboard_stats(request):
         data['debug_today_win_trades'] = today_pnl.win_trades
         data['debug_today_pnl'] = float(today_pnl.pnl or 0)
 
-    # Best/worst day
     best = get_best_day(user)
     if best:
         data['best_day'] = {
@@ -197,7 +187,6 @@ def dashboard_stats(request):
             'date': worst.date.strftime('%d %b %Y')
         }
 
-    # PnL values
     stats = get_user_stats(user)
     data['daily_pnl']   = float(stats['daily_pnl'].pnl if stats['daily_pnl'] else 0)
     data['weekly_pnl']  = float(stats['weekly_pnl'])
@@ -207,17 +196,12 @@ def dashboard_stats(request):
 
 
 def calculate_overall_day_win_rate(user):
-    """Overall day win rate based on profitable days vs total trading days"""
     qs = DailyPnL.objects.filter(user=user)
-
     total_days = qs.count()
     if total_days == 0:
         return 0.0
-
     winning_days = qs.filter(pnl__gt=0).count()
-
     return round((winning_days / total_days) * 100, 2)
-
 
 
 @login_required
@@ -448,15 +432,11 @@ def get_user_stats(user):
 
 
 def calculate_overall_day_win_rate(user):
-    """Overall day win rate based on profitable days vs total trading days"""
     qs = DailyPnL.objects.filter(user=user)
-
     total_days = qs.count()
     if total_days == 0:
         return 0.0
-
     winning_days = qs.filter(pnl__gt=0).count()
-
     return round((winning_days / total_days) * 100, 2)
 
 
@@ -502,20 +482,29 @@ def start_bot(request):
     bot_status, _ = BotStatus.objects.get_or_create(user=user)
 
     if bot_status.is_running:
-        messages.warning(request, 'Bot is already running. No new task launched.')
-        return redirect('dashboard')
+        return JsonResponse({
+            'success': False,
+            'message': 'Bot is already running. No new task launched.'
+        }, status=400)
 
-    broker = Broker.objects.filter(user=user, broker_name='ZERODHA', is_active=True).first()
-    if not broker or not broker.access_token:
-        messages.error(request, 'Zerodha connection not ready. Set up broker first.')
-        return redirect('broker')
+    # ──────────────────────────────────────────────────────────────
+    # TEMPORARILY COMMENTED OUT for debugging — UNCOMMENT LATER!
+    # broker = Broker.objects.filter(user=user, broker_name='ZERODHA', is_active=True).first()
+    # if not broker or not broker.access_token:
+    #     return JsonResponse({
+    #         'success': False,
+    #         'message': 'Zerodha connection not ready. Set up broker first.'
+    #     }, status=400)
+    # ──────────────────────────────────────────────────────────────
 
     try:
         with transaction.atomic():
             bot_status.refresh_from_db()
             if bot_status.is_running:
-                messages.warning(request, 'Bot already running (race condition prevented).')
-                return redirect('dashboard')
+                return JsonResponse({
+                    'success': False,
+                    'message': 'Bot already running (race condition prevented).'
+                }, status=409)
 
             result = run_user_bot.delay(user.id)
 
@@ -530,14 +519,16 @@ def start_bot(request):
         LogEntry.objects.create(
             user=user,
             level='INFO',
-            message='Bot started – Celery task launched',
+            message='Bot started – Celery task launched (broker check temporarily bypassed)',
             details={'task_id': result.id, 'time': str(timezone.now())}
         )
 
-        messages.success(
-            request,
-            f'Bot started successfully! Task ID: {result.id[:8]}... (refresh in 10–30s)'
-        )
+        return JsonResponse({
+            'success': True,
+            'message': f'Bot start requested. Task ID: {result.id[:8]}... (check status in 10–30s)',
+            'task_id': result.id
+        })
+
     except Exception as e:
         error_msg = f'Failed to start bot: {str(e)}'
         bot_status.last_error = error_msg[:500]
@@ -547,11 +538,13 @@ def start_bot(request):
             user=user,
             level='ERROR',
             message=error_msg,
-            details={'action': 'start_bot_failed', 'trace': traceback.format_exc()}
+            details={'action': 'start_bot_failed', 'trace': traceback.format_exc()[:1000]}
         )
-        messages.error(request, error_msg)
 
-    return redirect('dashboard')
+        return JsonResponse({
+            'success': False,
+            'message': error_msg
+        }, status=500)
 
 
 @login_required
@@ -562,8 +555,10 @@ def stop_bot(request):
     bot_status = get_object_or_404(BotStatus, user=user)
 
     if not bot_status.is_running:
-        messages.warning(request, 'Bot is not running.')
-        return redirect('dashboard')
+        return JsonResponse({
+            'success': False,
+            'message': 'Bot is not running.'
+        }, status=400)
 
     revoked = False
     if bot_status.celery_task_id:
@@ -574,14 +569,12 @@ def stop_bot(request):
                 signal='SIGTERM'
             )
             revoked = True
-            messages.info(request, 'Stop signal sent. Task should exit within 5–30 seconds.')
         except Exception as e:
             LogEntry.objects.create(
                 user=user,
                 level='WARNING',
                 message=f'Failed to revoke task {bot_status.celery_task_id}: {str(e)}'
             )
-            messages.warning(request, 'Could not revoke task cleanly (still stopping via flag).')
 
     with transaction.atomic():
         bot_status.refresh_from_db()
@@ -597,8 +590,10 @@ def stop_bot(request):
         details={'task_revoked': revoked}
     )
 
-    messages.success(request, 'Bot stop requested. Refresh page to confirm.')
-    return redirect('dashboard')
+    return JsonResponse({
+        'success': True,
+        'message': 'Stop signal sent. Bot should stop within 5–30 seconds.'
+    })
 
 
 @login_required
@@ -659,8 +654,10 @@ def update_max_lots(request):
         )
 
         return JsonResponse({'success': True, 'new_value': new_cap})
+    except json.JSONDecodeError:
+        return JsonResponse({'success': False, 'error': 'Invalid JSON'}, status=400)
     except Exception as e:
-        return JsonResponse({'success': False, 'error': str(e)}, status=400)
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
 
 
 def signup(request):
@@ -685,10 +682,6 @@ def user_logout(request):
     messages.info(request, 'You have been logged out.')
     return redirect('home')
 
-
-# ───────────────────────────────────────────────
-# STRATEGIES SECTION VIEWS
-# ───────────────────────────────────────────────
 
 @login_required
 def strategies_list(request):
@@ -750,6 +743,5 @@ def coming_soon_placeholder(request):
 
 @login_required
 def connect_zerodha(request):
-    """Temporary redirect from old /connect-zerodha/ URL to the current broker page"""
     messages.info(request, "Zerodha connection is now managed on the Broker page.")
     return redirect('broker')

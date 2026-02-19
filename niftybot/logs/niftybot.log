@@ -6565,3 +6565,253 @@ INFO 2026-02-19 12:44:00,767 auth [AUTH SUCCESS] Access token generated & saved 
 INFO 2026-02-19 12:48:19,007 tasks [user:balaji] [ae756212-0dca-47ef-8ad4-a0c9bf8939fd] Task cleanup complete — bot marked stopped
 INFO 2026-02-19 12:48:19,091 tasks [user:balaji] [e54f79c1-ec17-4b55-9111-9af53fe6da50] Task cleanup complete — bot marked stopped
 WARNING 2026-02-19 13:59:03,070 tasks [SIGNAL] Received signal 2 — exiting worker gracefully
+WARNING 2026-02-19 14:36:27,297 tasks [SIGNAL] Received signal 2 — exiting worker gracefully
+INFO 2026-02-19 14:47:59,016 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+INFO 2026-02-19 14:47:59,077 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 14:47:59,426 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=IDzSYjk7YZh9dRJsY23cizxWFL7E4IDJ)
+DEBUG 2026-02-19 14:47:59,488 auth [AUTH] Login success - request_id: Q4ghilgfs0vZEUqKdq4BOz5lzXSY7b7R25agkaliXijsG5HIGwADw5LLOhLCrdES
+DEBUG 2026-02-19 14:47:59,509 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=qcLhu4DW11GFBUSNGCtbypICzmpGfpSu)
+INFO 2026-02-19 14:47:59,582 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 14:47:59,599 auth [AUTH] 2FA successful
+INFO 2026-02-19 14:47:59,620 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 14:47:59,632 auth [AUTH] Login success - request_id: tDgcWWkYaZcyjziheSb0dN0w2Cnu7hEv0BXYjUCgW4IJLVms5UE21BJT7Xcb6eM5
+DEBUG 2026-02-19 14:47:59,736 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 14:47:59,840 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=0lG14A21qBqI4tEn5GUdusERpJWvO9tM)
+DEBUG 2026-02-19 14:47:59,875 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=L6Fuq8waKgbQbGY29M1w9XvbuETP0E6W)
+DEBUG 2026-02-19 14:47:59,923 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=EpuvL7PtxfbbEvLda8iR4sO0bdU5Po1X
+INFO 2026-02-19 14:47:59,928 auth [AUTH] Request token extracted successfully (len=32)
+DEBUG 2026-02-19 14:47:59,961 auth [AUTH] Login success - request_id: fSGVTHVto32OUaoUFbUB15R7LZKO4l1NIrsmRhoajqh74B4shxnqQozdEvnfPIU8
+DEBUG 2026-02-19 14:47:59,992 auth [AUTH] Login success - request_id: bfVxoJhZGGSNM3MsHFVI0BwLj0ElaoYbrmjkOBsh19pP8jeLBWWNfBvUYceioj6E
+DEBUG 2026-02-19 14:48:00,048 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=aCJWXtmVwjpuTR5RaMkMxw9jfcyINBgQ
+INFO 2026-02-19 14:48:00,062 auth [AUTH] Request token extracted successfully (len=32)
+DEBUG 2026-02-19 14:48:00,104 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 14:48:00,220 auth [AUTH] 2FA successful
+INFO 2026-02-19 14:48:00,299 tasks [user:hp] [TASK START] run_user_bot task_id=8981ae39-af73-45d5-889d-cb8b832c86c1
+INFO 2026-02-19 14:48:00,326 tasks [user:hp] [8981ae39-af73-45d5-889d-cb8b832c86c1] BotStatus updated
+CRITICAL 2026-02-19 14:48:00,354 tasks [user:hp] [8981ae39-af73-45d5-889d-cb8b832c86c1] Fatal error: Missing broker access token
+Traceback (most recent call last):
+  File "C:\Users\HP\Documents\Python Scripts\niftybot\niftybot\trading\tasks.py", line 121, in run_user_bot
+    raise ValueError("Missing broker access token")
+ValueError: Missing broker access token
+
+INFO 2026-02-19 14:48:00,407 tasks [user:hp] [8981ae39-af73-45d5-889d-cb8b832c86c1] Task cleanup complete — bot marked stopped
+INFO 2026-02-19 14:48:00,535 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 14:48:00,564 tasks Token generation task succeeded for broker 1
+DEBUG 2026-02-19 14:48:00,627 auth [AUTH] Redirect final URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=eGOgGhzQlx2pQfYtTFlPm1eseCalFs4q
+ERROR 2026-02-19 14:48:00,627 auth [AUTH ERROR] Attempt 1 failed: ValueError - No request_token found in redirect URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=eGOgGhzQlx2pQfYtTFlPm1eseCalFs4q
+INFO 2026-02-19 14:48:00,630 auth [AUTH] Retrying in 15 seconds...
+INFO 2026-02-19 14:48:00,673 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 14:48:00,699 tasks Token generation task succeeded for broker 1
+DEBUG 2026-02-19 14:48:00,714 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=ShOKvzrrE6ze7Nm6MYFodWmtjY1b4dSC
+INFO 2026-02-19 14:48:00,717 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 14:48:00,830 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 14:48:00,855 tasks Token generation task succeeded for broker 2
+INFO 2026-02-19 14:48:01,094 tasks [user:hp] [TASK START] run_user_bot task_id=9cd34047-d91d-4aa9-89f7-027be8e365f3
+INFO 2026-02-19 14:48:01,131 tasks [user:hp] [9cd34047-d91d-4aa9-89f7-027be8e365f3] BotStatus updated
+INFO 2026-02-19 14:48:01,141 tasks [user:hp] [9cd34047-d91d-4aa9-89f7-027be8e365f3] Broker loaded successfully
+INFO 2026-02-19 14:48:01,163 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 14:48:02,079 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=VnRgGGL7NFF25KWFpACqFYa0bHAHpMl3)
+DEBUG 2026-02-19 14:48:02,139 auth [AUTH] Login success - request_id: uvojHSiaeVeViolBRZsv9kO0m76KB7IlUVkgkYnjizcZX26OCra3nuxsKnP1pl5F
+DEBUG 2026-02-19 14:48:02,206 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 14:48:02,375 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=1QAFbHEzJX5UigX1qbvNmrPryFeSga0W
+INFO 2026-02-19 14:48:02,377 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 14:48:02,531 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 14:48:02,582 tasks [user:hp] [9cd34047-d91d-4aa9-89f7-027be8e365f3] TradingApplication initialized
+INFO 2026-02-19 14:48:02,601 tasks [user:hp] [9cd34047-d91d-4aa9-89f7-027be8e365f3] Initial heartbeat saved
+INFO 2026-02-19 14:48:04,093 tasks [user:hp] [TASK START] run_user_bot task_id=d50768a2-2455-4688-a15d-0c96bbbd4991
+INFO 2026-02-19 14:48:04,137 tasks [user:hp] [d50768a2-2455-4688-a15d-0c96bbbd4991] BotStatus updated
+INFO 2026-02-19 14:48:04,148 tasks [user:hp] [d50768a2-2455-4688-a15d-0c96bbbd4991] Broker loaded successfully
+INFO 2026-02-19 14:48:04,185 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 14:48:04,331 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=AXwm8V05UxLuhUIKfcFapIhBCLMzYJkP)
+DEBUG 2026-02-19 14:48:04,393 auth [AUTH] Login success - request_id: 6NFVfAf23C900Cywlw7MDlSk2nU9ctCg3bqyjCPfhvRd6g49d0gbrfR5gAL0U1Ku
+DEBUG 2026-02-19 14:48:04,942 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 14:48:05,376 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=gXpohtuUpa2eBiKKDTdhWvU0eK7b6Rqr
+INFO 2026-02-19 14:48:05,377 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 14:48:05,477 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 14:48:05,528 tasks [user:hp] [d50768a2-2455-4688-a15d-0c96bbbd4991] TradingApplication initialized
+INFO 2026-02-19 14:48:05,546 tasks [user:hp] [d50768a2-2455-4688-a15d-0c96bbbd4991] Initial heartbeat saved
+INFO 2026-02-19 14:48:10,102 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 14:48:10,295 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=eFPtMk77tmcCn1f1WpcAjpv60V3pDQrk&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-19 14:48:10,351 auth [AUTH] Login success - request_id: sKB7P7EM3HOiPU36AZfetwJDNG65UoYSwIUq4VorolmzGwNK1EQ2m0toRQcN1NSd
+DEBUG 2026-02-19 14:48:10,404 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 14:48:10,586 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=DwKux0Mz01rH7o7sDKmDtmnut7Wh6MwM&action=login&type=login&status=success
+INFO 2026-02-19 14:48:10,590 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 14:48:10,727 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 14:48:11,735 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 14:48:11,887 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=7gPnvUHjm0YAsWJ3iP1sGRwT0c8K9eMH)
+DEBUG 2026-02-19 14:48:11,951 auth [AUTH] Login success - request_id: AusL32nUQNSBOeV5H0VjtHknwUOk3VbB88gk3NDJIA9Mvzjuu7GRIMXGsI4HNVnW
+DEBUG 2026-02-19 14:48:12,015 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 14:48:12,208 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=71XSzFLCdN3mnsW555mqXarEnJ2pblDn
+INFO 2026-02-19 14:48:12,214 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 14:48:12,339 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 14:48:13,757 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 14:48:13,949 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=LRYKfCwSbF5R6jB3Cf8AhhAjn1SbbxP0)
+DEBUG 2026-02-19 14:48:14,002 auth [AUTH] Login success - request_id: jkJu4tVgPvrWYDfgFuTmmANBGxuvcZYfNOi6ltyfvAreA7Vaj8GQDd43wRLrFJn1
+DEBUG 2026-02-19 14:48:14,071 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 14:48:14,249 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=9gzUZESI2cH4kR7Im4iJOHcgP0225ltn
+INFO 2026-02-19 14:48:14,253 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 14:48:14,412 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 14:48:15,640 auth [AUTH ATTEMPT 2/3] Starting login for KYU889
+DEBUG 2026-02-19 14:48:15,761 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=qXO2o18nfooWdY4brYtRcgCr7V90h3cc)
+INFO 2026-02-19 14:48:15,766 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 14:48:15,823 auth [AUTH] Login success - request_id: KZNMoqunyOGcYoRzNhO2vW4T4045XtLM3OJ39pydMuPucciurg396gJWozg7lDzH
+DEBUG 2026-02-19 14:48:15,903 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=AFYthrR9ZYm3dxvJio5pJEUoxxoD5S1Q&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-19 14:48:15,907 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 14:48:15,953 auth [AUTH] Login success - request_id: Q5dLJ0hMQPzUTR7O02BB54h0kIDNSg2s01ylxye1ZRXaRfwT1FBpuxP40Shpq5p7
+DEBUG 2026-02-19 14:48:16,010 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 14:48:16,085 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=JSFN6kq4AK1mpYXHjoEzWJ8ZEztHZ3YN
+INFO 2026-02-19 14:48:16,087 auth [AUTH] Request token extracted successfully (len=32)
+DEBUG 2026-02-19 14:48:16,183 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=iaUEO7L6DRAEHDoe3FfL4eFa09ltizSS
+INFO 2026-02-19 14:48:16,185 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 14:48:16,225 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 14:48:16,249 tasks Token generation task succeeded for broker 1
+INFO 2026-02-19 14:48:16,330 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 14:48:17,747 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 14:48:17,905 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=2lyNWtwxCpXafBJKmuJwIMr6ZOb1GmqZ)
+DEBUG 2026-02-19 14:48:17,961 auth [AUTH] Login success - request_id: 4XAyNizQR20lBhGfdEM1gngQeuOlXZbQdTeYF2ylYtt9x68pXQcABBTS2hB3N9q9
+DEBUG 2026-02-19 14:48:18,019 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 14:48:18,214 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=dX63hoWBssO2uKpatea4Om3UevchMb0E
+INFO 2026-02-19 14:48:18,216 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 14:48:18,338 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 14:48:19,754 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 14:48:19,911 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=ALw3wpQJkHc2uoEBtu8iyiXkhscw7dqF)
+DEBUG 2026-02-19 14:48:19,961 auth [AUTH] Login success - request_id: UkDs6wqulXw6s4SwzbxnLJUMQclsutEE50OIg94gAcjvFwMToi1SvmPUeMNkfNm0
+DEBUG 2026-02-19 14:48:20,015 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 14:48:20,214 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=lIvjExf8vrTdB63KAmPJ9XHGVQqP0VRc
+INFO 2026-02-19 14:48:20,214 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 14:48:20,364 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 14:48:21,786 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 14:48:22,044 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=4iijfIZoalXrRjCTeR3MtPUAUBr4RVcZ&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-19 14:48:22,106 auth [AUTH] Login success - request_id: sD7V6iFgG49syGESaZ1lBiBUYlOwdBTSdth7FAaLnoBTkUcjCyP4MPswpUZEforV
+DEBUG 2026-02-19 14:48:22,194 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 14:48:22,391 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=68a7xKq9TFtCElLII4CZ0TKDU0qWGopM
+INFO 2026-02-19 14:48:22,391 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 14:48:22,515 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 14:48:23,724 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 14:48:23,890 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=Pvts1rxmS4Y770ADBJHU3zQnVJnamd5z)
+DEBUG 2026-02-19 14:48:23,960 auth [AUTH] Login success - request_id: ZNMGeDQpaA70sCk4fRD29UxRt8JlCMt3kVqDY8cZ1lBkiVlCdpMfCrtH64AydZa8
+DEBUG 2026-02-19 14:48:24,027 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 14:48:24,173 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=31QBLg94KDQMifnaLHfjODQjlxj2Np6R&action=login
+INFO 2026-02-19 14:48:24,176 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 14:48:24,305 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 14:49:00,107 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 14:49:00,502 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=zN6GQGM0m49fgL6pD20bxmkLafXPMvzg)
+DEBUG 2026-02-19 14:49:00,559 auth [AUTH] Login success - request_id: oApod1jiVvM6bkVMOk56xMZe5AMkY018piRMDGDngxtaNpGFLa6eHwySMeylOYTq
+DEBUG 2026-02-19 14:49:00,618 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 14:49:00,811 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=PT5hBrt1yWaJh43uulkepUBOaJVm0squ&action=login
+INFO 2026-02-19 14:49:00,815 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 14:49:00,938 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 14:49:01,819 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 14:49:01,952 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=khkYnR0lA8T8ENfVyjpNu1x2VGdO0RWF)
+DEBUG 2026-02-19 14:49:02,002 auth [AUTH] Login success - request_id: oI20cxUMeEa8GJ0VtdV1OI84JlSm6kc3MPEIC63eZm401D2gdYbUZB404EHLobRl
+DEBUG 2026-02-19 14:49:02,062 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 14:49:02,219 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=0Qu66Q0l740fZts85z74MoCEShXJ8AH6&action=login&type=login
+INFO 2026-02-19 14:49:02,224 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 14:49:03,084 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 14:49:03,798 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 14:49:03,947 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=BqgKGHw2FsZiQ0tvFC2z2W85noeRXONg)
+DEBUG 2026-02-19 14:49:04,000 auth [AUTH] Login success - request_id: 0dKx56cboUPwJr8VkEYFTYbSaeqQ6j6fKGTYOOHjHofrCjaZi8iK3t2uRPJh1nWl
+DEBUG 2026-02-19 14:49:04,064 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 14:49:04,230 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=oXhh6cHZic3ZDEUwTiRGu43cEQkICr33
+INFO 2026-02-19 14:49:04,230 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 14:49:04,399 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 15:00:01,035 tasks [user:hp] [d50768a2-2455-4688-a15d-0c96bbbd4991] Task cleanup complete — bot marked stopped
+DEBUG 2026-02-19 15:00:01,289 tasks [user:hp] [9cd34047-d91d-4aa9-89f7-027be8e365f3] Heartbeat updated
+INFO 2026-02-19 15:00:02,306 tasks [user:hp] [9cd34047-d91d-4aa9-89f7-027be8e365f3] BotStatus.is_running=False — stopping gracefully
+INFO 2026-02-19 15:00:02,306 tasks [user:hp] [9cd34047-d91d-4aa9-89f7-027be8e365f3] Main loop exited cleanly
+INFO 2026-02-19 15:00:02,334 tasks [user:hp] [9cd34047-d91d-4aa9-89f7-027be8e365f3] Task cleanup complete — bot marked stopped
+INFO 2026-02-19 15:00:09,105 tasks [user:hp] [TASK START] run_user_bot task_id=999fd6e9-3cc1-4307-adbb-e8cef393d5c1
+INFO 2026-02-19 15:00:11,340 tasks [user:hp] [999fd6e9-3cc1-4307-adbb-e8cef393d5c1] BotStatus updated
+INFO 2026-02-19 15:00:11,425 tasks [user:hp] [999fd6e9-3cc1-4307-adbb-e8cef393d5c1] Broker loaded successfully
+INFO 2026-02-19 15:00:11,513 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 15:00:11,942 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=v7nlv4EPqs6xIZFH9xmge56Nc6PbgYXi)
+DEBUG 2026-02-19 15:00:12,024 auth [AUTH] Login success - request_id: izC0cPbtT5eRPEIYUhe6UEvCOu627jW5PPmm5YQD7115ekKqMEwyimiHIGyKaXq9
+DEBUG 2026-02-19 15:00:12,136 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 15:00:12,761 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=C7NF9E17uA2n2vbVRYMKFlbRrQJtZh7i
+INFO 2026-02-19 15:00:12,767 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 15:00:13,038 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 15:00:13,132 tasks [user:hp] [999fd6e9-3cc1-4307-adbb-e8cef393d5c1] TradingApplication initialized
+INFO 2026-02-19 15:00:13,170 tasks [user:hp] [999fd6e9-3cc1-4307-adbb-e8cef393d5c1] Initial heartbeat saved
+INFO 2026-02-19 15:00:16,334 tasks [user:hp] [TASK START] run_user_bot task_id=ee396563-c6eb-4843-a19e-a303ea99ef2f
+INFO 2026-02-19 15:00:16,371 tasks [user:hp] [ee396563-c6eb-4843-a19e-a303ea99ef2f] BotStatus updated
+INFO 2026-02-19 15:00:16,382 tasks [user:hp] [ee396563-c6eb-4843-a19e-a303ea99ef2f] Broker loaded successfully
+INFO 2026-02-19 15:00:16,414 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 15:00:16,684 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=lbEnt794a1LoCEfZcE2BqaIzRIuOGP1p)
+DEBUG 2026-02-19 15:00:16,770 auth [AUTH] Login success - request_id: 6l4wQ6gGQYlf24HLpYXVhROomL4OXPlI1CCSBZoNIXnTLjxSbU0nUcRoUxwd4uuQ
+DEBUG 2026-02-19 15:00:16,848 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 15:00:17,331 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?action=login&type=login&status=success&request_token=aGOgE4OIZfPvg9tiDyOiGfJmy80dqIRk
+INFO 2026-02-19 15:00:17,335 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 15:00:17,556 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 15:00:17,601 tasks [user:hp] [ee396563-c6eb-4843-a19e-a303ea99ef2f] TradingApplication initialized
+INFO 2026-02-19 15:00:17,615 tasks [user:hp] [ee396563-c6eb-4843-a19e-a303ea99ef2f] Initial heartbeat saved
+INFO 2026-02-19 15:00:50,879 tasks [user:hp] [ee396563-c6eb-4843-a19e-a303ea99ef2f] Task cleanup complete — bot marked stopped
+INFO 2026-02-19 15:00:50,911 tasks [user:hp] [999fd6e9-3cc1-4307-adbb-e8cef393d5c1] Task cleanup complete — bot marked stopped
+INFO 2026-02-19 15:01:52,087 tasks [user:hp] [TASK START] run_user_bot task_id=ee396563-c6eb-4843-a19e-a303ea99ef2f
+INFO 2026-02-19 15:01:52,124 tasks [user:hp] [ee396563-c6eb-4843-a19e-a303ea99ef2f] BotStatus updated
+INFO 2026-02-19 15:01:52,148 tasks [user:hp] [ee396563-c6eb-4843-a19e-a303ea99ef2f] Broker loaded successfully
+INFO 2026-02-19 15:01:52,187 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 15:01:52,498 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?sess_id=gVznME7gy9Y5sFLujd2eJttfHiKxpkjO&api_key=wq6mjno7bf42arnr)
+DEBUG 2026-02-19 15:01:52,573 auth [AUTH] Login success - request_id: okBYUU85Z21VC1I5EUoM0IGY7iaoXgPzNAuhDs9zgru4GVyfR6KCKjMwyBVLcYit
+DEBUG 2026-02-19 15:01:52,649 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 15:01:52,857 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=p8jpGg3qtEl2NkalRkQkJslIA5ZrVo01&action=login&type=login
+INFO 2026-02-19 15:01:52,859 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 15:01:53,117 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 15:01:53,213 tasks [user:hp] [ee396563-c6eb-4843-a19e-a303ea99ef2f] TradingApplication initialized
+INFO 2026-02-19 15:01:53,236 tasks [user:hp] [ee396563-c6eb-4843-a19e-a303ea99ef2f] Initial heartbeat saved
+INFO 2026-02-19 15:01:53,840 tasks [user:hp] [TASK START] run_user_bot task_id=999fd6e9-3cc1-4307-adbb-e8cef393d5c1
+INFO 2026-02-19 15:01:53,891 tasks [user:hp] [999fd6e9-3cc1-4307-adbb-e8cef393d5c1] BotStatus updated
+INFO 2026-02-19 15:01:53,926 tasks [user:hp] [999fd6e9-3cc1-4307-adbb-e8cef393d5c1] Broker loaded successfully
+INFO 2026-02-19 15:01:53,986 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+INFO 2026-02-19 15:01:54,037 tasks [user:hp] [TASK START] run_user_bot task_id=9ed41009-a411-41c9-a7b7-a4677b5cd47b
+INFO 2026-02-19 15:01:54,068 tasks [user:hp] [9ed41009-a411-41c9-a7b7-a4677b5cd47b] BotStatus updated
+INFO 2026-02-19 15:01:54,075 tasks [user:hp] [9ed41009-a411-41c9-a7b7-a4677b5cd47b] Broker loaded successfully
+INFO 2026-02-19 15:01:54,105 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 15:01:54,285 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=wjmZJQC92Kf1GFI4X0yA88AkgwHCyocB)
+DEBUG 2026-02-19 15:01:54,308 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=ywBEM1DHtqLl4Vq3pbqSvL0Fshe7VkTU)
+DEBUG 2026-02-19 15:01:54,357 auth [AUTH] Login success - request_id: Q1UmbbrQ7gcq77EblRWNmFfg2yIG8f0LaCLe1DaG7RVF8HVnrBenXPiSSd5Mxizi
+DEBUG 2026-02-19 15:01:54,374 auth [AUTH] Login success - request_id: TZfMxOyFFnQEj99RKwUtp6F1JB26mJf7Isy21jO1x4vJNUmItyEwIp8ayLkv8VIO
+DEBUG 2026-02-19 15:01:54,417 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 15:01:54,434 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 15:01:54,527 auth [AUTH] Redirect final URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=7yUiVufQraD7rYQ0yxAlNaiy5wa1850N
+ERROR 2026-02-19 15:01:54,527 auth [AUTH ERROR] Attempt 1 failed: ValueError - No request_token found in redirect URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=7yUiVufQraD7rYQ0yxAlNaiy5wa1850N
+INFO 2026-02-19 15:01:54,535 auth [AUTH] Retrying in 15 seconds...
+DEBUG 2026-02-19 15:01:54,610 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?request_token=kuOTlnSJwAeGYAdX4vx5zQ1SZLuKP6h2&action=login&type=login&status=success
+INFO 2026-02-19 15:01:54,610 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 15:01:54,760 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 15:01:54,806 tasks [user:hp] [9ed41009-a411-41c9-a7b7-a4677b5cd47b] TradingApplication initialized
+INFO 2026-02-19 15:01:54,822 tasks [user:hp] [9ed41009-a411-41c9-a7b7-a4677b5cd47b] Initial heartbeat saved
+INFO 2026-02-19 15:02:09,540 auth [AUTH ATTEMPT 2/3] Starting login for KYU889
+DEBUG 2026-02-19 15:02:09,667 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=RcHQrcvW9dsPxse33fFF7Z22ccM6voRl)
+DEBUG 2026-02-19 15:02:09,724 auth [AUTH] Login success - request_id: rhkF3zXBIxDfTr7AN71mLhjd8v3cT6a7KDSUjSKH8Z26gADzqqM4kQQZ1RFltda7
+DEBUG 2026-02-19 15:02:09,827 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 15:02:10,011 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?status=success&request_token=Ch5zEf2s60BkEgCh5eoNthOO7qr1rPbE&action=login&type=login
+INFO 2026-02-19 15:02:10,012 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 15:02:10,243 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 15:02:10,294 tasks [user:hp] [999fd6e9-3cc1-4307-adbb-e8cef393d5c1] TradingApplication initialized
+INFO 2026-02-19 15:02:10,319 tasks [user:hp] [999fd6e9-3cc1-4307-adbb-e8cef393d5c1] Initial heartbeat saved
+DEBUG 2026-02-19 15:02:57,696 tasks [user:hp] [ee396563-c6eb-4843-a19e-a303ea99ef2f] Heartbeat updated
+DEBUG 2026-02-19 15:02:58,215 tasks [user:hp] [9ed41009-a411-41c9-a7b7-a4677b5cd47b] Heartbeat updated
+DEBUG 2026-02-19 15:02:58,712 tasks [user:hp] [999fd6e9-3cc1-4307-adbb-e8cef393d5c1] Heartbeat updated
+INFO 2026-02-19 15:02:58,723 tasks [user:hp] [ee396563-c6eb-4843-a19e-a303ea99ef2f] BotStatus.is_running=False — stopping gracefully
+INFO 2026-02-19 15:02:58,723 tasks [user:hp] [ee396563-c6eb-4843-a19e-a303ea99ef2f] Main loop exited cleanly
+INFO 2026-02-19 15:02:58,740 tasks [user:hp] [ee396563-c6eb-4843-a19e-a303ea99ef2f] Task cleanup complete — bot marked stopped
+INFO 2026-02-19 15:02:59,236 tasks [user:hp] [9ed41009-a411-41c9-a7b7-a4677b5cd47b] BotStatus.is_running=False — stopping gracefully
+INFO 2026-02-19 15:02:59,236 tasks [user:hp] [9ed41009-a411-41c9-a7b7-a4677b5cd47b] Main loop exited cleanly
+INFO 2026-02-19 15:02:59,254 tasks [user:hp] [9ed41009-a411-41c9-a7b7-a4677b5cd47b] Task cleanup complete — bot marked stopped
+INFO 2026-02-19 15:02:59,730 tasks [user:hp] [999fd6e9-3cc1-4307-adbb-e8cef393d5c1] BotStatus.is_running=False — stopping gracefully
+INFO 2026-02-19 15:02:59,730 tasks [user:hp] [999fd6e9-3cc1-4307-adbb-e8cef393d5c1] Main loop exited cleanly
+INFO 2026-02-19 15:02:59,741 tasks [user:hp] [999fd6e9-3cc1-4307-adbb-e8cef393d5c1] Task cleanup complete — bot marked stopped
+INFO 2026-02-19 15:10:15,031 tasks [user:hp] [TASK START] run_user_bot task_id=209b0cb7-3f5b-48be-97b4-4a942e997bf1
+INFO 2026-02-19 15:10:15,092 tasks [user:hp] [209b0cb7-3f5b-48be-97b4-4a942e997bf1] BotStatus updated
+INFO 2026-02-19 15:10:15,122 tasks [user:hp] [209b0cb7-3f5b-48be-97b4-4a942e997bf1] Broker loaded successfully
+INFO 2026-02-19 15:10:15,224 auth [AUTH ATTEMPT 1/3] Starting login for KYU889
+DEBUG 2026-02-19 15:10:15,696 auth [AUTH] Login page loaded (URL: https://kite.zerodha.com/connect/login?api_key=wq6mjno7bf42arnr&sess_id=TApXMnCyjqPZofpFg3LFpbA8qdCIAPsy)
+DEBUG 2026-02-19 15:10:15,790 auth [AUTH] Login success - request_id: ZF1ApOssHDx6OBr3usCoh5lfwO8OlhXoAlJAP4iaqRusOaJiwdGxQ2rID6t9J8Io
+DEBUG 2026-02-19 15:10:15,891 auth [AUTH] 2FA successful
+DEBUG 2026-02-19 15:10:16,196 auth [AUTH] Redirect final URL: https://kite.zerodha.com/dashboard?type=login&status=success&request_token=H1GdPaLyfRZyXLb1DGMqOIio49QgMSb4&action=login
+INFO 2026-02-19 15:10:16,198 auth [AUTH] Request token extracted successfully (len=32)
+INFO 2026-02-19 15:10:16,457 auth [AUTH SUCCESS] Access token generated & saved (prefix: 45vvfV...)
+INFO 2026-02-19 15:10:16,514 tasks [user:hp] [209b0cb7-3f5b-48be-97b4-4a942e997bf1] TradingApplication initialized
+INFO 2026-02-19 15:10:16,540 tasks [user:hp] [209b0cb7-3f5b-48be-97b4-4a942e997bf1] Initial heartbeat saved
+INFO 2026-02-19 15:10:35,970 tasks [user:hp] [209b0cb7-3f5b-48be-97b4-4a942e997bf1] Task cleanup complete — bot marked stopped
+WARNING 2026-02-19 18:02:41,049 tasks [SIGNAL] Received signal 2 — exiting worker gracefully

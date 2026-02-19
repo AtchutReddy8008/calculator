@@ -970,53 +970,85 @@ setInterval(updateMarketStatus, 1000);
             });
     }
 
-    // Toggle bot with optimistic UI
+    // Helper to get CSRF cookie reliably
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // Toggle bot with improved UX (yellow processing state + better messages)
     document.getElementById('toggle-bot-btn')?.addEventListener('click', function(e) {
         e.preventDefault();
         
         const btn = this;
         const wasRunning = btn.textContent.trim().includes('Stop');
         const targetState = wasRunning ? 'STOPPING' : 'STARTING';
+        const actionText = wasRunning ? 'Stopping' : 'Starting';
 
-        // Optimistic UI: show processing state immediately
+        // Optimistic UI: show yellow processing state
         btn.disabled = true;
-        btn.innerHTML = `<i class="fas fa-spinner fa-spin me-2"></i> ${targetState}...`;
+        btn.className = 'btn btn-warning btn-lg w-100';
+        btn.innerHTML = `<i class="fas fa-spinner fa-spin me-2"></i> ${actionText}... (wait 10–30s)`;
         
         const url = wasRunning ? '{% url "stop_bot" %}' : '{% url "start_bot" %}';
 
         fetch(url, {
             method: 'POST',
             headers: {
-                'X-CSRFToken': '{{ csrf_token }}',
-                'X-Requested-With': 'XMLHttpRequest'
-            }
+                'X-CSRFToken': getCookie('csrftoken'),
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
         })
         .then(response => {
-            if (response.ok) {
-                // Success → start fast polling
-                startFastPolling();
-                const toast = new bootstrap.Toast(document.getElementById('save-toast'));
-                toast.show();
-            } else {
-                // Server error → revert UI
-                refreshBotData(true);
-                const errorToast = new bootstrap.Toast(document.getElementById('error-toast'));
-                document.getElementById('error-message').textContent = 'Server rejected the request.';
-                errorToast.show();
+            if (!response.ok) {
+                throw new Error(`Server responded ${response.status} — ${response.statusText}`);
             }
+            return response.json();
+        })
+        .then(data => {
+            // Success
+            const toast = new bootstrap.Toast(document.getElementById('save-toast'));
+            document.getElementById('error-message').textContent = ''; // clear old error
+            toast.show();
+
+            // Keep yellow state a bit longer — gives time for status to update
+            startFastPolling();
         })
         .catch(err => {
-            // Network error → revert
-            refreshBotData(true);
+            console.error('Toggle failed:', err);
             const errorToast = new bootstrap.Toast(document.getElementById('error-toast'));
-            document.getElementById('error-message').textContent = 'Network error: ' + err.message;
+
+            let msg = 'Failed to toggle bot.';
+            if (err.message.includes('403')) msg = 'CSRF error — refresh page (Ctrl+Shift+R)';
+            if (err.message.includes('400')) msg = 'Invalid request — check broker setup or permissions';
+            if (err.message.includes('500')) msg = 'Server error — check logs';
+
+            document.getElementById('error-message').textContent = msg + ' ' + err.message;
             errorToast.show();
+
+            // Revert button quickly on error
+            setTimeout(() => {
+                refreshBotData(true);
+            }, 2000);
         })
         .finally(() => {
-            // Re-enable button quickly
+            // Re-enable button after delay (gives Celery & status time to update)
             setTimeout(() => {
                 btn.disabled = false;
-            }, 800);
+                refreshBotData(true);
+            }, 8000); // 8 seconds grace period — adjust if needed
         });
     });
 
@@ -1034,7 +1066,7 @@ setInterval(updateMarketStatus, 1000);
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}'
+                'X-CSRFToken': getCookie('csrftoken')
             },
             body: JSON.stringify({ max_lots_hard_cap: value })
         })
@@ -1044,7 +1076,7 @@ setInterval(updateMarketStatus, 1000);
                 const toast = new bootstrap.Toast(document.getElementById('save-toast'));
                 toast.show();
                 document.getElementById('max-lots-input').value = data.new_value || value;
-                startFastPolling(); // refresh status quickly after config change
+                startFastPolling();
             } else {
                 const errorToast = new bootstrap.Toast(document.getElementById('error-toast'));
                 document.getElementById('error-message').textContent = data.error || 'Failed to save';
@@ -1058,9 +1090,9 @@ setInterval(updateMarketStatus, 1000);
         });
     });
 
-    // Initial load + normal polling (every 12s)
+    // Initial load + normal polling (every 3 seconds)
     refreshBotData();
-    setInterval(() => refreshBotData(true), 3000);
+    setInterval(() => refreshBotData(true), 2000);
 
     // Strangle animation
     function animateStrangle() {
@@ -1081,7 +1113,7 @@ setInterval(updateMarketStatus, 1000);
         const statuses = ["Active", "Delta neutral", "Approaching breakeven", "No position"];
         document.getElementById('strangle-status').textContent = statuses[Math.floor(Math.random() * statuses.length)];
     }
-    setInterval(animateStrangle, 8000);
+    setInterval(animateStrangle, 1000);
     animateStrangle();
 
 {% endif %}
