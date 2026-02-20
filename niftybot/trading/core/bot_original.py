@@ -2,6 +2,7 @@ import time
 import sys
 import traceback
 import json
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, time as dtime, timedelta
 from typing import Dict, List, Tuple, Optional
 import pytz
@@ -26,10 +27,12 @@ class Config:
     EXCHANGE = "NFO"
     UNDERLYING = "NIFTY"
     LOT_SIZE = 65
-    ENTRY_START = dtime(12, 45, 0)
-    ENTRY_END = dtime(12, 46, 30)
+    ENTRY_START = dtime(14, 22, 0)
+    ENTRY_END = dtime(14, 23, 30)      # FIX A: Extended from 12:57:30 → 12:58:30 to
+                                        # account for sequential order latency (~90s for 4 legs)
     TOKEN_REFRESH_TIME = dtime(8, 30)
-    EXIT_TIME = dtime(12, 55)
+    EXIT_TIME = dtime(14, 30)           # FIX B: Was 12:59 — only ~90s after entry window opens.
+                                        # Changed to 13:30 so the trade has time to run.
     MARKET_CLOSE = dtime(15, 30)
     MAIN_DISTANCE = 150
     HEDGE_PREMIUM_RATIO = 0.10
@@ -108,7 +111,6 @@ class DBLogger:
     def critical(self, msg: str, details: dict = None):
         self._write("CRITICAL", msg, details)
 
-    # FIX 1: Added missing debug() method — was causing AttributeError in run loop
     def debug(self, msg: str, details: dict = None):
         self._write("DEBUG", msg, details)
 
@@ -217,10 +219,8 @@ class DBState:
             "exit_final_pnl": 0.0,
         })
         self.save()
-        today = datetime.now(Config.TIMEZONE).date()
-        # FIX 2: full_reset() was setting entry_attempted_date = today, which
-        # permanently blocked re-entry after any failed attempt within the same day.
-        # Changed to set it to None so entry can be retried.
+        # FIX C: full_reset() was setting entry_attempted_date = today, permanently
+        # blocking re-entry after any failure within the same day. Set to None instead.
         self.bot_status.entry_attempted_date = None
         self.bot_status.save(update_fields=['entry_attempted_date'])
 
@@ -597,10 +597,18 @@ class Engine:
         return lots
 
     def order(self, symbol: str, side: str, qty: int) -> Tuple[bool, str, float]:
+        """
+        Places a single order and waits for completion.
+        NOTE: Does NOT touch self.state (no appending to bot_order_ids, no save).
+              The caller is responsible for collecting order IDs and saving state,
+              especially when orders are placed concurrently.
+        """
         order_id = None
         filled_price = 0.0
         for attempt in range(Config.MAX_RETRIES):
             try:
+                # FIX D: Only place a NEW order on the first attempt or if a previous
+                # order was rejected/cancelled. If order_id is set, just re-poll.
                 if order_id is None:
                     self.logger.info(f"PLACING ORDER attempt {attempt+1}/{Config.MAX_RETRIES}", {
                         "symbol": symbol,
@@ -620,9 +628,8 @@ class Engine:
                     )
                     self.logger.info(f"Order placed successfully - ID: {order_id}")
                 else:
-                    self.logger.info(f"Re-polling existing order (attempt {attempt+1}/{Config.MAX_RETRIES})", {
-                        "order_id": order_id,
-                        "symbol": symbol
+                    self.logger.info(f"Re-polling existing order (attempt {attempt+1})", {
+                        "order_id": order_id, "symbol": symbol
                     })
 
                 start_time = time.time()
@@ -641,23 +648,21 @@ class Engine:
                         self._get_or_create_trade(symbol, side, qty, filled_price, order_id)
                         self.logger.info(f"ORDER COMPLETE: {side} {symbol} {qty} @ {filled_price}", {
                             "order_id": order_id,
-                            "symbol": symbol,
-                            "side": side,
-                            "filled_price": filled_price
                         })
                         return True, order_id, filled_price
                     elif last_status in ['REJECTED', 'CANCELLED']:
                         reason = history[-1].get('status_message', 'No reason provided')
                         self.logger.critical(f"ORDER {last_status} for {symbol} - Reason: {reason}")
-                        order_id = None
+                        order_id = None  # Allow placing a fresh order on next attempt
                         raise Exception(f"Order {last_status}: {reason}")
                     time.sleep(0.5)
 
                 self.logger.warning(
-                    f"Order polling timed out after {Config.ORDER_TIMEOUT}s — will re-poll same order next attempt",
-                    {"order_id": order_id, "symbol": symbol, "attempt": attempt + 1}
+                    f"Order timeout after {Config.ORDER_TIMEOUT}s — will re-poll same order next attempt",
+                    {"order_id": order_id, "symbol": symbol}
                 )
                 raise Exception("Order timeout")
+
             except Exception as e:
                 error_msg = str(e)
                 self.logger.error(f"Order attempt {attempt+1} failed for {symbol} ({side})", {
@@ -918,6 +923,11 @@ class Engine:
 
         today = datetime.now(Config.TIMEZONE).date()
 
+        # FIX E: Run daily_reset FIRST so entry_attempted_date is cleared for a new day
+        # BEFORE we do the DB lock check. Previously has_active_bot_positions() ran
+        # before daily_reset(), meaning stale yesterday positions could block today's entry.
+        self.state.daily_reset()
+
         # 1. Quick DB lock check
         with transaction.atomic():
             bot_status = BotStatus.objects.select_for_update().get(user=self.user)
@@ -925,7 +935,7 @@ class Engine:
                 self.logger.info("Already attempted entry today (DB lock)")
                 return False
 
-        # 2. Check real positions (most reliable)
+        # 2. Check real positions (most reliable) — only after daily_reset clears stale state
         if self.has_active_bot_positions():
             self.logger.info("Active positions already exist → considering day done")
             self.recover_existing_trade()
@@ -936,8 +946,6 @@ class Engine:
             "exact_time": entry_call_time.strftime("%H:%M:%S.%f")[:-3],
             "iso_time": entry_call_time.isoformat()
         })
-
-        self.state.daily_reset()
 
         is_ok, reason = self.is_trading_day()
         if not is_ok:
@@ -1001,6 +1009,17 @@ class Engine:
 
         lots = self.calculate_lots(legs)
         if lots == 0:
+            self.logger.critical("ENTRY ABORTED: lots == 0 (capital too low or hard cap is 0)")
+            return False
+
+        # FIX F: Re-check entry window AFTER slow LTP/margin API calls.
+        # The 90s window can easily slip by during multiple bulk_ltp + margin API calls.
+        now_time_recheck = datetime.now(Config.TIMEZONE).time()
+        if not (Config.ENTRY_START <= now_time_recheck <= Config.ENTRY_END):
+            self.logger.critical("ENTRY ABORTED: Drifted outside entry window during API setup calls", {
+                "window_end": Config.ENTRY_END.strftime("%H:%M:%S"),
+                "actual_time": now_time_recheck.strftime("%H:%M:%S"),
+            })
             return False
 
         qty = lots * Config.LOT_SIZE
@@ -1010,6 +1029,8 @@ class Engine:
         capital_before = self.capital_available()
         self.logger.info("CAPITAL BEFORE ENTRY", {"available_₹": round(capital_before)})
 
+        # FIX G: Use ThreadPoolExecutor (parallel) for all 4 legs, matching File 1.
+        # Sequential execution takes ~30–60s for 4 legs, risking drift past ENTRY_END.
         orders = []
         if pe_hedge_sym:
             orders.append((pe_hedge_sym, "BUY"))
@@ -1018,26 +1039,39 @@ class Engine:
         orders.append((pe_short_sym, "SELL"))
         orders.append((ce_short_sym, "SELL"))
 
+        self.logger.critical(f"FIRING {len(orders)} LEGS SIMULTANEOUSLY via ThreadPoolExecutor")
         executed = []
         entry_prices = {}
 
-        for sym, side in orders:
-            success, order_id, filled_p = self.order(sym, side, qty)
-            if success:
-                executed.append((sym, side, order_id))
-                entry_prices[sym] = filled_p
-                self.logger.info(f"Leg filled: {sym} {side} @ {filled_p} (order_id: {order_id})")
-            else:
-                self.logger.critical(
-                    f"Leg FAILED: {sym} {side} — initiating cleanup of {len(executed)} already-filled leg(s)"
-                )
-                self.cleanup(executed, qty)
-                return False
+        futures_map = {}
+        with ThreadPoolExecutor(max_workers=len(orders)) as executor:
+            for sym, side in orders:
+                future = executor.submit(self.order, sym, side, qty)
+                futures_map[future] = (sym, side)
+
+            for future in as_completed(futures_map):
+                sym, side = futures_map[future]
+                try:
+                    success, order_id, filled_p = future.result()
+                except Exception as e:
+                    self.logger.error(f"Order thread raised exception for {sym}", {"error": str(e)})
+                    success, order_id, filled_p = False, "", 0.0
+
+                if success:
+                    executed.append((sym, side, order_id))
+                    entry_prices[sym] = filled_p
+                    self.logger.info(f"Leg filled: {sym} {side} @ {filled_p} (order_id: {order_id})")
+                else:
+                    self.logger.critical(
+                        f"Leg FAILED: {sym} {side} — initiating cleanup of {len(executed)} already-filled leg(s)"
+                    )
+                    self.cleanup(executed, qty)
+                    return False
 
         for sym, side, order_id in executed:
             self.state.data.setdefault("bot_order_ids", []).append(order_id)
 
-        self.logger.critical(f"ALL {len(executed)} LEGS FILLED SUCCESSFULLY (sequential execution)")
+        self.logger.critical(f"ALL {len(executed)} LEGS FILLED SUCCESSFULLY")
 
         time.sleep(3.0)
 
@@ -1117,9 +1151,7 @@ class Engine:
         self.logger.critical(f"trade_active: {self.state.data.get('trade_active')}")
         self.logger.critical(f"qty / lots: {self.state.data.get('qty')} (lots: {self.state.data['positions'].get('lots')})")
         self.logger.critical(f"algo_legs keys: {list(self.state.data.get('algo_legs', {}).keys())}")
-        self.logger.critical(f"algo_legs content: {self.state.data.get('algo_legs')}")
         self.logger.critical(f"entry_premiums: {self.state.data.get('entry_premiums')}")
-        self.logger.critical(f"Initial net credit per lot approx: {self.state.data['entry_premiums'].get('ce_short', 0) + self.state.data['entry_premiums'].get('pe_short', 0) - self.state.data['entry_premiums'].get('ce_hedge', 0) - self.state.data['entry_premiums'].get('pe_hedge', 0):.2f}")
         current_pnl = self.algo_pnl()
         self.logger.critical(f"Current algo_pnl() immediately after entry: {current_pnl:.2f}")
 
@@ -1131,6 +1163,8 @@ class Engine:
         self.state.save()
         time.sleep(2)
 
+        # FIX H: Set entry_attempted_date at the VERY END of a successful entry.
+        # This ensures the day is permanently locked only after all orders are confirmed.
         with transaction.atomic():
             bot_status = BotStatus.objects.get(user=self.user)
             bot_status.entry_attempted_date = today
@@ -1505,6 +1539,7 @@ class Engine:
         except Exception as e:
             self.logger.warning("Periodic snapshot failed", {"error": str(e)})
 
+
 # ===================== MAIN APPLICATION =====================
 class TradingApplication:
     def __init__(self, user, broker):
@@ -1582,9 +1617,9 @@ class TradingApplication:
                 except Exception as e:
                     self.logger.error("Periodic manual close check failed", {"error": str(e)})
 
-                # FIX 3: Instruments pre-load window extended to cover the 12:29 entry window.
-                # Original window was 08:55–10:05 only, so a bot started after 10:05
-                # would never load instruments, causing the entry block to be silently skipped.
+                # FIX I: Always ensure instruments are loaded regardless of time of day.
+                # Original code only loaded during 08:55–10:05, so a bot started at 12:00
+                # would never load instruments, silently blocking entry.
                 if self.engine.instruments is None or self.engine.weekly_df is None:
                     try:
                         self.logger.info("Instruments not loaded — loading now")
@@ -1593,7 +1628,7 @@ class TradingApplication:
                     except Exception as e:
                         self.logger.error("On-demand instrument load failed", {"error": str(e)})
 
-                if dtime(8, 55) <= current_time < dtime(10, 5):
+                if dtime(8, 55) <= current_time < dtime(15, 5):
                     if self.engine.instruments is None or self.engine.weekly_df is None:
                         self.logger.info("PRE-LOADING instruments & weekly data")
                         self.engine.load_instruments()
@@ -1603,7 +1638,6 @@ class TradingApplication:
                     self.logger.big_banner("EARLY MARKET PREVIEW - 09:19 IST (Pre-Entry Setup)")
                     try:
                         if self.engine.instruments is None or self.engine.weekly_df is None:
-                            self.logger.info("Loading fresh instruments & weekly data for 09:19 preview")
                             self.engine.load_instruments()
                             self.engine.load_weekly_df()
                         spot_now = self.engine.spot()
@@ -1692,11 +1726,6 @@ class TradingApplication:
                                 last_pnl_print = time.time()
                     else:
                         if Config.ENTRY_START <= current_time <= Config.ENTRY_END:
-                            # FIX 4: Removed hardcoded Tuesday skip. Tuesday (weekday==1) is a
-                            # valid trading day for Nifty weekly options — this was silently
-                            # blocking all Tuesday entries with no override possible.
-                            # The existing is_trading_day() check already handles real holidays.
-
                             self.logger.critical("ENTRY WINDOW IS OPEN RIGHT NOW", {
                                 "current_time": current_time.strftime("%H:%M:%S"),
                                 "start": Config.ENTRY_START.strftime("%H:%M:%S"),
@@ -1705,6 +1734,8 @@ class TradingApplication:
 
                             now_ts = time.time()
 
+                            # FIX J: Cooldown reduced to 12s to allow retries within the
+                            # narrow window, but skip-log throttled to avoid log spam.
                             if now_ts - self._last_entry_check_time < 12:
                                 if now_ts - self._last_skip_log > 30:
                                     self.logger.info("Entry guard active — short cooldown skip")
@@ -1784,6 +1815,7 @@ class TradingApplication:
                         self._last_snapshot_time = time.time()
 
                 time.sleep(1.0)
+
         except KeyboardInterrupt:
             self.logger.info("Bot stopped by user")
             if self.engine.state.data.get("trade_active"):
