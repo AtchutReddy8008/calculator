@@ -27,8 +27,8 @@ class Config:
     EXCHANGE = "NFO"
     UNDERLYING = "NIFTY"
     LOT_SIZE = 65
-    ENTRY_START = dtime(9, 21, 0)
-    ENTRY_END = dtime(9, 22, 30)
+    ENTRY_START = dtime(11, 0, 0)
+    ENTRY_END = dtime(11, 1, 30)
     TOKEN_REFRESH_TIME = dtime(8, 30)
     EXIT_TIME = dtime(10, 45)
     MARKET_CLOSE = dtime(15, 30)
@@ -57,7 +57,7 @@ class Config:
     PNL_CHECK_INTERVAL_SECONDS = 1
     MIN_HOLD_SECONDS_FOR_PROFIT = 1800
     HEARTBEAT_INTERVAL = 5
-    PERIODIC_PNL_SNAPSHOT_INTERVAL = 1
+    PERIODIC_PNL_SNAPSHOT_INTERVAL = 300
 
 INDIA_HOLIDAYS = holidays.India()
 EXTRA_NSE_HOLIDAYS = set()
@@ -294,38 +294,37 @@ class Engine:
             self.logger.error("Auth error", {"error": str(e)})
             return False
 
-    def _get_or_create_trade(self, symbol, side, qty, price, order_id=None):
+    def _get_or_create_trade(self, symbol, side, qty, filled_price, order_id):
+        """
+        FIX: Uses order_id as the unique lookup key instead of a fragile
+        multi-field match. This guarantees exactly one Trade record per
+        broker order, regardless of retries or re-polling.
+        Requires Trade model to have an `order_id` field (CharField, unique).
+        """
         direction = 'SHORT' if side == 'SELL' else 'LONG'
         option_type = 'CE' if 'CE' in symbol else 'PE' if 'PE' in symbol else None
 
-        trade = Trade.objects.filter(
+        trade, created = Trade.objects.get_or_create(
             user=self.user,
-            symbol=symbol,
-            entry_price=Decimal(str(price)),
-            quantity=qty if direction == 'LONG' else -qty,
-            status='EXECUTED',
-            exit_time__isnull=True
-        ).first()
-
-        if trade:
-            return trade
-
-        trade_id = f"{self.user.id}_{int(time.time())}_{symbol}"
-        trade = Trade.objects.create(
-            user=self.user,
-            trade_id=trade_id,
-            symbol=symbol,
-            direction=direction,
-            option_type=option_type,
-            quantity=qty if direction == 'LONG' else -qty,
-            entry_price=Decimal(str(price)),
-            entry_time=timezone.now(),
-            status='EXECUTED',
-            broker='ZERODHA',
-            metadata={'order_id': order_id, 'side': side},
-            algorithm_name='Hedged Short Strangle'
+            order_id=order_id,          # ← unique key: one record per broker order
+            defaults={
+                "symbol": symbol,
+                "direction": direction,
+                "option_type": option_type,
+                "quantity": qty if side == "BUY" else -qty,
+                "entry_price": Decimal(str(filled_price)),
+                "entry_time": timezone.now(),
+                "status": "EXECUTED",
+                "broker": "ZERODHA",
+                "algorithm_name": "Hedged Short Strangle",
+                "metadata": {"side": side, "order_id": order_id},
+            }
         )
-        self.logger.trade(f"ENTRY {side} {symbol} {qty} @ {price}", symbol, qty, price, f"trade_id:{trade.trade_id}")
+        if not created:
+            self.logger.warning(
+                f"Trade record already existed for order_id {order_id} — skipped duplicate create",
+                {"symbol": symbol, "order_id": order_id}
+            )
         return trade
 
     def _close_trade_record(self, symbol, exit_price):
@@ -631,27 +630,45 @@ class Engine:
         NOTE: Does NOT touch self.state (no appending to bot_order_ids, no save).
               The caller is responsible for collecting order IDs and saving state,
               especially when orders are placed concurrently.
+
+        FIX: order_id is declared OUTSIDE the retry loop so it persists across
+             attempts. Once an order is placed, retries only re-poll that SAME
+             order — never fire a duplicate. A new order is only placed if:
+               - We never got an order_id (placement itself failed), OR
+               - The order was REJECTED/CANCELLED (terminal state, safe to retry fresh).
         """
         filled_price = 0.0
+        order_id = None  # ← OUTSIDE the loop: persists across retry attempts
+
         for attempt in range(Config.MAX_RETRIES):
             try:
-                self.logger.info(f"PLACING ORDER attempt {attempt+1}/{Config.MAX_RETRIES}", {
-                    "symbol": symbol,
-                    "side": side,
-                    "qty": qty,
-                    "product": "MIS",
-                    "order_type": "MARKET"
-                })
-                order_id = self.kite.place_order(
-                    variety=self.kite.VARIETY_REGULAR,
-                    exchange=Config.EXCHANGE,
-                    tradingsymbol=symbol,
-                    transaction_type=getattr(self.kite, f"TRANSACTION_TYPE_{side}"),
-                    quantity=qty,
-                    product=self.kite.PRODUCT_MIS,
-                    order_type=self.kite.ORDER_TYPE_MARKET
-                )
-                self.logger.info(f"Order placed successfully - ID: {order_id}")
+                # Only place a NEW order if we don't already have an order_id
+                if order_id is None:
+                    self.logger.info(f"PLACING ORDER attempt {attempt+1}/{Config.MAX_RETRIES}", {
+                        "symbol": symbol,
+                        "side": side,
+                        "qty": qty,
+                        "product": "MIS",
+                        "order_type": "MARKET"
+                    })
+                    order_id = self.kite.place_order(
+                        variety=self.kite.VARIETY_REGULAR,
+                        exchange=Config.EXCHANGE,
+                        tradingsymbol=symbol,
+                        transaction_type=getattr(self.kite, f"TRANSACTION_TYPE_{side}"),
+                        quantity=qty,
+                        product=self.kite.PRODUCT_MIS,
+                        order_type=self.kite.ORDER_TYPE_MARKET
+                    )
+                    self.logger.info(f"Order placed successfully - ID: {order_id}")
+                else:
+                    # order_id already exists — just re-poll, don't place again
+                    self.logger.info(f"Re-polling existing order (attempt {attempt+1}/{Config.MAX_RETRIES})", {
+                        "order_id": order_id,
+                        "symbol": symbol
+                    })
+
+                # Poll for order completion (works for both fresh and existing order_id)
                 start_time = time.time()
                 while time.time() - start_time < Config.ORDER_TIMEOUT:
                     history = self.kite.order_history(order_id)
@@ -660,16 +677,21 @@ class Engine:
                         continue
                     last_status = history[-1]['status']
                     self.logger.info(f"Order status: {last_status}")
+
                     if last_status == 'COMPLETE':
                         filled_price = history[-1].get('average_price', 0.0)
                         if filled_price == 0.0:
                             self.logger.warning(f"Order completed but average_price 0 for {symbol} - using LTP fallback")
                             filled_price = self.bulk_ltp([symbol])[symbol]
 
-                        side_for_trade = "BUY" if side == "BUY" else "SELL"
-                        self._get_or_create_trade(symbol, side_for_trade, qty, filled_price, order_id)
-                        self.logger.trade(f"{side}_{symbol}", symbol, qty if side == "BUY" else -qty, filled_price, f"order_id:{order_id}")
-
+                        self._get_or_create_trade(symbol, side, qty, filled_price, order_id)
+                        self.logger.trade(
+                            f"{side}_{symbol}",
+                            symbol,
+                            qty if side == "BUY" else -qty,
+                            filled_price,
+                            f"order_id:{order_id}"
+                        )
                         # NOTE: bot_order_ids append and state.save() intentionally removed here.
                         # The caller (enter or cleanup) is responsible for this after all threads complete.
                         return True, order_id, filled_price
@@ -677,21 +699,33 @@ class Engine:
                     elif last_status in ['REJECTED', 'CANCELLED']:
                         reason = history[-1].get('status_message', 'No reason provided')
                         self.logger.critical(f"ORDER {last_status} for {symbol} - Reason: {reason}")
+                        # Terminal state — reset order_id so a genuinely fresh order
+                        # can be placed on the next retry attempt
+                        order_id = None
                         raise Exception(f"Order {last_status}: {reason}")
+
                     time.sleep(0.5)
-                self.logger.error(f"Order timeout - not completed within {Config.ORDER_TIMEOUT}s")
+
+                # Polling timed out — keep order_id so next attempt re-polls same order
+                self.logger.warning(
+                    f"Order polling timed out after {Config.ORDER_TIMEOUT}s — will re-poll same order next attempt",
+                    {"order_id": order_id, "symbol": symbol, "attempt": attempt + 1}
+                )
                 raise Exception("Order timeout")
+
             except Exception as e:
                 error_msg = str(e)
-                self.logger.error(f"Order placement failed for {symbol} ({side}) attempt {attempt+1}", {
+                self.logger.error(f"Order attempt {attempt+1} failed for {symbol} ({side})", {
                     "error": error_msg,
-                    "trace": traceback.format_exc()
+                    "order_id": order_id,
+                    "will_retry": attempt < Config.MAX_RETRIES - 1
                 })
                 if attempt < Config.MAX_RETRIES - 1:
                     time.sleep(Config.RETRY_DELAY)
                 else:
                     self.logger.critical(f"FINAL FAILURE: Giving up on {symbol} after {Config.MAX_RETRIES} attempts")
                     return False, "", 0.0
+
         return False, "", 0.0
 
     def cleanup(self, executed: List[Tuple[str, str, str]], qty: int):
@@ -1013,7 +1047,7 @@ class Engine:
         capital_before = self.capital_available()
         self.logger.info("CAPITAL BEFORE ENTRY", {"available_₹": round(capital_before)})
 
-        # ── Build order list ─────────────────────────────────────────────────────
+        # ── Build order list ──────────────────────────────────────────────────────
         orders = []
         if pe_hedge_sym:
             orders.append((pe_hedge_sym, "BUY"))
@@ -1022,10 +1056,10 @@ class Engine:
         orders.append((pe_short_sym, "SELL"))
         orders.append((ce_short_sym, "SELL"))
 
-        # ── Fire all legs SIMULTANEOUSLY ─────────────────────────────────────────
+        # ── Fire all legs SIMULTANEOUSLY ──────────────────────────────────────────
         self.logger.critical(f"FIRING {len(orders)} LEGS SIMULTANEOUSLY via ThreadPoolExecutor")
-        executed = []        # list of (sym, side, order_id)  — written only after threads join
-        entry_prices = {}    # sym -> filled_price
+        executed = []       # list of (sym, side, order_id) — written only after threads join
+        entry_prices = {}   # sym -> filled_price
 
         futures_map = {}
         with ThreadPoolExecutor(max_workers=len(orders)) as executor:
@@ -1049,11 +1083,10 @@ class Engine:
                     self.logger.critical(
                         f"Leg FAILED: {sym} {side} — initiating cleanup of {len(executed)} already-filled leg(s)"
                     )
-                    # cleanup runs sequentially (safety) for the legs that succeeded
                     self.cleanup(executed, qty)
                     return False
 
-        # ── All 4 legs filled: safely collect order IDs and save state ───────────
+        # ── All legs filled: safely collect order IDs and save state ──────────────
         for sym, side, order_id in executed:
             self.state.data.setdefault("bot_order_ids", []).append(order_id)
 
