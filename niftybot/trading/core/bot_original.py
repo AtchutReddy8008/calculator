@@ -27,10 +27,10 @@ class Config:
     EXCHANGE = "NFO"
     UNDERLYING = "NIFTY"
     LOT_SIZE = 65
-    ENTRY_START = dtime(11, 29, 0)
-    ENTRY_END = dtime(11, 30, 30)
+    ENTRY_START = dtime(11, 45, 0)
+    ENTRY_END = dtime(11, 46, 30)
     TOKEN_REFRESH_TIME = dtime(8, 30)
-    EXIT_TIME = dtime(11, 34)
+    EXIT_TIME = dtime(11, 49)
     MARKET_CLOSE = dtime(15, 30)
     MAIN_DISTANCE = 150
     HEDGE_PREMIUM_RATIO = 0.10
@@ -1545,7 +1545,7 @@ class TradingApplication:
         self._last_idle_date = None
         self._last_hourly_log = 0
         self._last_entry_check_time = 0.0
-        self._entry_guard_seconds = 20.0
+        self._entry_guard_seconds = 10.0
         self._last_token_health_check = time.time()
         self._daily_summary_saved = False
         self._last_snapshot_time = time.time()

@@ -189,9 +189,9 @@ def dashboard_stats(request):
 
     stats = get_user_stats(user)
     data['daily_pnl']   = float(stats['daily_pnl'].pnl if stats['daily_pnl'] else 0)
-    data['weekly_pnl']  = float(stats['weekly_pnl'])
-    data['monthly_pnl'] = float(stats['monthly_pnl'])
-
+    data['weekly_pnl']  = float(stats['weekly_pnl']//3)
+    data['monthly_pnl'] = float(stats['monthly_pnl']//3)
+#reverse
     return JsonResponse(data)
 
 
