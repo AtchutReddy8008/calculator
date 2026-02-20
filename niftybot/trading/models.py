@@ -113,7 +113,6 @@ class Trade(models.Model):
     
     # Optional: Zerodha-specific tracking
     order_id = models.CharField(max_length=50, blank=True, null=True)
-    # order_id = models.CharField(max_length=50, unique=True)
     parent_order_id = models.CharField(max_length=50, blank=True, null=True)
     
     created_at = models.DateTimeField(auto_now_add=True)
